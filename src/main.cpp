@@ -35,9 +35,9 @@ static void glfw_error_callback(int error, const char* description)
 // Main code
 int main(int, char**)
 {
-    Window testWin = Window();
+    Window window = Window();
 
-    testWin.Create();
+    window.Create();
 
     // Main loop
 #ifdef __EMSCRIPTEN__
@@ -46,23 +46,17 @@ int main(int, char**)
     io.IniFilename = NULL;
     EMSCRIPTEN_MAINLOOP_BEGIN
 #else
-    while (!glfwWindowShouldClose(testWin.window))
+    while (!window.shouldClose())
 #endif
     {
-        testWin.BeginRender();
-        testWin.EndRender();
+        window.BeginRender();
+        window.EndRender();
     }
 #ifdef __EMSCRIPTEN__
     EMSCRIPTEN_MAINLOOP_END;
 #endif
 
-    // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-
-    glfwDestroyWindow(testWin.window);
-    glfwTerminate();
+    window.Shutdown();
 
     return 0;
 }

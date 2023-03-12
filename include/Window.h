@@ -32,6 +32,8 @@ public:
     bool Create();
     void Shutdown();
 
+    bool shouldClose();
+
     void BeginRender();
     void EndRender();
 

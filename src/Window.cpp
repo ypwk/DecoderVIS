@@ -90,6 +90,11 @@ void Window::Shutdown()
     glfwTerminate();
 }
 
+bool Window::shouldClose()
+{
+    return glfwWindowShouldClose(window);
+}
+
 void Window::BeginRender()
 {
     // Poll and handle events (inputs, window resize, etc.)
