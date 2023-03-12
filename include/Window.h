@@ -35,11 +35,11 @@ public:
     void BeginRender();
     void EndRender();
 
-    GLFWwindow* window;
-
-private:
+    GLFWwindow* window = nullptr;
     ImGuiIO io;
 
+private:
+    char* glsl_version = "";
     bool show_demo_window = true;
     bool show_another_window = true;
     bool fov = true;
