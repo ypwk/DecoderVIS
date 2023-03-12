@@ -4,7 +4,7 @@
 class Window
 {
 public:
-    Window();
+    Window() {};
     ~Window();
 
     bool Create();

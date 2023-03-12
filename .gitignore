@@ -8,10 +8,7 @@ imgui.ini
 *.o
 *.obj
 *.exe
-examples/build/*
-examples/*/Debug/*
-examples/*/Release/*
-examples/*/x64/*
+Debug
 
 ## Visual Studio artifacts
 .vs
