@@ -41,7 +41,7 @@ bool Window::Create()
 #endif
 
     // Create window with graphics context
-    window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", NULL, NULL);
+    window = glfwCreateWindow(1280, 720, "surface code go pew pew", NULL, NULL);
     if (window == NULL)
         return 1;
     glfwMakeContextCurrent(window);
