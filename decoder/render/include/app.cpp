@@ -1,11 +1,17 @@
 #include <stdio.h>
 #include <iostream>
 
-#include <GLFW/glfw3.h>
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_glfw.h>
-#include <imgui/imgui_impl_opengl3.h>
 #include "ig_window.h"
+#include "renderer.h"
+
+#include "vertex_buffer.h"
+#include "index_buffer.h"
+
+#include <GLFW\glfw3.h>
+#include <imgui\imgui.h>
+#include <imgui\imgui_impl_glfw.h>
+#include <imgui\imgui_impl_opengl3.h>
+
 
 
 static void glfw_error_callback(int error, const char* description)

@@ -5,10 +5,6 @@
 #include <string>
 #include <sstream>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include "error_utils.cpp"
 #include "renderer.h"
 
 struct ShaderProgramSource {

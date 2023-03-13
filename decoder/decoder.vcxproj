@@ -70,6 +70,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)\decoder\external\glew\include\GL;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)\decoder\external\glew\include\GL;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)\decoder\external\glew\include\GL;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)\decoder\external\glew\include\GL;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -77,13 +89,19 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;Gdi32.lib;Shell32.lib;glew32s.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\decoder\external\glfw\lib-vc2022;$(SolutionDir)\decoder\external\glew\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;user32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\decoder\external\glfw\lib-vc2022;$(SolutionDir)\decoder\external\glew\lib\Release</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -94,15 +112,21 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;Gdi32.lib;Shell32.lib;glew32s.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\decoder\external\glfw\lib-vc2022;$(SolutionDir)\decoder\external\glew\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;user32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\decoder\external\glfw\lib-vc2022;$(SolutionDir)\decoder\external\glew\lib\Release</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -111,13 +135,19 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;Gdi32.lib;Shell32.lib;glew32s.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\decoder\external\glfw\lib-vc2022;$(SolutionDir)\decoder\external\glew\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;user32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\decoder\external\glfw\lib-vc2022;$(SolutionDir)\decoder\external\glew\lib\Release</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -128,18 +158,25 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;Gdi32.lib;Shell32.lib;glew32s.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\decoder\external\glfw\lib-vc2022;$(SolutionDir)\decoder\external\glew\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;user32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\decoder\external\glfw\lib-vc2022;$(SolutionDir)\decoder\external\glew\lib\Release</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\imgui\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="render\src\index_buffer.cpp" />
     <ClCompile Include="render\src\renderer.cpp" />
     <ClCompile Include="render\src\ig_window.cpp" />
     <ClCompile Include="render\include\app.cpp" />
@@ -150,9 +187,13 @@
     <ClCompile Include="external\imgui\imgui\imgui_tables.cpp" />
     <ClCompile Include="external\imgui\imgui\imgui_widgets.cpp" />
     <ClCompile Include="render\src\shader.cpp" />
-    <ClCompile Include="render\src\error_utils.cpp" />
+    <ClCompile Include="render\src\vertex_buffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="external\glew\include\GL\eglew.h" />
+    <ClInclude Include="external\glew\include\GL\glew.h" />
+    <ClInclude Include="external\glew\include\GL\glxew.h" />
+    <ClInclude Include="external\glew\include\GL\wglew.h" />
     <ClInclude Include="external\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="external\glfw\include\GLFW\glfw3native.h" />
     <ClInclude Include="external\imgui\imgui\imconfig.h" />
@@ -164,11 +205,19 @@
     <ClInclude Include="external\imgui\imgui\imstb_rectpack.h" />
     <ClInclude Include="external\imgui\imgui\imstb_textedit.h" />
     <ClInclude Include="external\imgui\imgui\imstb_truetype.h" />
+    <ClInclude Include="render\include\index_buffer.h" />
     <ClInclude Include="render\include\renderer.h" />
     <ClInclude Include="render\include\ig_window.h" />
     <ClInclude Include="render\include\shader.h" />
+    <ClInclude Include="render\include\vertex_buffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="external\glew\lib\Release\glew32s.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Library>
     <Library Include="external\glfw\lib-vc2022\glfw3.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
