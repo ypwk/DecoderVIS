@@ -9,9 +9,13 @@ App::App()
 
 void App::run()
 {
+    
     window = Window();
 
     window.Create();
+    
+    scene.setup();
+    
 
     // Main loop
 #ifdef __EMSCRIPTEN__
@@ -30,7 +34,7 @@ void App::run()
 
         // render surface code visualization
         
-        // scene.render(current_code);
+        scene.render(current_code);
 
         window.PostRender();
 

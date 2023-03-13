@@ -1,7 +1,11 @@
 #pragma once
 
-#define GLEW_STATIC
 #include <GL/glew.h>
+
+#define GLEW_STATIC
+
+#pragma comment (lib, "glew32s.lib") // Link to glew32s.lib
+
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
