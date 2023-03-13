@@ -1,5 +1,7 @@
 #pragma once
 
+#define GLEW_STATIC
+#include <GL/glew.h>
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -34,19 +36,13 @@ public:
 
     bool shouldClose();
 
-    void BeginRender();
-    void EndRender();
+    void PreRender();
+    void PostRender();
 
     GLFWwindow* window = nullptr;
-    ImGuiIO io;
+    ImVec4 clear_color = ImVec4(0.2f, 0.2f, 0.2f, 1.00f);
 
 private:
     char* glsl_version = "";
-    bool show_demo_window = true;
-    bool show_another_window = true;
-    bool fov = true;
-    bool showing_circle = true;
-    float radius = 450;
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 };
 
