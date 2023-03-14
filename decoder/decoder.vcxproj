@@ -175,12 +175,13 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="render\src\engine.cpp" />
     <ClCompile Include="external\imgui\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="render\src\index_buffer.cpp" />
     <ClCompile Include="render\src\renderer.cpp" />
     <ClCompile Include="render\src\ig_window.cpp" />
-    <ClCompile Include="render\include\app.cpp" />
+    <ClCompile Include="render\src\app.cpp" />
     <ClCompile Include="external\imgui\imgui\imgui.cpp" />
     <ClCompile Include="external\imgui\imgui\imgui_demo.cpp" />
     <ClCompile Include="external\imgui\imgui\imgui_draw.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="render\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="render\include\engine.h" />
     <ClInclude Include="external\glew\include\GL\eglew.h" />
     <ClInclude Include="external\glew\include\GL\glew.h" />
     <ClInclude Include="external\glew\include\GL\glxew.h" />

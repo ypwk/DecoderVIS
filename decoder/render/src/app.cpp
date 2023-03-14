@@ -64,10 +64,10 @@ int main(void)
         //};
 
         float positions[] = {
-             200.0f,  200.0f, 1.0f,  1.0f,// 0
-            100.0f,  200.0f, 0.0f,  1.0f,// 1
-            100.0f, 100.0f, 0.0f,  0.0f,// 2
-             200.0f, 100.0f, 1.0f,  0.0f,// 3
+             50.0f,  50.0f, 1.0f,  1.0f,// 0
+             -50.0f,  50.0f, 0.0f,  1.0f,// 1
+             -50.0f,  -50.0f, 0.0f,  0.0f,// 2
+             50.0f,  -50.0f, 1.0f,  0.0f,// 3
         };
 
         //float positions[] = {
@@ -93,18 +93,18 @@ int main(void)
 
         IndexBuffer ib(indices, 6);
 
-        glm::vec3 translation(0, 200, 0);
+        glm::vec3 translationa(0, 0, 0);
+        glm::vec3 translationb(0, 0, 0);
 
         glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0));
-        glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
+        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), translationa);
 
         glm::mat4 mvp = proj * view * model;
 
         Shader shader("res/shaders/Texture.shader");
         //Shader shader("res/shaders/Basic.shader");
         shader.Bind();
-        shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
         shader.SetUniformMat4f("u_MVP", mvp);
 
         Texture texture("res/textures/iced_chris.png");
@@ -131,20 +131,33 @@ int main(void)
 
             IG_Handler.NewFrame();
 
-            glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
-            glm::mat4 mvp = proj * view * model;
+            
+            {
+                glm::mat4 model = glm::translate(glm::mat4(1.0f), translationa);
+                glm::mat4 mvp = proj * view * model;
 
-            // shader bind
-            shader.Bind();
-            shader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
-            shader.SetUniformMat4f("u_MVP", mvp);
+                // shader bind
+                shader.Bind();
+                shader.SetUniformMat4f("u_MVP", mvp);
 
-            // render draw
-            renderer.Draw(va, ib, shader);
+                // render draw
+                renderer.Draw(va, ib, shader);
+            }
 
+            {
+                glm::mat4 model = glm::translate(glm::mat4(1.0f), translationb);
+                glm::mat4 mvp = proj * view * model;
 
-            ImGui::SliderFloat3("translation", &translation.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+                // shader bind
+                shader.Bind();
+                shader.SetUniformMat4f("u_MVP", mvp);
 
+                // render draw
+                renderer.Draw(va, ib, shader);
+            }
+
+            ImGui::SliderFloat3("translationa", &translationa.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat3("translationb", &translationb.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 
             IG_Handler.Render();
 
