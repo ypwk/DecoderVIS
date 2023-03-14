@@ -71,16 +71,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\decoder\external\glew\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)\decoder\external\glew\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)\decoder\external\glew\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)\decoder\external\glew\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
@@ -134,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
@@ -157,7 +157,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
@@ -176,6 +176,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\imgui\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="external\stb\stb_image.cpp" />
     <ClCompile Include="render\src\index_buffer.cpp" />
     <ClCompile Include="render\src\renderer.cpp" />
     <ClCompile Include="render\src\ig_window.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="render\src\vertex_buffer.cpp" />
     <ClCompile Include="render\src\vertex_array.cpp" />
     <ClCompile Include="render\src\vertex_buffer_layout.cpp" />
+    <ClCompile Include="render\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\glew\include\GL\eglew.h" />
@@ -207,6 +209,7 @@
     <ClInclude Include="external\imgui\imgui\imstb_rectpack.h" />
     <ClInclude Include="external\imgui\imgui\imstb_textedit.h" />
     <ClInclude Include="external\imgui\imgui\imstb_truetype.h" />
+    <ClInclude Include="external\stb\stb_image.h" />
     <ClInclude Include="render\include\index_buffer.h" />
     <ClInclude Include="render\include\renderer.h" />
     <ClInclude Include="render\include\ig_window.h" />
@@ -214,6 +217,7 @@
     <ClInclude Include="render\include\vertex_buffer.h" />
     <ClInclude Include="render\include\vertex_array.h" />
     <ClInclude Include="render\include\vertex_buffer_layout.h" />
+    <ClInclude Include="render\include\texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\Release\glew32s.lib">
@@ -226,6 +230,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
+    <None Include="res\shaders\Texture.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\iced_chris.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

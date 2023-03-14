@@ -23,10 +23,10 @@ void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& la
 
 	// set up layout array
 	const auto& elems = layout.GetElements();
-	unsigned int offset = 0;
+	int offset = 0;
 	for (unsigned int i = 0; i < elems.size(); i++) {
 		const auto& element = elems[i];
-		//std::cout << "add buffer loop" << i << std::endl;
+		// std::cout << "add buffer loop " << element.count << " " << element.type << " " << element.normalized << std::endl;
 		GLCall(glEnableVertexAttribArray(i));
 		GLCall(glVertexAttribPointer(i, element.count, element.type, 
 			element.normalized, layout.GetStride(), (const void*) offset));

@@ -60,6 +60,12 @@
     <ClCompile Include="render\src\vertex_buffer_layout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="render\src\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\stb\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\imgui\imgui\imconfig.h">
@@ -128,6 +134,12 @@
     <ClInclude Include="render\include\vertex_buffer_layout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="external\stb\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render\include\texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glfw\lib-vc2022\glfw3.lib" />
@@ -135,5 +147,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
+    <None Include="res\shaders\Texture.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\iced_chris.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
