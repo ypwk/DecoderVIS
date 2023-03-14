@@ -133,4 +133,7 @@
     <Library Include="external\glfw\lib-vc2022\glfw3.lib" />
     <Library Include="external\glew\lib\Release\glew32s.lib" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\Basic.shader" />
+  </ItemGroup>
 </Project>

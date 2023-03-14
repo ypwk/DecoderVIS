@@ -31,6 +31,10 @@ int main(void)
     if (!glfwInit())
         return -1;
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
     if (!window)
@@ -43,33 +47,82 @@ int main(void)
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
 
-    ImGui_Handler IG_Handler = ImGui_Handler();
-    IG_Handler.Create(window);
+    if (glewInit() != GLEW_OK)
+        std::cout << "Error!" << std::endl;
 
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    std::cout << glGetString(GL_VERSION) << std::endl;
     {
-        /* Render here */
-        // render clear
-        GLCall(glClear(GL_COLOR_BUFFER_BIT));
+        float positions[] = {
+            -0.5f, -0.5f,
+             0.5f, -0.5f,
+             0.5f,  0.5f,
+            -0.5f,  0.5f,
+        };
 
-        IG_Handler.NewFrame();
+        unsigned int indices[] = {
+            0, 1, 2,
+            2, 3, 0
+        };
 
-        // shader bind
-        
-        // render draw
+        VertexArray va;
+        VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 
-        IG_Handler.Render();
+        VertexBufferLayout layout;
+        layout.Push<float>(2);
+        va.AddBuffer(vb, layout);
 
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+        IndexBuffer ib(indices, 6);
 
-        /* Poll for and process events */
-        glfwPollEvents();
+        Shader shader("res/shaders/Basic.shader");
+        shader.Bind();
+        shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+
+        va.Unbind();
+        vb.Unbind();
+        ib.Unbind();
+        shader.Unbind();
+
+        Renderer renderer;
+
+        ImGui_Handler IG_Handler = ImGui_Handler();
+        IG_Handler.Create(window);
+
+        float r = 0.0f;
+        float increment = 0.05f;
+        /* Loop until the user closes the window */
+        while (!glfwWindowShouldClose(window))
+        {
+            /* Render here */
+            renderer.Clear();
+
+            IG_Handler.NewFrame();
+
+            // shader bind
+            shader.Bind();
+            shader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
+
+            // render draw
+            renderer.Draw(va, ib, shader);
+
+            IG_Handler.Render();
+
+            if (r > 1.0f)
+                increment = -0.05f;
+            else if (r < 0.0f)
+                increment = 0.05f;
+
+            r += increment;
+
+            /* Swap front and back buffers */
+            glfwSwapBuffers(window);
+
+            /* Poll for and process events */
+            glfwPollEvents();
+        }
+
+        // Cleanup
+        IG_Handler.Shutdown();
     }
-
-    // Cleanup
-    IG_Handler.Shutdown();
 
     glfwDestroyWindow(window);
     glfwTerminate();

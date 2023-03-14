@@ -6,6 +6,7 @@
 VertexArray::VertexArray()
 {
 	GLCall(glGenVertexArrays(1, &m_RendererID));
+	//std::cout << "created a vertex array!" << m_RendererID << std::endl;
 }
 
 VertexArray::~VertexArray()
@@ -15,15 +16,18 @@ VertexArray::~VertexArray()
 
 void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
 {
+	// bind vertex array
+	Bind();
 	// bind vertex buffer
 	vb.Bind();
 
-	// set up array
+	// set up layout array
 	const auto& elems = layout.GetElements();
 	unsigned int offset = 0;
 	for (unsigned int i = 0; i < elems.size(); i++) {
 		const auto& element = elems[i];
-		GLCall(glEnableVertexAttribArray(0));
+		//std::cout << "add buffer loop" << i << std::endl;
+		GLCall(glEnableVertexAttribArray(i));
 		GLCall(glVertexAttribPointer(i, element.count, element.type, 
 			element.normalized, layout.GetStride(), (const void*) offset));
 		offset += element.count * VertexBufferElement::GetSizeOfType(element.type);
