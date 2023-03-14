@@ -19,7 +19,7 @@ public:
 
 private:
 	int distance = 3;
-	float errorRate = 0.1;
+	float errorRate = 0.1f;
 	int duration = 10;
 };
 
