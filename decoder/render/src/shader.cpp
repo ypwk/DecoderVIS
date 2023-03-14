@@ -1,5 +1,7 @@
 #include "shader.h"
 
+#include "renderer.h"
+
 Shader::Shader(const std::string& filename) : m_FilePath(filename), m_RendererID(0)
 {
 	ShaderProgramSource source = ParseShader(filename);

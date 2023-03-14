@@ -188,6 +188,8 @@
     <ClCompile Include="external\imgui\imgui\imgui_widgets.cpp" />
     <ClCompile Include="render\src\shader.cpp" />
     <ClCompile Include="render\src\vertex_buffer.cpp" />
+    <ClCompile Include="render\src\vertex_array.cpp" />
+    <ClCompile Include="render\src\vertex_buffer_layout.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\glew\include\GL\eglew.h" />
@@ -210,6 +212,8 @@
     <ClInclude Include="render\include\ig_window.h" />
     <ClInclude Include="render\include\shader.h" />
     <ClInclude Include="render\include\vertex_buffer.h" />
+    <ClInclude Include="render\include\vertex_array.h" />
+    <ClInclude Include="render\include\vertex_buffer_layout.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\Release\glew32s.lib">

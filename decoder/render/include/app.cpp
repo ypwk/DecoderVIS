@@ -5,7 +5,9 @@
 #include "renderer.h"
 
 #include "vertex_buffer.h"
+#include "vertex_buffer_layout.h"
 #include "index_buffer.h"
+#include "vertex_array.h"
 
 #include <GLFW\glfw3.h>
 #include <imgui\imgui.h>
@@ -49,7 +51,7 @@ int main(void)
     {
         /* Render here */
         // render clear
-        glClear(GL_COLOR_BUFFER_BIT);
+        GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
         IG_Handler.NewFrame();
 

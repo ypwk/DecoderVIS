@@ -1,7 +1,5 @@
 #pragma once
 
-#include "renderer.h"
-
 class VertexBuffer
 {
 private:
