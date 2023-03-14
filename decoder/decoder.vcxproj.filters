@@ -78,6 +78,9 @@
     <ClCompile Include="logic\src\RotatedPlanarCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="render\src\central_node_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\imgui\imgui\imconfig.h">
@@ -162,6 +165,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="logic\include\RotatedPlanarCode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render\include\central_node_handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

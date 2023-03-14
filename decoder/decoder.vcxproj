@@ -175,6 +175,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="render\src\central_node_handler.cpp" />
     <ClCompile Include="logic\src\GenericCode.cpp" />
     <ClCompile Include="logic\src\RotatedPlanarCode.cpp" />
     <ClCompile Include="render\src\ig_contentwindow.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="render\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="render\include\central_node_handler.h" />
     <ClInclude Include="logic\include\GenericCode.h" />
     <ClInclude Include="logic\include\RotatedPlanarCode.h" />
     <ClInclude Include="render\include\ig_contentwindow.h" />
