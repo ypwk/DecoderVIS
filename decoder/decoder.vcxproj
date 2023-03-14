@@ -175,6 +175,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="render\src\ig_contentwindow.cpp" />
     <ClCompile Include="render\src\engine.cpp" />
     <ClCompile Include="external\imgui\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="external\stb\stb_image.cpp" />
@@ -195,6 +196,7 @@
     <ClCompile Include="render\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="render\include\ig_contentwindow.h" />
     <ClInclude Include="render\include\engine.h" />
     <ClInclude Include="external\glew\include\GL\eglew.h" />
     <ClInclude Include="external\glew\include\GL\glew.h" />
@@ -232,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
+    <None Include="res\shaders\Fbo.shader" />
     <None Include="res\shaders\Texture.shader" />
   </ItemGroup>
   <ItemGroup>

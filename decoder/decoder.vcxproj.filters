@@ -69,6 +69,9 @@
     <ClCompile Include="render\src\engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="render\src\ig_contentwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\imgui\imgui\imconfig.h">
@@ -146,6 +149,9 @@
     <ClInclude Include="render\include\engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="render\include\ig_contentwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glfw\lib-vc2022\glfw3.lib" />
@@ -154,6 +160,7 @@
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
     <None Include="res\shaders\Texture.shader" />
+    <None Include="res\shaders\Fbo.shader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\iced_chris.png">

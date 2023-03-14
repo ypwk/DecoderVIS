@@ -8,6 +8,7 @@
 #include "vertex_buffer_layout.h"
 #include "index_buffer.h"
 #include "vertex_array.h"
+#include "ig_contentwindow.h"
 
 #include <GLFW\glfw3.h>
 #include <imgui\imgui.h>
@@ -56,12 +57,7 @@ int main(void)
 
     std::cout << glGetString(GL_VERSION) << std::endl;
     {
-        //float positions[] = {
-        //     0.5f,  0.5f, // 0
-        //    -0.5f,  0.5f, // 1
-        //    -0.5f, -0.5f, // 2
-        //     0.5f, -0.5f, // 3
-        //};
+        
 
         float positions[] = {
              50.0f,  50.0f, 1.0f,  1.0f,// 0
@@ -70,19 +66,16 @@ int main(void)
              50.0f,  -50.0f, 1.0f,  0.0f,// 3
         };
 
-        //float positions[] = {
-        //    0.5f,  0.5f,  -0.5f,   0.5f,
-        //   -0.5f,  -0.5f,  0.5f, -0.5f, 
-        //     1.0f,  1.0f,  0.0f,  1.0f,
-        //     0.0f,   0.0f,1.0f,   0.0f, 
-        //};
-
-
         unsigned int indices[] = {
             0, 1, 2,
             2, 3, 0
         };
 
+        
+        ImGui_ContentWindowHandler IG_CWHandler(1280, 720);
+        IG_CWHandler.RenderInit();
+
+        // set up renderer rendering
         VertexArray va;
         VertexBuffer vb(positions, 4 * 4 * sizeof(float));
 
@@ -123,6 +116,12 @@ int main(void)
 
         float r = 0.0f;
         float increment = 0.05f;
+
+        const int W = 1080;
+        const int H = 1920;
+
+        ImGui::SetNextWindowSize(ImVec2(W + 10, H + 10));
+
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
@@ -131,7 +130,9 @@ int main(void)
 
             IG_Handler.NewFrame();
 
-            
+            // render content window
+            IG_CWHandler.PreRender();
+
             {
                 glm::mat4 model = glm::translate(glm::mat4(1.0f), translationa);
                 glm::mat4 mvp = proj * view * model;
@@ -156,17 +157,25 @@ int main(void)
                 renderer.Draw(va, ib, shader);
             }
 
-            ImGui::SliderFloat3("translationa", &translationa.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::SliderFloat3("translationb", &translationb.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            IG_CWHandler.PostRender();
+                
+
+            ImGui::Begin("Controller");
+            {
+                ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+                ImGui::Text("DisplaySize = %f,%f", io.DisplaySize.x, io.DisplaySize.y);
+                ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+
+                ImGui::SliderFloat3("translationa", &translationa.x, 0.0f, 960.0f);
+                ImGui::SliderFloat3("translationb", &translationb.x, 0.0f, 960.0f);
+            }
+            ImGui::End();
+
+            
 
             IG_Handler.Render();
-
-            if (r > 1.0f)
-                increment = -0.05f;
-            else if (r < 0.0f)
-                increment = 0.05f;
-
-            r += increment;
+            
 
             /* Swap front and back buffers */
             glfwSwapBuffers(window);
