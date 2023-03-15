@@ -8,8 +8,8 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/constants.hpp"
 #include <imgui/imgui.h>
-
 
 
 class Engine {
@@ -29,36 +29,37 @@ private:
 	glm::mat4 qubit_Proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
 	glm::mat4 m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
-	Shader m_Shader = Shader("res/shaders/Texture.shader");
-	VertexArray m_VertexArray;
-	VertexBuffer m_VertexBuffer = VertexBuffer(qubit_render_dimensions, 4 * 4 * sizeof(float));
-	VertexBufferLayout m_VBLayout;
-	IndexBuffer m_IB = IndexBuffer(qubit_render_indices, 6);
-	Texture m_Texture = Texture("res/textures/iced_chris.png");
+	Shader quadShader = Shader("res/shaders/Texture.shader");
+	VertexArray quadVertexArray;
+	VertexBuffer quadVertexBuffer = VertexBuffer(qubit_render_dimensions, 4 * 4 * sizeof(float));
+	VertexBufferLayout quadVBLayout;
+	IndexBuffer quadIndexBuffer = IndexBuffer(qubit_render_indices, 6);
+	Texture quadTexture = Texture("res/textures/iced_chris.png");
+
+	const int num_vertices = 32;
+	float circle_vertex_array[32 * 4 + 4];
+	unsigned int circle_index_array[32 * 3];
+
+	Shader circleShader = Shader("res/shaders/Texture.shader");
+	VertexArray circleVertexArray;
+	VertexBuffer circleVertexBuffer;
+	VertexBufferLayout circleVBLayout;
+	IndexBuffer circleIndexBuffer;
+
 	Renderer m_Renderer;
 
 public:
 	Engine() {
-		m_VBLayout.Push<float>(2);
-		m_VBLayout.Push<float>(2);
-		m_VertexArray.AddBuffer(m_VertexBuffer, m_VBLayout);
-
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-		glm::mat4 mvp = qubit_Proj * m_View * model;
-
-		m_Shader.Bind();
-		m_Shader.SetUniformMat4f("u_MVP", mvp);
-
-		m_Texture.Bind();
-		m_Shader.SetUniform1i("u_Texture", 0);
-
-		m_VertexArray.Unbind();
-		m_VertexBuffer.Unbind();
-		m_IB.Unbind();
-		m_Shader.Unbind();
+		InitQuad();
+		InitCircle();
 	}
 	~Engine() {};
+
+	void InitQuad();
+	void InitCircle();
+
 	void RenderQubit(glm::vec3 translation);
+	void RenderCircle(glm::vec3 translation, float radius, float ratio);
 	void Clear();
 };
 

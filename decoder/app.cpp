@@ -16,7 +16,6 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 
-
 static void glfw_error_callback(int error, const char* description)
 {
     fprintf(stderr, "GLFW Error %d: %s\n", error, description);
@@ -68,8 +67,8 @@ int main(void)
         ImGui_Handler IG_Handler = ImGui_Handler();
         IG_Handler.Create(window);
 
-        glm::vec3 translationa(0, 0, 0);
-        glm::vec3 translationb(0, 0, 0);
+        glm::vec3 translationa(100, 100, 0);
+        glm::vec3 translationb(500, 500, 0);
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
@@ -85,8 +84,12 @@ int main(void)
             // render content window
             IG_CWHandler.PreRender();
 
+            ImGuiIO& io = ImGui::GetIO(); (void)io;
+            float ratio = ImGui::GetWindowWidth() / ImGui::GetWindowHeight() * io.DisplaySize.y /  io.DisplaySize.x;
+
             // render content in content window
-            RenderEngine.RenderQubit(translationa);
+            RenderEngine.RenderCircle(translationa, 400.0f, ratio);
+
             RenderEngine.RenderQubit(translationb);
 
             IG_CWHandler.PostRender();
@@ -100,6 +103,7 @@ int main(void)
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 
                 ImGui::SliderFloat3("translationa", &translationa.x, 0.0f, 960.0f);
+
                 ImGui::SliderFloat3("translationb", &translationb.x, 0.0f, 960.0f);
             }
             ImGui::End();
