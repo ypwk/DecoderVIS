@@ -179,6 +179,7 @@
     <None Include="res\shaders\Basic.shader" />
     <None Include="res\shaders\Texture.shader" />
     <None Include="res\shaders\Fbo.shader" />
+    <None Include="res\shaders\Color.shader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\iced_chris.png">

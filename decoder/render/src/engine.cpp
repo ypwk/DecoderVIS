@@ -51,10 +51,12 @@ void Engine::InitCircle()
 
         c_theta += 360 / num_vertices;
     }
-    circle_vertex_array[num_vertices * 4] = 0.0f;
-    circle_vertex_array[num_vertices * 4 + 1] = 0.0f;
-    circle_vertex_array[num_vertices * 4 + 2] = 0.5f;
-    circle_vertex_array[num_vertices * 4 + 3] = 0.5f;
+    circle_vertex_array[num_vertices * 6] = 0.0f;
+    circle_vertex_array[num_vertices * 6 + 1] = 0.0f;
+    circle_vertex_array[num_vertices * 6 + 2] = 0.5f;
+    circle_vertex_array[num_vertices * 6 + 3] = 0.5f;
+    circle_vertex_array[num_vertices * 6 + 4] = 0.5f;
+    circle_vertex_array[num_vertices * 6 + 5] = 0.5f;
 
     for (int i = 0; i < num_vertices; i++) {
         circle_index_array[i * 3] = num_vertices;

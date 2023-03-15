@@ -37,10 +37,10 @@ private:
 	Texture quadTexture = Texture("res/textures/iced_chris.png");
 
 	const int num_vertices = 32;
-	float circle_vertex_array[32 * 4 + 4];
+	float circle_vertex_array[32 * 6 + 6];
 	unsigned int circle_index_array[32 * 3];
 
-	Shader circleShader = Shader("res/shaders/Texture.shader");
+	Shader colorShader = Shader("res/shaders/Texture.shader");
 	VertexArray circleVertexArray;
 	VertexBuffer circleVertexBuffer;
 	VertexBufferLayout circleVBLayout;
