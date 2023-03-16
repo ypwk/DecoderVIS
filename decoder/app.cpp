@@ -31,7 +31,6 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -70,8 +69,11 @@ int main(void)
 
         glm::vec3 translationa(100, 100, 0);
         glm::vec3 translationb(500, 500, 0);
+        glm::vec3 translationc(100, 100, 0);
+        glm::vec3 translationd(500, 500, 0);
 
         float size = 400.0f;
+        float rotation = 0.0f;
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
@@ -90,16 +92,13 @@ int main(void)
 
             ImGuiIO& io = ImGui::GetIO(); (void)io;
             float ratio = ImGui::GetWindowWidth() / ImGui::GetWindowHeight() * io.DisplaySize.y /  io.DisplaySize.x;
-            
-            //RenderEngine.AddCircle(translationa, 50, ratio, glm::vec4(0.0f, 255.0f, 0.0f, 1.0f));
-
-            RenderEngine.AddCircle(translationb, size, ratio, glm::vec4(255.0f, 0.0f, 0.0f, 1.0f));
 
             //RenderEngine.AddCircle(translationb, 50, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
 
-            RenderEngine.AddQubit(translationa, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
-
-            
+            RenderEngine.AddQubit(translationa, ratio, QubitState::NORMAL);
+            //RenderEngine.AddSemiCircle(translationb, size, ratio, 45.0f, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
+            RenderEngine.AddQuad(translationb, size, 200, ratio, rotation, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
+            RenderEngine.AddLine(translationc, translationd, 20, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
 
             RenderEngine.Render();
             // end render content in content window 
@@ -114,11 +113,16 @@ int main(void)
                 ImGui::Text("DisplaySize = %f,%f", io.DisplaySize.x, io.DisplaySize.y);
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 
-                ImGui::SliderFloat3("translationa", &translationa.x, 0.0f, 960.0f);
+                //ImGui::SliderFloat3("translationa", &translationa.x, 0.0f, 960.0f);
 
                 ImGui::SliderFloat3("translationb", &translationb.x, 0.0f, 960.0f);
 
+                ImGui::SliderFloat3("translationc", &translationc.x, 0.0f, 3000.0f);
+                ImGui::SliderFloat3("translationd", &translationd.x, 0.0f, 3000.0f);
+
                 ImGui::SliderFloat("raidus", &size, 0.0f, 1000.0f);
+
+                ImGui::SliderFloat("rotation", &rotation, 0.0f, 359.0f);
             }
             ImGui::End();
 

@@ -1,38 +1,23 @@
 #include "engine.h"
 #include "theme.h"
 
-void Engine::Clear() {
-    GLCall(glClear(GL_COLOR_BUFFER_BIT));
-}
+Engine::Engine() {
+    GLCall(glCreateVertexArrays(1, &m_VertexArray));
+    GLCall(glBindVertexArray(m_VertexArray));
 
+    GLCall(glGenBuffers(1, &m_VertexBuffer));
+    GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer));
+    GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 10000, nullptr, GL_DYNAMIC_DRAW));
 
-void Engine::AddCircle(glm::vec3 translation, float radius, float ratio, glm::vec4 color)
-{
-    for (int i = 0; i < num_vertices; i++) {
-        Vertex tmp;
-        tmp.Position = vec2{ translation.x + radius * cosf(i * glm::two_pi<float>() / num_vertices)\
-            , translation.y + ratio * radius * sinf(i * glm::two_pi<float>() / num_vertices) };
-        tmp.Color = vec4{ color.x, color.y, color.z, color.w };
+    GLCall(glEnableVertexAttribArray(0));
+    GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, Position)));
 
-        vertices.push_back(tmp);
-    }
-    Vertex v;
-    v.Position = vec2{ translation.x, translation.y};
-    v.Color = vec4{ color.x, color.y, color.z, color.w };
-    vertices.push_back(v);
+    GLCall(glEnableVertexAttribArray(1));
+    GLCall(glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, Color)));
 
-    for (int i = 0; i < num_vertices; i++) {
-        indices.push_back((num_vertices + 1) * num_circles + num_vertices);
-        indices.push_back((num_vertices + 1) * num_circles + i);
-        indices.push_back((num_vertices + 1) * num_circles + (i + 1) % num_vertices);
-    }
-
-    num_circles += 1;
-}
-
-void Engine::AddQubit(glm::vec3 translation, float ratio, glm::vec4 color) {
-    this->AddCircle(translation, 25.0f, ratio, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    this->AddCircle(translation, 20.0f, ratio, color);
+    GLCall(glGenBuffers(1, &m_IndexBuffer));
+    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer));
+    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * 30000, nullptr, GL_DYNAMIC_DRAW));
 }
 
 void Engine::Render() {
@@ -47,9 +32,110 @@ void Engine::Render() {
     m_Shader.SetUniformMat4f("u_MVP", mvp);
 
     GLCall(glBindVertexArray(m_VertexArray));
-    GLCall(glDrawElements(GL_TRIANGLES, (int) indices.size() * sizeof(indices[0]), GL_UNSIGNED_INT, nullptr));
+    GLCall(glDrawElements(GL_TRIANGLES, (int)indices.size() * sizeof(indices[0]), GL_UNSIGNED_INT, nullptr));
 
-    num_circles = 0;
     vertices.clear();
     indices.clear();
+}
+
+void Engine::Clear() {
+    GLCall(glClear(GL_COLOR_BUFFER_BIT));
+}
+
+void Engine::AddQubit(glm::vec3 translation, float ratio, QubitState qs) {
+    this->AddCircle(translation, 50.0f, ratio, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
+    this->AddCircle(translation, 40.0f, ratio, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+}
+
+
+void Engine::AddCircle(glm::vec3 translation, float radius, float ratio, glm::vec4 color)
+{
+    int curr_first_idx = (int) vertices.size();
+
+    for (int i = 0; i < circle_vertex_num; i++) {
+        Vertex tmp;
+        tmp.Position = vec2{ translation.x + radius * cosf(i * glm::two_pi<float>() / circle_vertex_num)\
+            , translation.y + ratio * radius * sinf(i * glm::two_pi<float>() / circle_vertex_num) };
+        tmp.Color = vec4{ color.x, color.y, color.z, color.w };
+
+        vertices.push_back(tmp);
+    }
+    Vertex v;
+    v.Position = vec2{ translation.x, translation.y};
+    v.Color = vec4{ color.x, color.y, color.z, color.w };
+    vertices.push_back(v);
+
+    for (int i = 0; i < circle_vertex_num; i++) {
+        indices.push_back(curr_first_idx + circle_vertex_num);
+        indices.push_back(curr_first_idx + i);
+        indices.push_back(curr_first_idx + (i + 1) % circle_vertex_num);
+    }
+}
+
+void Engine::AddSemiCircle(glm::vec3 translation, float radius, float ratio, float angle, glm::vec4 color) {
+    int curr_first_idx = (int) vertices.size();
+    float rad_ang = angle * (glm::pi<float>() / 180);
+
+    for (int i = 0; i < circle_vertex_num; i++) {
+        Vertex tmp;
+        tmp.Position = vec2{ translation.x + radius * cosf(rad_ang + i * glm::two_pi<float>() / circle_vertex_num)\
+            , translation.y + ratio * radius * sinf(rad_ang + i * glm::two_pi<float>() / circle_vertex_num) };
+        tmp.Color = vec4{ color.x, color.y, color.z, color.w };
+
+        vertices.push_back(tmp);
+    }
+    Vertex v;
+    v.Position = vec2{ translation.x, translation.y };
+    v.Color = vec4{ color.x, color.y, color.z, color.w };
+    vertices.push_back(v);
+
+    for (int i = 0; i < circle_vertex_num / 2; i++) {
+        indices.push_back(curr_first_idx + circle_vertex_num);
+        indices.push_back(curr_first_idx + i);
+        indices.push_back(curr_first_idx + (i + 1) % circle_vertex_num);
+    }
+}
+
+void Engine::AddQuad(glm::vec3 translation, float w, float h, float ratio, float angle, glm::vec4 color) {
+    int curr_first_idx = (int)vertices.size();
+    float rad_ang = angle * (glm::pi<float>() / 180);
+
+    Vertex v0;
+    v0.Position = vec2{ w / 2 * cosf(rad_ang) - h / 2 * sinf(rad_ang) + translation.x, \
+                        ratio * (w / 2 * sinf(rad_ang) + h / 2 * cosf(rad_ang) + translation.y) };
+    v0.Color = vec4{ color.x, color.y, color.z, color.w };
+
+    Vertex v1;
+    v1.Position = vec2{ - w / 2 * cosf(rad_ang) - h / 2 * sinf(rad_ang) + translation.x, \
+                        ratio * (- w / 2 * sinf(rad_ang) + h / 2 * cosf(rad_ang) + translation.y) };
+    v1.Color = vec4{ color.x, color.y, color.z, color.w };
+
+    Vertex v2;
+    v2.Position = vec2{ - w / 2 * cosf(rad_ang) + h / 2 * sinf(rad_ang) + translation.x, \
+                        ratio * (- w / 2 * sinf(rad_ang) - h / 2 * cosf(rad_ang) + translation.y) };
+    v2.Color = vec4{ color.x, color.y, color.z, color.w };
+
+    Vertex v3;
+    v3.Position = vec2{ w / 2 * cosf(rad_ang) + h / 2 * sinf(rad_ang) + translation.x, \
+                        ratio * (w / 2 * sinf(rad_ang) - h / 2 * cosf(rad_ang) + translation.y) };
+    v3.Color = vec4{ color.x, color.y, color.z, color.w };
+
+    vertices.insert(vertices.end(), { v3, v0, v1, v2 });
+
+    indices.insert(indices.end(), { curr_first_idx, curr_first_idx + 1, curr_first_idx + 2 \
+                                    , curr_first_idx + 2, curr_first_idx + 3, curr_first_idx });
+}
+
+void Engine::AddLine(glm::vec3 start, glm::vec3 end, float thickness, float ratio, glm::vec4 color) {
+
+    if (end.y - start.y < 0) {
+        glm::vec3 tmp(start.x, start.y, start.z);
+        start = end;
+        end = tmp;
+        std::cout << tmp.x << " " << tmp.y << " " << end.x << " " << end.y << std::endl;
+    }
+    glm::vec3 midpoint((start.x + end.x) / 2, (start.y + end.y) / 2, (start.z + end.z) / 2);
+    float dist = glm::length(end - start);
+    
+    this->AddQuad(midpoint, thickness, dist, ratio, acos((end.x - start.x) / (dist)) * 180.0f / glm::pi<float>() + 90, color);
 }

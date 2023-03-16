@@ -62,7 +62,7 @@ void ImGui_ContentWindowHandler::PostRender()
     ImVec2 pos = ImGui::GetCursorScreenPos();
     ImGui::GetWindowDrawList()->AddImage(
         reinterpret_cast<void*>(m_TXT), ImVec2(ImGui::GetWindowPos().x + padding,
-            ImGui::GetWindowPos().y + padding),
+            ImGui::GetWindowPos().y + padding * 3),
         ImVec2(ImGui::GetWindowPos().x + ImGui::GetWindowWidth() - padding, 
             ImGui::GetWindowPos().y + ImGui::GetWindowHeight() - padding), ImVec2(0, 1), ImVec2(1, 0));
 
