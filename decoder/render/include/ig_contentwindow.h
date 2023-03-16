@@ -8,11 +8,16 @@
 class ImGui_ContentWindowHandler
 {
 private:
-	unsigned int m_Width = 1280;
-	unsigned int m_Height = 720;
+	unsigned int m_Width = 3840;
+	unsigned int m_Height = 2160;
+
 	unsigned int m_FBO = 0;
 	GLuint m_TXT = 0;
-	unsigned int m_RBO = 0;
+
+	unsigned int ms_FBO = 0;
+	GLuint ms_TXT = 0;
+
+	int samples = 4;
 
 	GLuint padding = 10;
 
