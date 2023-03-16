@@ -1,91 +1,55 @@
 #include "engine.h"
-
-void Engine::RenderQubit(glm::vec3 translation)
-{
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
-    glm::mat4 mvp = qubit_Proj * m_View * model;
-
-    // shader bind
-    quadShader.Bind();
-    quadShader.SetUniformMat4f("u_MVP", mvp);
-
-    // render draw
-    m_Renderer.Draw(quadVertexArray, quadIndexBuffer, quadShader);
-}
+#include "theme.h"
 
 void Engine::Clear() {
-    m_Renderer.Clear();
+    GLCall(glClear(GL_COLOR_BUFFER_BIT));
 }
 
-void Engine::InitQuad()
+
+void Engine::AddCircle(glm::vec3 translation, float radius, float ratio, glm::vec4 color)
 {
-    quadVBLayout.Push<float>(2);
-    quadVBLayout.Push<float>(2);
-    quadVertexArray.AddBuffer(quadVertexBuffer, quadVBLayout);
+    for (int i = 0; i < num_vertices; i++) {
+        Vertex tmp;
+        tmp.Position = vec2{ translation.x + radius * cosf(i * glm::two_pi<float>() / num_vertices)\
+            , translation.y + ratio * radius * sinf(i * glm::two_pi<float>() / num_vertices) };
+        tmp.Color = vec4{ color.x, color.y, color.z, color.w };
 
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-    glm::mat4 mvp = qubit_Proj * m_View * model;
-
-    quadShader.Bind();
-    quadShader.SetUniformMat4f("u_MVP", mvp);
-
-    quadTexture.Bind();
-    quadShader.SetUniform1i("u_Texture", 0);
-
-    quadVertexArray.Unbind();
-    quadVertexBuffer.Unbind();
-    quadIndexBuffer.Unbind();
-    quadShader.Unbind();
-}
-
-void Engine::InitCircle()
-{
-    // gen circle array data
-    float c_theta = 0;
+        vertices.push_back(tmp);
+    }
+    Vertex v;
+    v.Position = vec2{ translation.x, translation.y};
+    v.Color = vec4{ color.x, color.y, color.z, color.w };
+    vertices.push_back(v);
 
     for (int i = 0; i < num_vertices; i++) {
-        circle_vertex_array[i * 4] = cosf(i * glm::two_pi<float>() / num_vertices);
-        circle_vertex_array[i * 4 + 1] = sinf(i * glm::two_pi<float>() / num_vertices);
-        circle_vertex_array[i * 4 + 2] = cosf(i * glm::two_pi<float>() / num_vertices) * 0.5 + 0.5f;
-        circle_vertex_array[i * 4 + 3] = sinf(i * glm::two_pi<float>() / num_vertices) * 0.5 + 0.5f;
-
-        c_theta += 360 / num_vertices;
-    }
-    circle_vertex_array[num_vertices * 6] = 0.0f;
-    circle_vertex_array[num_vertices * 6 + 1] = 0.0f;
-    circle_vertex_array[num_vertices * 6 + 2] = 0.5f;
-    circle_vertex_array[num_vertices * 6 + 3] = 0.5f;
-    circle_vertex_array[num_vertices * 6 + 4] = 0.5f;
-    circle_vertex_array[num_vertices * 6 + 5] = 0.5f;
-
-    for (int i = 0; i < num_vertices; i++) {
-        circle_index_array[i * 3] = num_vertices;
-        circle_index_array[i * 3 + 1] = i;
-        circle_index_array[i * 3 + 2] = (i + 1) % num_vertices;
+        indices.push_back((num_vertices + 1) * num_circles + num_vertices);
+        indices.push_back((num_vertices + 1) * num_circles + i);
+        indices.push_back((num_vertices + 1) * num_circles + (i + 1) % num_vertices);
     }
 
-    circleVertexBuffer.Init(circle_vertex_array, 4 * num_vertices * sizeof(float));
-    circleIndexBuffer.Init(circle_index_array, 3 * num_vertices);
-    circleVBLayout.Push<float>(2);
-    circleVBLayout.Push<float>(2);
-    circleVertexArray.AddBuffer(circleVertexBuffer, circleVBLayout);
+    num_circles += 1;
 }
 
-void Engine::RenderCircle(glm::vec3 translation, float radius, float ratio)
-{
+void Engine::AddQubit(glm::vec3 translation, float ratio, glm::vec4 color) {
+    this->AddCircle(translation, 25.0f, ratio, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
+    this->AddCircle(translation, 20.0f, ratio, color);
+}
 
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
-    glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius * ratio, radius));
-    glm::mat4 mvp = qubit_Proj * m_View * model * scale;
+void Engine::Render() {
+    GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer));
+    GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(vertices[0]), &vertices[0]));
 
-    // shader bind
-    quadShader.Bind();
-    quadShader.SetUniformMat4f("u_MVP", mvp);
+    GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_IndexBuffer));
+    GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, indices.size() * sizeof(indices[0]), &indices[0]));
 
-    // render draw
-    quadShader.Bind();
-    circleVertexArray.Bind();
-    circleIndexBuffer.Bind();
+    m_Shader.Bind();
+    glm::mat4 mvp = qubit_Proj * m_View;
+    m_Shader.SetUniformMat4f("u_MVP", mvp);
 
-    GLCall(glDrawElements(GL_TRIANGLES, circleIndexBuffer.getCount(), GL_UNSIGNED_INT, nullptr));
+    GLCall(glBindVertexArray(m_VertexArray));
+    GLCall(glDrawElements(GL_TRIANGLES, (int) indices.size() * sizeof(indices[0]), GL_UNSIGNED_INT, nullptr));
+
+    num_circles = 0;
+    vertices.clear();
+    indices.clear();
 }

@@ -228,6 +228,7 @@
     <ClInclude Include="render\include\vertex_array.h" />
     <ClInclude Include="render\include\vertex_buffer_layout.h" />
     <ClInclude Include="render\include\texture.h" />
+    <ClInclude Include="render\include\theme.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\Release\glew32s.lib">

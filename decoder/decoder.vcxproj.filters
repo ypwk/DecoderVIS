@@ -170,6 +170,9 @@
     <ClInclude Include="render\include\central_node_handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="render\include\theme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glfw\lib-vc2022\glfw3.lib" />

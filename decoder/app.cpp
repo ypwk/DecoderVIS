@@ -70,12 +70,12 @@ int main(void)
         glm::vec3 translationa(100, 100, 0);
         glm::vec3 translationb(500, 500, 0);
 
+        float size = 400.0f;
+
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
             // clear
-            RenderEngine.Clear();
-
             IG_Handler.NewFrame();
 
             // render central node
@@ -84,13 +84,24 @@ int main(void)
             // render content window
             IG_CWHandler.PreRender();
 
+            // render content in content window
+            RenderEngine.Clear();
+
             ImGuiIO& io = ImGui::GetIO(); (void)io;
             float ratio = ImGui::GetWindowWidth() / ImGui::GetWindowHeight() * io.DisplaySize.y /  io.DisplaySize.x;
+            
+            //RenderEngine.AddCircle(translationa, 50, ratio, glm::vec4(0.0f, 255.0f, 0.0f, 1.0f));
 
-            // render content in content window
-            RenderEngine.RenderCircle(translationa, 400.0f, ratio);
+            RenderEngine.AddCircle(translationb, size, ratio, glm::vec4(255.0f, 0.0f, 0.0f, 1.0f));
 
-            RenderEngine.RenderQubit(translationb);
+            //RenderEngine.AddCircle(translationb, 50, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
+
+            RenderEngine.AddQubit(translationa, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
+
+            
+
+            RenderEngine.Render();
+            // end render content in content window 
 
             IG_CWHandler.PostRender();
 
@@ -105,6 +116,8 @@ int main(void)
                 ImGui::SliderFloat3("translationa", &translationa.x, 0.0f, 960.0f);
 
                 ImGui::SliderFloat3("translationb", &translationb.x, 0.0f, 960.0f);
+
+                ImGui::SliderFloat("raidus", &size, 0.0f, 1000.0f);
             }
             ImGui::End();
 

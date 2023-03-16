@@ -32,7 +32,7 @@ void ImGui_ContentWindowHandler::RenderInit()
 
 void ImGui_ContentWindowHandler::PreRender()
 {
-    ImGui::Begin("Render Scene");
+    ImGui::Begin("Visualization");
 
     glBindFramebuffer(GL_FRAMEBUFFER, m_FBO);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
