@@ -95,7 +95,7 @@ int main(void)
             // render content window
             IG_CWHandler.PreRender();
 
-            InputHandler.UpdateWindowDims();
+            InputHandler.MouseInput();
 
             // render content in content window
             RenderEngine.Clear();
@@ -107,10 +107,10 @@ int main(void)
 
             //RenderEngine.AddCircle(translationb, 50, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
 
-            RenderEngine.AddQubit(translationa, ratio, QubitState::NORMAL);
+            RenderEngine.AddQubit(translationa, QubitState::NORMAL);
             //RenderEngine.AddSemiCircle(translationb, size, ratio, 45.0f, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
-            RenderEngine.AddQuad(translationb, size, 200, ratio, rotation, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
-            RenderEngine.AddLine(translationc, translationd, 20, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
+            RenderEngine.AddQuad(translationb, size, 200, rotation, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
+            RenderEngine.AddLine(translationc, translationd, 20, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
 
             RenderEngine.Render();
             // end render content in content window 

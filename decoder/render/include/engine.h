@@ -41,8 +41,8 @@ private:
 	};
 
 	glm::mat4 m_Proj = glm::ortho(0.0f, 3840.0f, 0.0f, 2160.0f, -1.0f, 1.0f);
-	glm::vec3 m_View = glm::vec3(0.0f, 0.0f, 0.0f);
-	float my_scale = 1.0f;
+	glm::vec3 m_Translation = glm::vec3(0.0f, 0.0f, 0.0f);
+	float m_Scale = 1.0f;
 
 	unsigned int m_VertexArray;
 	unsigned int m_VertexBuffer;
@@ -63,15 +63,15 @@ public:
 	void UpdateAspectRatio();
 	void Render();
 	void Clear();
-	glm::vec3 GetView() {
-		return m_View;
+	glm::vec3 GetTranslation() {
+		return m_Translation;
 	};
 
-	void AddQubit(glm::vec3 translation, float ratio, QubitState qs);
+	void AddQubit(glm::vec3 translation, QubitState qs);
 
-	void AddCircle(glm::vec3 translation, float radius, float ratio, glm::vec4 color);
-	void AddSemiCircle(glm::vec3 translation, float radius, float ratio, float angle, glm::vec4 color);
-	void AddQuad(glm::vec3 translation, float w, float h, float ratio, float angle, glm::vec4 color);
-	void AddLine(glm::vec3 start, glm::vec3 end, float thickness, float ratio, glm::vec4 color);
+	void AddCircle(glm::vec3 translation, float radius, glm::vec4 color);
+	void AddSemiCircle(glm::vec3 translation, float radius, float angle, glm::vec4 color);
+	void AddQuad(glm::vec3 translation, float w, float h, float angle, glm::vec4 color);
+	void AddLine(glm::vec3 start, glm::vec3 end, float thickness, glm::vec4 color);
 };
 

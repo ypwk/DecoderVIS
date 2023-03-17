@@ -1,10 +1,5 @@
 #include "input.h"
 
-void Input::UpdateWindowDims()
-{
-	contentWindowDims = ImGui::GetContentRegionAvail();
-	contentWindowPos = ImGui::GetWindowPos();
-}
 
 void Input::StaticScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
@@ -15,33 +10,26 @@ void Input::StaticScrollCallback(GLFWwindow* window, double xoffset, double yoff
 void Input::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	currentScale += (float) yoffset;
-	m_Engine->UpdateView(pow(1.5f, currentScale), currentTranslation);
+	m_Engine->UpdateView(pow(scaleQuant, currentScale), m_Engine->GetTranslation());
 
 }
 
-void Input::StaticMouseButtonCallback(GLFWwindow* window, double xpos, double ypos)
+void Input::MouseInput()
 {
-	Input* that = static_cast<Input*>(glfwGetWindowUserPointer(window));
-	that->MouseButtonCallback(window, xpos, ypos);
-}
-
-void Input::MouseButtonCallback(GLFWwindow* window, double xpos, double ypos)
-{
-	std::cout << xpos << " " << ypos << " " << contentWindowPos.x << " " << contentWindowDims.x << std::endl;
-	if (xpos < contentWindowDims.x && xpos > contentWindowPos.x \
-		&& ypos < contentWindowPos.y + contentWindowDims.y && ypos > contentWindowPos.y) {
-		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
-		{
-			dragStartingPos = ImVec2(-1, -1);
-			return;
+	// std::cout << ImGui::GetMousePos().x << " " << ImGui::GetMousePos().y << " " <<  << std::endl;
+	ImVec2 windowPos = ImGui::GetWindowPos();
+	ImVec2 mousePos = ImGui::GetMousePos();
+	ImVec2 windowDim = ImGui::GetContentRegionAvail();
+	if (ImGui::IsMouseDragging(0) && mousePos.x > windowPos.x \
+		&& mousePos.x < windowPos.x + windowDim.x && mousePos.y > windowPos.y && \
+		mousePos.y < windowPos.y + windowDim.y) {
+		if (!isDragging) {
+			isDragging = true;
+			currentTranslation = m_Engine->GetTranslation();
 		}
-
-		if (dragStartingPos[0] == -1 && dragStartingPos[1] == -1) {
-			currentTranslation = m_Engine->GetView();
-			dragStartingPos = ImVec2(currentTranslation.x, currentTranslation.y);
-		}
-
-		glm::vec3 copyTranslation = currentTranslation + glm::vec3((float)xpos - dragStartingPos.x, (float)ypos - dragStartingPos.y, 0);
-		m_Engine->UpdateView(currentScale, copyTranslation);
+		ImVec2 del = ImGui::GetMouseDragDelta();
+		currentTranslation = currentTranslation - glm::vec3(- del.x * sens, del.y * sens, 0);
+		m_Engine->UpdateView(pow(scaleQuant, currentScale), currentTranslation);
 	}
+	isDragging = false;
 }

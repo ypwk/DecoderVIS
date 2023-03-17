@@ -23,8 +23,8 @@ Engine::Engine() {
 
 void Engine::UpdateView(float scale, glm::vec3 translation)
 {
-    m_View = translation;
-    my_scale = scale;
+    m_Translation = translation;
+    m_Scale = scale;
 }
 
 void Engine::UpdateAspectRatio() {
@@ -40,7 +40,8 @@ void Engine::Render() {
     GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, indices.size() * sizeof(indices[0]), &indices[0]));
 
     m_Shader.Bind();
-    glm::mat4 mvp = glm::scale(m_Proj, glm::vec3(my_scale, my_scale, my_scale)) * glm::translate(glm::mat4(1.0f), m_View);;
+    // projection, view, model
+    glm::mat4 mvp = glm::translate(glm::scale(m_Proj, glm::vec3(m_Scale, m_Scale, m_Scale)), m_Translation);
     m_Shader.SetUniformMat4f("u_MVP", mvp);
 
     GLCall(glBindVertexArray(m_VertexArray));
@@ -54,13 +55,13 @@ void Engine::Clear() {
     GLCall(glClear(GL_COLOR_BUFFER_BIT));
 }
 
-void Engine::AddQubit(glm::vec3 translation, float ratio, QubitState qs) {
-    this->AddCircle(translation, 50.0f, ratio, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    this->AddCircle(translation, 40.0f, ratio, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+void Engine::AddQubit(glm::vec3 translation, QubitState qs) {
+    this->AddCircle(translation, 50.0f, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
+    this->AddCircle(translation, 40.0f, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 }
 
 
-void Engine::AddCircle(glm::vec3 translation, float radius, float ratio, glm::vec4 color)
+void Engine::AddCircle(glm::vec3 translation, float radius, glm::vec4 color)
 {
     int curr_first_idx = (int) vertices.size();
 
@@ -84,7 +85,7 @@ void Engine::AddCircle(glm::vec3 translation, float radius, float ratio, glm::ve
     }
 }
 
-void Engine::AddSemiCircle(glm::vec3 translation, float radius, float ratio, float angle, glm::vec4 color) {
+void Engine::AddSemiCircle(glm::vec3 translation, float radius, float angle, glm::vec4 color) {
     int curr_first_idx = (int) vertices.size();
     float rad_ang = angle * (glm::pi<float>() / 180);
 
@@ -108,7 +109,7 @@ void Engine::AddSemiCircle(glm::vec3 translation, float radius, float ratio, flo
     }
 }
 
-void Engine::AddQuad(glm::vec3 translation, float w, float h, float ratio, float angle, glm::vec4 color) {
+void Engine::AddQuad(glm::vec3 translation, float w, float h, float angle, glm::vec4 color) {
     int curr_first_idx = (int)vertices.size();
     float rad_ang = angle * (glm::pi<float>() / 180);
 
@@ -138,7 +139,7 @@ void Engine::AddQuad(glm::vec3 translation, float w, float h, float ratio, float
                                     , curr_first_idx + 2, curr_first_idx + 3, curr_first_idx });
 }
 
-void Engine::AddLine(glm::vec3 start, glm::vec3 end, float thickness, float ratio, glm::vec4 color) {
+void Engine::AddLine(glm::vec3 start, glm::vec3 end, float thickness, glm::vec4 color) {
     if (end.y - start.y < 0) { // this is so dirty and bad
         glm::vec3 tmp(start.x, start.y, start.z);
         start = end;
@@ -146,5 +147,5 @@ void Engine::AddLine(glm::vec3 start, glm::vec3 end, float thickness, float rati
     }
     glm::vec3 midpoint((start.x + end.x) / 2, (start.y + end.y) / 2, (start.z + end.z) / 2);
     float dist = glm::length(end - start);  
-    this->AddQuad(midpoint, thickness, dist, ratio, acos((end.x - start.x) / (dist)) * 180.0f / glm::pi<float>() + 90, color);
+    this->AddQuad(midpoint, thickness, dist, acos((end.x - start.x) / (dist)) * 180.0f / glm::pi<float>() + 90, color);
 }
