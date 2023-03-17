@@ -40,8 +40,9 @@ private:
 		vec4 Color;
 	};
 
-	glm::mat4 qubit_Proj = glm::ortho(0.0f, 3840.0f, 0.0f, 2160.0f, -1.0f, 1.0f); // 4k resolution
-	glm::mat4 m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+	glm::mat4 m_Proj = glm::ortho(0.0f, 3840.0f, 0.0f, 2160.0f, -1.0f, 1.0f);
+	glm::vec3 m_View = glm::vec3(0.0f, 0.0f, 0.0f);
+	float my_scale = 1.0f;
 
 	unsigned int m_VertexArray;
 	unsigned int m_VertexBuffer;
@@ -58,8 +59,13 @@ public:
 	Engine();
 	~Engine() {}
 
+	void UpdateView(float scale, glm::vec3 translation);
+	void UpdateAspectRatio();
 	void Render();
 	void Clear();
+	glm::vec3 GetView() {
+		return m_View;
+	};
 
 	void AddQubit(glm::vec3 translation, float ratio, QubitState qs);
 

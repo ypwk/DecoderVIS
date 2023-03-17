@@ -6,6 +6,7 @@
 #include "engine.h"
 #include "RotatedPlanarCode.h"
 #include "central_node_handler.h"
+#include "input.h"
 
 #include <GLFW\glfw3.h>
 #include <imgui\imgui.h>
@@ -14,6 +15,7 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+
 
 
 static void glfw_error_callback(int error, const char* description)
@@ -43,6 +45,8 @@ int main(void)
         return -1;
     }
 
+    Input InputHandler(window);
+
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
@@ -52,11 +56,15 @@ int main(void)
 
     std::cout << glGetString(GL_VERSION) << std::endl;
     {
+
         ImGui_ContentWindowHandler IG_CWHandler(1280, 720);
         IG_CWHandler.RenderInit();
 
         // init engine
         Engine RenderEngine = Engine();
+
+        // init input
+        InputHandler.SetEngine(&RenderEngine);
 
         // init central node handler
         CentralNodeHandler CNH = CentralNodeHandler();
@@ -87,11 +95,15 @@ int main(void)
             // render content window
             IG_CWHandler.PreRender();
 
+            InputHandler.UpdateWindowDims();
+
             // render content in content window
             RenderEngine.Clear();
 
+            RenderEngine.UpdateAspectRatio();
+
             ImGuiIO& io = ImGui::GetIO(); (void)io;
-            float ratio = ImGui::GetWindowWidth() / ImGui::GetWindowHeight() * io.DisplaySize.y /  io.DisplaySize.x;
+            float ratio = ImGui::GetWindowWidth() / ImGui::GetWindowHeight(); // *io.DisplaySize.x / io.DisplaySize.y;
 
             //RenderEngine.AddCircle(translationb, 50, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
 
