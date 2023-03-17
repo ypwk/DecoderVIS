@@ -1,4 +1,4 @@
-# MWPMVis
+# DecoderVIS
 A visualizer written in C++ for surface code decoding. 
 
 ### Implementation
