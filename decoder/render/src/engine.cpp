@@ -10,7 +10,7 @@ Engine::Engine() {
 
     GLCall(glGenBuffers(1, &m_VertexBuffer));
     GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer));
-    GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 10000, nullptr, GL_DYNAMIC_DRAW));
+    GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 100000, nullptr, GL_DYNAMIC_DRAW));
 
     GLCall(glEnableVertexAttribArray(0));
     GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, Position)));
@@ -20,7 +20,7 @@ Engine::Engine() {
 
     GLCall(glGenBuffers(1, &m_IndexBuffer));
     GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer));
-    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * 30000, nullptr, GL_DYNAMIC_DRAW));
+    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * 300000, nullptr, GL_DYNAMIC_DRAW));
 }
 
 
@@ -84,14 +84,15 @@ void Engine::AddCircle(glm::vec3 translation, float radius, glm::vec4 color)
     }
 }
 
-void Engine::AddSemiCircle(glm::vec3 translation, float radius, float angle, glm::vec4 color) {
+void Engine::AddSemiCircle(glm::vec3 translation, float radius, float angle, glm::vec4 color) 
+{
     int curr_first_idx = (int) vertices.size();
     float rad_ang = angle * (glm::pi<float>() / 180);
 
-    for (int i = 0; i < circle_vertex_num; i++) {
+    for (int i = 0; i < (circle_vertex_num * 2); i++) {
         Vertex tmp;
-        tmp.Position = vec2{ translation.x + radius * cosf(rad_ang + i * glm::two_pi<float>() / circle_vertex_num)\
-            , translation.y + radius * sinf(rad_ang + i * glm::two_pi<float>() / circle_vertex_num) };
+        tmp.Position = vec2{ translation.x + radius * cosf(rad_ang + i * glm::two_pi<float>() / (circle_vertex_num * 2))\
+            , translation.y + radius * sinf(rad_ang + i * glm::two_pi<float>() / (circle_vertex_num * 2)) };
         tmp.Color = vec4{ color.x, color.y, color.z, color.w };
 
         vertices.push_back(tmp);
@@ -101,10 +102,10 @@ void Engine::AddSemiCircle(glm::vec3 translation, float radius, float angle, glm
     v.Color = vec4{ color.x, color.y, color.z, color.w };
     vertices.push_back(v);
 
-    for (int i = 0; i < circle_vertex_num / 2; i++) {
-        indices.push_back(curr_first_idx + circle_vertex_num);
+    for (int i = 0; i < circle_vertex_num; i++) {
+        indices.push_back(curr_first_idx + (circle_vertex_num * 2));
         indices.push_back(curr_first_idx + i);
-        indices.push_back(curr_first_idx + (i + 1) % circle_vertex_num);
+        indices.push_back(curr_first_idx + (i + 1) % (circle_vertex_num * 2));
     }
 }
 
@@ -153,11 +154,11 @@ void Engine::AddSemiCircleArc(glm::vec3 translation, float radius, float thickne
     int curr_first_idx = (int)vertices.size();
     float rad_ang = angle * (glm::pi<float>() / 180);
 
-    for (int i = 1; i < circle_vertex_num; i++) {
+    for (int i = 0; i < circle_vertex_num; i++) {
         this->AddLine(glm::vec3(translation.x + radius * cosf(rad_ang + i * glm::two_pi<float>() / (2 * circle_vertex_num))\
             , translation.y + radius * sinf(rad_ang + i * glm::two_pi<float>() / (2 * circle_vertex_num)), 0), \
-            glm::vec3(translation.x + radius * cosf(rad_ang + (i - 1) * glm::two_pi<float>() / (2 * circle_vertex_num))\
-                , translation.y + radius * sinf(rad_ang + (i - 1) * glm::two_pi<float>() / (2 * circle_vertex_num)), 0), \
+            glm::vec3(translation.x + radius * cosf(rad_ang + (i + 1) * glm::two_pi<float>() / (2 * circle_vertex_num))\
+                , translation.y + radius * sinf(rad_ang + (i + 1) * glm::two_pi<float>() / (2 * circle_vertex_num)), 0), \
             thickness, color);
     }
 }

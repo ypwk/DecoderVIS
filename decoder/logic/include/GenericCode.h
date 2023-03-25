@@ -4,15 +4,7 @@
 class GenericCode
 {
 public:
-	struct Qubit {
-		int index;
-	};
-
-	struct Stabilizer {
-		int index;
-		std::vector<int> qubits;
-	};
-
+	
 	enum QubitState {
 		NORMAL = 0,
 		PARITY_ERROR_X = 1,
@@ -22,11 +14,21 @@ public:
 		TIME_ERROR = 5
 	};
 
+	struct Qubit {
+		int index;
+		QubitState state;
+	};
 
 	enum StabilizerState {
 		X_STABILIZER = 0,
 		Z_STABILIZER = 1,
 	};
+
+	struct Stabilizer {
+		int index;
+		StabilizerState type;
+		std::vector<int> qubits;
+	};	
 
 	glm::vec4 Q_STATE_TO_COLOR[6] = {
 	glm::vec4(1, 1, 1, 1),			//NORMAL

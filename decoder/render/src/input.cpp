@@ -28,8 +28,8 @@ void Input::MouseInput()
 			currentTranslation = m_Engine->GetTranslation();
 		}
 		ImVec2 del = ImGui::GetMouseDragDelta();
-		currentTranslation = currentTranslation - glm::vec3(- del.x * sens * pow(scaleQuant, currentScale), \
-			del.y * sens * pow(scaleQuant, currentScale), 0);
+		currentTranslation = currentTranslation - glm::vec3(- del.x / pow(scaleQuant, currentScale), \
+			del.y / pow(scaleQuant, currentScale), 0);
 		m_Engine->UpdateView(pow(scaleQuant, currentScale), currentTranslation);
 	}
 	isDragging = false;

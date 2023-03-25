@@ -56,7 +56,6 @@ int main(void)
 
     std::cout << glGetString(GL_VERSION) << std::endl;
     {
-
         ImGui_ContentWindowHandler IG_CWHandler(1280, 720);
         IG_CWHandler.RenderInit();
 
@@ -69,8 +68,10 @@ int main(void)
         // init central node handler
         CentralNodeHandler CNH = CentralNodeHandler();
 
+        int distance = 5;
+
         // init surface code
-        GenericCode* currentCode = new RotatedPlanarCode(5);
+        GenericCode* currentCode = new RotatedPlanarCode(distance);
 
         ImGui_Handler IG_Handler = ImGui_Handler();
         IG_Handler.Create(window);

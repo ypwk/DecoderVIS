@@ -40,7 +40,7 @@ private:
 
 	float initialScale = 4;
 
-	const int circle_vertex_num = 32;
+	const int circle_vertex_num = 16;
 
 	std::vector<Vertex> vertices;
 	std::vector<int> indices;
