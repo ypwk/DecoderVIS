@@ -21,7 +21,7 @@ private:
 	std::vector<Qubit> dataQubits;
 	std::vector<Stabilizer> measurementQubits;
 
-	glm::vec3 GetQubitLocation(Qubit q);
+	glm::vec3 GetDataQubitLocation(Qubit q);
 
 	int distance = 3;
 	float errorRate = 0.1f;

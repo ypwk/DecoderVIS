@@ -6,121 +6,120 @@ RotatedPlanarCode::RotatedPlanarCode(int dist) : distance(dist)
         dataQubits.push_back(Qubit{ i });
     }
 
-    for (int i = 0; i < (dist - 1) * (dist - 1); i++) {
-        measurementQubits.push_back(Stabilizer{i});
+    int mq_idx = 0;
+    for (mq_idx; mq_idx < (dist - 1) * (dist - 1); mq_idx++) {
+        Stabilizer ns = Stabilizer{ mq_idx };
+        ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1));
+        ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1) + 1);
+        ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1) + dist);
+        ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1) + dist + 1);
+        measurementQubits.push_back(ns);
     }
+    
+    for (int i = 0; i < dist / 2; i++) {
+        Stabilizer ns = Stabilizer{ mq_idx++ };
+        ns.qubits.push_back(2 * i);
+        ns.qubits.push_back(2 * i + 1);
+        measurementQubits.push_back(ns);
 
-    for (int i = 0; i < 4 * (dist / 2); i++) {
+        ns = Stabilizer{ mq_idx++ };
+        ns.qubits.push_back((dist - 1) + dist * 2 * i);
+        ns.qubits.push_back((dist - 1) + dist * (2 * i + 1));
+        measurementQubits.push_back(ns);
 
+        ns = Stabilizer{ mq_idx++ };
+        ns.qubits.push_back(dist + dist * 2 * i);
+        ns.qubits.push_back(dist + dist * (2 * i + 1));
+        measurementQubits.push_back(ns);
+
+        ns = Stabilizer{ mq_idx++ };
+        ns.qubits.push_back(dist * (dist - 1) + 1 + 2 * i);
+        ns.qubits.push_back(dist * (dist - 1) + 1 + 2 * i + 1);
+        measurementQubits.push_back(ns);
     }
 }
 
 void RotatedPlanarCode::render(Engine* e)
 {
+    for (int i = - distance / 2; i <= distance / 2; i++) {
+        e->AddLine(glm::vec3(-distance / 2, i, 0) * RENDER_UNIT_LENGTH, glm::vec3(distance / 2, i, 0) * RENDER_UNIT_LENGTH, \
+            10, LINE_COLOR);
+        e->AddLine(glm::vec3(i, -distance / 2, 0) * RENDER_UNIT_LENGTH, glm::vec3(i, distance / 2, 0) * RENDER_UNIT_LENGTH, \
+            10, LINE_COLOR);
+    }
+
+    for (int i = 0; i < measurementQubits.size(); i++) {
+        AddStabilizerToRender(measurementQubits[i], StabilizerState(i % 2), e);
+    }
+
     for (int i = 0; i < dataQubits.size(); i++) {
         AddQubitToRender(dataQubits[i], NORMAL, e);
     }
-
-    //e->AddQuad(glm::vec3(GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize / 2, 0), \
-    //    GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0, glm::vec4(1, 1, 1, 0.1f));
-    //e->AddQuad(glm::vec3(-GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize / 2, 0), \
-    //    GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0, glm::vec4(1, 1, 1, 0.1f));
-    //e->AddQuad(glm::vec3(GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize / 2, 0), \
-    //    GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0, glm::vec4(1, 1, 1, 0.1f));
-    //e->AddQuad(glm::vec3(-GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize / 2, 0), \
-    //    GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0, glm::vec4(1, 1, 1, 0.1f));
-
-    //e->AddLine(glm::vec3(GenericCode::stabilizerSize, 0, 0), glm::vec3(-GenericCode::stabilizerSize, 0, 0), \
-    //    10, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddLine(glm::vec3(GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0), glm::vec3(-GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0), \
-    //    10, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddLine(glm::vec3(GenericCode::stabilizerSize, -GenericCode::stabilizerSize, 0), glm::vec3(-GenericCode::stabilizerSize, -GenericCode::stabilizerSize, 0), \
-    //    10, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddLine(glm::vec3(0, GenericCode::stabilizerSize, 0), glm::vec3(0, -GenericCode::stabilizerSize, 0), \
-    //    10, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddLine(glm::vec3(GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0), glm::vec3(GenericCode::stabilizerSize, -GenericCode::stabilizerSize, 0), \
-    //    10, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddLine(glm::vec3(-GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0), glm::vec3(-GenericCode::stabilizerSize, -GenericCode::stabilizerSize, 0), \
-    //    10, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-
-
-    ///*e->AddSemiCircle(glm::vec3(-GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize, 0), GenericCode::stabilizerSize / 2, \
-    //    0, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));*/
-    //e->AddSemiCircle(glm::vec3(-GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize, 0), GenericCode::stabilizerSize / 2, \
-    //    0, glm::vec4(1, 1, 1, 0.1f));
-    //e->AddSemiCircle(glm::vec3(GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize, 0), GenericCode::stabilizerSize / 2, \
-    //    180, glm::vec4(1, 1, 1, 0.1f));
-    //e->AddSemiCircle(glm::vec3(GenericCode::stabilizerSize, GenericCode::stabilizerSize / 2, 0), GenericCode::stabilizerSize / 2, \
-    //    270, glm::vec4(1, 1, 1, 0.1f));
-    //e->AddSemiCircle(glm::vec3(-GenericCode::stabilizerSize, - GenericCode::stabilizerSize / 2, 0), GenericCode::stabilizerSize / 2, \
-    //    90, glm::vec4(1, 1, 1, 0.1f));
-    //e->AddSemiCircleArc(glm::vec3(-GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize, 0), GenericCode::stabilizerSize / 2, \
-    //    10, 0, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddSemiCircleArc(glm::vec3(GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize, 0), GenericCode::stabilizerSize / 2, \
-    //    10, 180, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddSemiCircleArc(glm::vec3(GenericCode::stabilizerSize, GenericCode::stabilizerSize / 2, 0), GenericCode::stabilizerSize / 2, \
-    //    10, 270, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddSemiCircleArc(glm::vec3(-GenericCode::stabilizerSize, -GenericCode::stabilizerSize / 2, 0), GenericCode::stabilizerSize / 2, \
-    //    10, 90, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-
-
-    //AddQubitToRender(glm::vec3(0, 0, 0), NORMAL, e);
-    //AddQubitToRender(glm::vec3(GenericCode::stabilizerSize, 0, 0), DATA_ERROR_X, e);
-    //AddQubitToRender(glm::vec3(-GenericCode::stabilizerSize, 0, 0), TIME_ERROR, e);
-    //AddQubitToRender(glm::vec3(0, GenericCode::stabilizerSize, 0), NORMAL, e);
-    //AddQubitToRender(glm::vec3(0, -GenericCode::stabilizerSize, 0), DATA_ERROR_X, e);
-    //AddQubitToRender(glm::vec3(GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0), NORMAL, e);
-    //AddQubitToRender(glm::vec3(-GenericCode::stabilizerSize, GenericCode::stabilizerSize, 0), NORMAL, e);
-    //AddQubitToRender(glm::vec3(GenericCode::stabilizerSize, -GenericCode::stabilizerSize, 0), NORMAL, e);
-    //AddQubitToRender(glm::vec3(-GenericCode::stabilizerSize, -GenericCode::stabilizerSize, 0), NORMAL, e);
-
-    //e->AddQuad(glm::vec3(GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize / 2, 0), \
-    //    100, 100, 45, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddQuad(glm::vec3(GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize / 2, 0), \
-    //    80, 80, 45, glm::vec4(0, 0, 1, 1.0f));
-    //e->AddQuad(glm::vec3(-GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize / 2, 0), \
-    //    100, 100, 45, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddQuad(glm::vec3(-GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize / 2, 0), \
-    //    80, 80, 45, glm::vec4(1, 0, 0, 1.0f));
-    //e->AddQuad(glm::vec3(GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize / 2, 0), \
-    //    100, 100, 45, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddQuad(glm::vec3(GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize / 2, 0), \
-    //    80, 80, 45, glm::vec4(1, 0, 0, 1.0f));
-    //e->AddQuad(glm::vec3(-GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize / 2, 0), \
-    //    100, 100, 45, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddQuad(glm::vec3(-GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize / 2, 0), \
-    //    80, 80, 45, glm::vec4(0, 0, 1, 1.0f));
-    //e->AddQuad(glm::vec3(GenericCode::stabilizerSize / 2, -3 * GenericCode::stabilizerSize / 2, 0), \
-    //    100, 100, 45, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddQuad(glm::vec3(GenericCode::stabilizerSize / 2, -3 * GenericCode::stabilizerSize / 2, 0), \
-    //    80, 80, 45, glm::vec4(0, 0, 1, 1.0f));
-    //e->AddQuad(glm::vec3(-GenericCode::stabilizerSize / 2, 3 * GenericCode::stabilizerSize / 2, 0), \
-    //    100, 100, 45, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddQuad(glm::vec3(-GenericCode::stabilizerSize / 2, 3 * GenericCode::stabilizerSize / 2, 0), \
-    //    80, 80, 45, glm::vec4(0, 0, 1, 1.0f));
-    //e->AddQuad(glm::vec3(3 * GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize / 2, 0), \
-    //    100, 100, 45, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddQuad(glm::vec3(3 * GenericCode::stabilizerSize / 2, GenericCode::stabilizerSize / 2, 0), \
-    //    80, 80, 45, glm::vec4(1, 0, 0, 1.0f));
-    //e->AddQuad(glm::vec3(-3 * GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize / 2, 0), \
-    //    100, 100, 45, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    //e->AddQuad(glm::vec3(-3 * GenericCode::stabilizerSize / 2, -GenericCode::stabilizerSize / 2, 0), \
-    //    80, 80, 45, glm::vec4(1, 0, 0, 1.0f));
 }
 
 void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, StabilizerState ss, Engine* e)
 {
+    if (s.qubits.size() == 2) {
+        // calculate location
+        glm::vec3 target = (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]])) * 0.5f;
 
+        float orientation = 180;
+        glm::vec3 translation(0, 0, 0);
+        // calculate orientation
+        if (s.qubits[1] - s.qubits[0] == 1) {// top or bottom
+            if (s.qubits[0] > distance + 1){ 
+                orientation = 0;
+                translation.y = RENDER_UNIT_LENGTH / 2.0f;
+            }
+            else {
+                translation.y = -RENDER_UNIT_LENGTH / 2.0f;
+            }
+        }
+        else { // one of the sides
+            if (s.qubits[0] % distance) {
+                orientation = 270;
+                translation.x = RENDER_UNIT_LENGTH / 2.0f;
+            }
+            else {
+                orientation = 90;
+                translation.x = -RENDER_UNIT_LENGTH / 2.0f;
+            }
+                
+        }
+        // draw semicircle
+        e->AddSemiCircleArc(target, RENDER_UNIT_LENGTH / 2, \
+        10, orientation, LINE_COLOR);
+        e->AddSemiCircle(target, RENDER_UNIT_LENGTH / 2, \
+        orientation, BACK_STAB);
+
+        // draw stabilizer
+        e->AddQuad(target + translation, 2 * QUBIT_SIZE_OUTER, 2 * QUBIT_SIZE_OUTER, 45, LINE_COLOR);
+        e->AddQuad(target + translation, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45, STABILIZER_STATE_TO_COLOR[ss]);
+
+    }
+    else if (s.qubits.size() == 4) {
+        // calculate location
+        glm::vec3 target = (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]]) \
+            + GetDataQubitLocation(dataQubits[s.qubits[2]]) + GetDataQubitLocation(dataQubits[s.qubits[3]])) * 0.25f;
+
+        // draw quad
+        e->AddQuad(target, RENDER_UNIT_LENGTH, RENDER_UNIT_LENGTH, 0, BACK_STAB);
+
+        // draw stabilizer
+        e->AddQuad(target, 2 * QUBIT_SIZE_OUTER, 2 * QUBIT_SIZE_OUTER, 45, LINE_COLOR);
+        e->AddQuad(target, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45, STABILIZER_STATE_TO_COLOR[ss]);
+
+    }
 }
 
 void RotatedPlanarCode::AddQubitToRender(Qubit q, QubitState qs, Engine* e)
 {
-    glm::vec3 loc = GetQubitLocation(q);
-    e->AddCircle(loc, 50.0f, LineColor);
-    e->AddCircle(loc, 40.0f, QStateToColor[qs]);
+    glm::vec3 loc = GetDataQubitLocation(q);
+    e->AddCircle(loc, 50.0f, LINE_COLOR);
+    e->AddCircle(loc, 40.0f, Q_STATE_TO_COLOR[qs]);
 }
 
-glm::vec3 RotatedPlanarCode::GetQubitLocation(Qubit q)
+glm::vec3 RotatedPlanarCode::GetDataQubitLocation(Qubit q)
 {
     return glm::vec3((q.index % distance - distance / 2) * RENDER_UNIT_LENGTH, (q.index / distance - distance / 2) * RENDER_UNIT_LENGTH, 0);
 }

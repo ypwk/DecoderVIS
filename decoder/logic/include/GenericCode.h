@@ -28,7 +28,7 @@ public:
 		Z_STABILIZER = 1,
 	};
 
-	glm::vec4 QStateToColor[6] = {
+	glm::vec4 Q_STATE_TO_COLOR[6] = {
 	glm::vec4(1, 1, 1, 1),			//NORMAL
 	glm::vec4(1, 0, 0, 0.7f),		//PARITY_ERROR_X,
 	glm::vec4(1, 0, 0, 0.7f),		//PARITY_ERROR_Z,
@@ -38,12 +38,13 @@ public:
 
 	};
 
-	glm::vec4 StabStateToColor[2] = {
+	glm::vec4 STABILIZER_STATE_TO_COLOR[2] = {
 		glm::vec4(1, 0, 0, 0.4f),
 		glm::vec4(0, 0, 1, 0.4f)
 	};
 
-	glm::vec4 LineColor = glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f);
+	glm::vec4 LINE_COLOR = glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f);
+	glm::vec4 BACK_STAB = glm::vec4(1, 1, 1, 0.1f);
 
 	virtual void render(Engine* e) = 0;
 	virtual void generateNextStep() {};
@@ -53,6 +54,8 @@ public:
 
 protected:
 	float RENDER_UNIT_LENGTH = 1000.0f;
+	float QUBIT_SIZE_INNER = 40.0f;
+	float QUBIT_SIZE_OUTER = 50.0f;
 	virtual void AddQubitToRender(Qubit q, QubitState qs, Engine* e) = 0;
 	virtual void AddStabilizerToRender(Stabilizer s, StabilizerState ss, Engine* e) = 0;
 

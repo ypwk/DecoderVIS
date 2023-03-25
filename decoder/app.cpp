@@ -70,7 +70,7 @@ int main(void)
         CentralNodeHandler CNH = CentralNodeHandler();
 
         // init surface code
-        GenericCode* currentCode = new RotatedPlanarCode(3);
+        GenericCode* currentCode = new RotatedPlanarCode(5);
 
         ImGui_Handler IG_Handler = ImGui_Handler();
         IG_Handler.Create(window);
