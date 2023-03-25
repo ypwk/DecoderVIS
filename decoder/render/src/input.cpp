@@ -16,10 +16,10 @@ void Input::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 
 void Input::MouseInput()
 {
-	// std::cout << ImGui::GetMousePos().x << " " << ImGui::GetMousePos().y << " " <<  << std::endl;
 	ImVec2 windowPos = ImGui::GetWindowPos();
 	ImVec2 mousePos = ImGui::GetMousePos();
 	ImVec2 windowDim = ImGui::GetContentRegionAvail();
+
 	if (ImGui::IsMouseDragging(0) && mousePos.x > windowPos.x \
 		&& mousePos.x < windowPos.x + windowDim.x && mousePos.y > windowPos.y && \
 		mousePos.y < windowPos.y + windowDim.y) {
@@ -28,7 +28,8 @@ void Input::MouseInput()
 			currentTranslation = m_Engine->GetTranslation();
 		}
 		ImVec2 del = ImGui::GetMouseDragDelta();
-		currentTranslation = currentTranslation - glm::vec3(- del.x * sens, del.y * sens, 0);
+		currentTranslation = currentTranslation - glm::vec3(- del.x * sens * pow(scaleQuant, currentScale), \
+			del.y * sens * pow(scaleQuant, currentScale), 0);
 		m_Engine->UpdateView(pow(scaleQuant, currentScale), currentTranslation);
 	}
 	isDragging = false;

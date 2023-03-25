@@ -11,16 +11,6 @@
 #include <glm/gtc/constants.hpp>
 #include <imgui/imgui.h>
 
-enum QubitState {
-	NORMAL = 0,
-	PARITY_ERROR_X = 1,
-	PARITY_ERROR_Z = 2,
-	DATA_ERROR_X = 3,
-	DATA_ERROR_Z = 4,
-	TIME_ERROR = 5
-};
-
-
 class Engine {
 private:
 	struct vec2 {
@@ -48,6 +38,8 @@ private:
 	unsigned int m_VertexBuffer;
 	unsigned int m_IndexBuffer;
 
+	float initialScale = 4;
+
 	const int circle_vertex_num = 32;
 
 	std::vector<Vertex> vertices;
@@ -66,12 +58,11 @@ public:
 	glm::vec3 GetTranslation() {
 		return m_Translation;
 	};
-
-	void AddQubit(glm::vec3 translation, QubitState qs);
+	void AddQuad(glm::vec3 translation, float w, float h, float angle, glm::vec4 color);
+	void AddLine(glm::vec3 start, glm::vec3 end, float thickness, glm::vec4 color);
 
 	void AddCircle(glm::vec3 translation, float radius, glm::vec4 color);
 	void AddSemiCircle(glm::vec3 translation, float radius, float angle, glm::vec4 color);
-	void AddQuad(glm::vec3 translation, float w, float h, float angle, glm::vec4 color);
-	void AddLine(glm::vec3 start, glm::vec3 end, float thickness, glm::vec4 color);
+	void AddSemiCircleArc(glm::vec3 translation, float radius, float thickness, float angle, glm::vec4 color);
 };
 

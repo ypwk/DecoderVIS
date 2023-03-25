@@ -2,6 +2,9 @@
 #include "theme.h"
 
 Engine::Engine() {
+    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+    GLCall(glEnable(GL_BLEND));
+
     GLCall(glCreateVertexArrays(1, &m_VertexArray));
     GLCall(glBindVertexArray(m_VertexArray));
 
@@ -29,37 +32,33 @@ void Engine::UpdateView(float scale, glm::vec3 translation)
 
 void Engine::UpdateAspectRatio() {
     ImVec2 view = ImGui::GetContentRegionAvail();
-    m_Proj = glm::ortho(0.0f, view.x * 2 , 0.0f, view.y * 2, -1.0f, 1.0f);
+    m_Proj = glm::ortho(0.0f, view.x * initialScale , 0.0f, view.y * initialScale, -1.0f, 1.0f);
 }
 
 void Engine::Render() {
-    GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer));
-    GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(vertices[0]), &vertices[0]));
+    if (vertices.size() > 0) {
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer));
+        GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(vertices[0]), &vertices[0]));
 
-    GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_IndexBuffer));
-    GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, indices.size() * sizeof(indices[0]), &indices[0]));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_IndexBuffer));
+        GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, indices.size() * sizeof(indices[0]), &indices[0]));
 
-    m_Shader.Bind();
-    // projection, view, model
-    glm::mat4 mvp = glm::translate(glm::scale(m_Proj, glm::vec3(m_Scale, m_Scale, m_Scale)), m_Translation);
-    m_Shader.SetUniformMat4f("u_MVP", mvp);
+        m_Shader.Bind();
+        // projection, view, model
+        glm::mat4 mvp = glm::translate(glm::scale(m_Proj, glm::vec3(m_Scale, m_Scale, m_Scale)), m_Translation);
+        m_Shader.SetUniformMat4f("u_MVP", mvp);
 
-    GLCall(glBindVertexArray(m_VertexArray));
-    GLCall(glDrawElements(GL_TRIANGLES, (int)indices.size() * sizeof(indices[0]), GL_UNSIGNED_INT, nullptr));
+        GLCall(glBindVertexArray(m_VertexArray));
+        GLCall(glDrawElements(GL_TRIANGLES, (int)indices.size() * sizeof(indices[0]), GL_UNSIGNED_INT, nullptr));
 
-    vertices.clear();
-    indices.clear();
+        vertices.clear();
+        indices.clear();
+    }
 }
 
 void Engine::Clear() {
     GLCall(glClear(GL_COLOR_BUFFER_BIT));
 }
-
-void Engine::AddQubit(glm::vec3 translation, QubitState qs) {
-    this->AddCircle(translation, 50.0f, glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f));
-    this->AddCircle(translation, 40.0f, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-}
-
 
 void Engine::AddCircle(glm::vec3 translation, float radius, glm::vec4 color)
 {
@@ -148,4 +147,17 @@ void Engine::AddLine(glm::vec3 start, glm::vec3 end, float thickness, glm::vec4 
     glm::vec3 midpoint((start.x + end.x) / 2, (start.y + end.y) / 2, (start.z + end.z) / 2);
     float dist = glm::length(end - start);  
     this->AddQuad(midpoint, thickness, dist, acos((end.x - start.x) / (dist)) * 180.0f / glm::pi<float>() + 90, color);
+}
+
+void Engine::AddSemiCircleArc(glm::vec3 translation, float radius, float thickness, float angle, glm::vec4 color) {
+    int curr_first_idx = (int)vertices.size();
+    float rad_ang = angle * (glm::pi<float>() / 180);
+
+    for (int i = 1; i < circle_vertex_num; i++) {
+        this->AddLine(glm::vec3(translation.x + radius * cosf(rad_ang + i * glm::two_pi<float>() / (2 * circle_vertex_num))\
+            , translation.y + radius * sinf(rad_ang + i * glm::two_pi<float>() / (2 * circle_vertex_num)), 0), \
+            glm::vec3(translation.x + radius * cosf(rad_ang + (i - 1) * glm::two_pi<float>() / (2 * circle_vertex_num))\
+                , translation.y + radius * sinf(rad_ang + (i - 1) * glm::two_pi<float>() / (2 * circle_vertex_num)), 0), \
+            thickness, color);
+    }
 }

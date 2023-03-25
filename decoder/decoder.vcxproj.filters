@@ -72,9 +72,6 @@
     <ClCompile Include="render\src\ig_contentwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="logic\src\GenericCode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="logic\src\RotatedPlanarCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -82,6 +79,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="render\src\input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logic\src\GenericCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

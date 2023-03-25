@@ -38,7 +38,7 @@ int main(void)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1280, 720, "MWPMVis", NULL, NULL);
+    window = glfwCreateWindow(1280, 720, "DecoderVIS", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -107,10 +107,7 @@ int main(void)
 
             //RenderEngine.AddCircle(translationb, 50, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
 
-            RenderEngine.AddQubit(translationa, QubitState::NORMAL);
-            //RenderEngine.AddSemiCircle(translationb, size, ratio, 45.0f, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
-            RenderEngine.AddQuad(translationb, size, 200, rotation, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
-            RenderEngine.AddLine(translationc, translationd, 20, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
+            currentCode->render(&RenderEngine);
 
             RenderEngine.Render();
             // end render content in content window 
@@ -127,14 +124,14 @@ int main(void)
 
                 //ImGui::SliderFloat3("translationa", &translationa.x, 0.0f, 960.0f);
 
-                ImGui::SliderFloat3("translationb", &translationb.x, 0.0f, 960.0f);
+                //ImGui::SliderFloat3("translationb", &translationb.x, 0.0f, 960.0f);
 
-                ImGui::SliderFloat3("translationc", &translationc.x, 0.0f, 3000.0f);
-                ImGui::SliderFloat3("translationd", &translationd.x, 0.0f, 3000.0f);
+                //ImGui::SliderFloat3("translationc", &translationc.x, 0.0f, 3000.0f);
+                //ImGui::SliderFloat3("translationd", &translationd.x, 0.0f, 3000.0f);
 
-                ImGui::SliderFloat("raidus", &size, 0.0f, 1000.0f);
+                //ImGui::SliderFloat("raidus", &size, 0.0f, 1000.0f);
 
-                ImGui::SliderFloat("rotation", &rotation, 0.0f, 359.0f);
+                //ImGui::SliderFloat("rotation", &rotation, 0.0f, 359.0f);
             }
             ImGui::End();
 
