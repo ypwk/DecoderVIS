@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;$(SolutionDir)\decoder\external\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;$(SolutionDir)\decoder\external\glm;$(SolutionDir)\decoder\external\lemon;$(SolutionDir)\decoder\external\lemon\bits;$(SolutionDir)\decoder\external\lemon\concepts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;$(SolutionDir)\decoder\external\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;$(SolutionDir)\decoder\external\glm;$(SolutionDir)\decoder\external\lemon;$(SolutionDir)\decoder\external\lemon\bits;$(SolutionDir)\decoder\external\lemon\concepts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
@@ -134,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;$(SolutionDir)\decoder\external\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;$(SolutionDir)\decoder\external\glm;$(SolutionDir)\decoder\external\lemon;$(SolutionDir)\decoder\external\lemon\bits;$(SolutionDir)\decoder\external\lemon\concepts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
@@ -157,7 +157,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;$(SolutionDir)\decoder\external\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\decoder\external\glfw\include;$(SolutionDir)\decoder\external\glad\include;$(SolutionDir)\decoder\external\glew\include;$(SolutionDir)\decoder\external\imgui;$(SolutionDir)\decoder\render\include;$(SolutionDir)\decoder\logic\include;$(SolutionDir)\decoder\external\stb;$(SolutionDir)\decoder\external\glm;$(SolutionDir)\decoder\external\lemon;$(SolutionDir)\decoder\external\lemon\bits;$(SolutionDir)\decoder\external\lemon\concepts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
