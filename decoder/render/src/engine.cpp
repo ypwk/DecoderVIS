@@ -43,8 +43,8 @@ void Engine::Render() {
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_IndexBuffer));
         GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, indices.size() * sizeof(indices[0]), &indices[0]));
 
+        // bind to shader, apply projection, view, model transformations
         m_Shader.Bind();
-        // projection, view, model
         glm::mat4 mvp = glm::translate(glm::scale(m_Proj, glm::vec3(m_Scale, m_Scale, m_Scale)), m_Translation);
         m_Shader.SetUniformMat4f("u_MVP", mvp);
 

@@ -175,6 +175,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="logic\src\decoder.cpp" />
     <ClCompile Include="logic\src\GenericCode.cpp" />
     <ClCompile Include="render\src\input.cpp" />
     <ClCompile Include="render\src\central_node_handler.cpp" />
@@ -198,8 +199,10 @@
     <ClCompile Include="render\src\vertex_array.cpp" />
     <ClCompile Include="render\src\vertex_buffer_layout.cpp" />
     <ClCompile Include="render\src\texture.cpp" />
+    <ClCompile Include="logic\src\simulation.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="logic\include\decoder.h" />
     <ClInclude Include="render\include\input.h" />
     <ClInclude Include="render\include\central_node_handler.h" />
     <ClInclude Include="logic\include\GenericCode.h" />
@@ -231,6 +234,7 @@
     <ClInclude Include="render\include\vertex_buffer_layout.h" />
     <ClInclude Include="render\include\texture.h" />
     <ClInclude Include="render\include\theme.h" />
+    <ClInclude Include="logic\include\simulation.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\glew\lib\Release\glew32s.lib">

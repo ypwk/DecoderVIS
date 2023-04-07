@@ -84,6 +84,12 @@
     <ClCompile Include="logic\src\GenericCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="logic\src\simulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logic\src\decoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\imgui\imgui\imconfig.h">
@@ -177,6 +183,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="render\include\input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logic\include\simulation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logic\include\decoder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

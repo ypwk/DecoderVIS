@@ -7,6 +7,7 @@
 #include "RotatedPlanarCode.h"
 #include "central_node_handler.h"
 #include "input.h"
+#include <simulation.h>
 
 #include <GLFW\glfw3.h>
 #include <imgui\imgui.h>
@@ -15,6 +16,7 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+
 
 
 
@@ -70,19 +72,11 @@ int main(void)
 
         int distance = 5;
 
-        // init surface code
-        GenericCode* currentCode = new RotatedPlanarCode(distance);
+        // init simulation
+        Simulation sim = Simulation(&RenderEngine);
 
         ImGui_Handler IG_Handler = ImGui_Handler();
         IG_Handler.Create(window);
-
-        glm::vec3 translationa(100, 100, 0);
-        glm::vec3 translationb(500, 500, 0);
-        glm::vec3 translationc(100, 100, 0);
-        glm::vec3 translationd(500, 500, 0);
-
-        float size = 400.0f;
-        float rotation = 0.0f;
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
@@ -99,16 +93,15 @@ int main(void)
             InputHandler.MouseInput();
 
             // render content in content window
-            RenderEngine.Clear();
+            // RenderEngine.Clear();
 
             RenderEngine.UpdateAspectRatio();
 
             ImGuiIO& io = ImGui::GetIO(); (void)io;
-            float ratio = ImGui::GetWindowWidth() / ImGui::GetWindowHeight(); // *io.DisplaySize.x / io.DisplaySize.y;
 
-            //RenderEngine.AddCircle(translationb, 50, ratio, glm::vec4(202.0f / 256, 85.0f / 256, 85.0f / 256, 1.0f));
+            sim.doTimeStep();
 
-            currentCode->render(&RenderEngine);
+            sim.render();
 
             RenderEngine.Render();
             // end render content in content window 
