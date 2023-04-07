@@ -2,7 +2,7 @@
 
 void Simulation::render()
 {
-	currentCode->render(m_RenderEngine);
+	m_Code->render(m_RenderEngine);
 }
 
 void Simulation::doTimeStep()
@@ -30,13 +30,14 @@ void Simulation::doTimeStep()
 
 bool Simulation::propagateErrors()
 {
-	if (detailedExecution) {
-
+	// propagate errors
+	srand((int) time(NULL));
+	for (auto& qubit : m_Code->dataQubits){
+		if (((float) rand()) / (float)RAND_MAX < errorRate) {
+			qubit.state = GenericCode::QubitState(rand() % 3 + 3);
+		}
 	}
-	else {
-
-	}
-	return false;
+	return true;
 }
 
 bool Simulation::assembleErrorGraph()
@@ -47,7 +48,7 @@ bool Simulation::assembleErrorGraph()
 	else {
 
 	}
-	return false;
+	return true;
 }
 
 bool Simulation::decodeErrorGraph()
@@ -58,7 +59,7 @@ bool Simulation::decodeErrorGraph()
 	else {
 
 	}
-	return false;
+	return true;
 }
 
 bool Simulation::fixErrors()
@@ -69,5 +70,5 @@ bool Simulation::fixErrors()
 	else {
 
 	}
-	return false;
+	return true;
 }

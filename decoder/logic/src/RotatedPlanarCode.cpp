@@ -53,7 +53,7 @@ void RotatedPlanarCode::render(Engine* e)
     }
 
     for (int i = 0; i < dataQubits.size(); i++) {
-        AddQubitToRender(dataQubits[i], NORMAL, e);
+        AddQubitToRender(dataQubits[i], e);
     }
 }
 
@@ -112,11 +112,11 @@ void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, StabilizerState ss, 
     }
 }
 
-void RotatedPlanarCode::AddQubitToRender(Qubit q, QubitState qs, Engine* e)
+void RotatedPlanarCode::AddQubitToRender(Qubit q, Engine* e)
 {
     glm::vec3 loc = GetDataQubitLocation(q);
     e->AddCircle(loc, QUBIT_SIZE_OUTER, LINE_COLOR);
-    e->AddCircle(loc, QUBIT_SIZE_INNER, Q_STATE_TO_COLOR[qs]);
+    e->AddCircle(loc, QUBIT_SIZE_INNER, Q_STATE_TO_COLOR[q.state]);
 }
 
 glm::vec3 RotatedPlanarCode::GetDataQubitLocation(Qubit q)

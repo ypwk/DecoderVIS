@@ -13,16 +13,13 @@ public:
 	void render(Engine* e);
 	void generateNextStep() {};
 
-protected:
-	void AddStabilizerToRender(Stabilizer s, StabilizerState ss, Engine* e);
-	void AddQubitToRender(Qubit q, QubitState qs, Engine* e);
-
-private:
-	std::vector<Qubit> dataQubits;
-	std::vector<Stabilizer> measurementQubits;
-
 	glm::vec3 GetDataQubitLocation(Qubit q);
 
+protected:
+	void AddStabilizerToRender(Stabilizer s, StabilizerState ss, Engine* e);
+	void AddQubitToRender(Qubit q, Engine* e);
+
+private:
 	int distance = 3;
 	float errorRate = 0.1f;
 };

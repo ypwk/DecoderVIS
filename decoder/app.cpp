@@ -70,10 +70,10 @@ int main(void)
         // init central node handler
         CentralNodeHandler CNH = CentralNodeHandler();
 
-        int distance = 5;
-
         // init simulation
         Simulation sim = Simulation(&RenderEngine);
+
+        int counter = 0;
 
         ImGui_Handler IG_Handler = ImGui_Handler();
         IG_Handler.Create(window);
@@ -99,7 +99,11 @@ int main(void)
 
             ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-            sim.doTimeStep();
+            counter = (counter + 1) % sim.delay;
+
+            if (!counter) {
+                sim.doTimeStep();
+            }
 
             sim.render();
 

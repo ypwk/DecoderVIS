@@ -6,7 +6,7 @@ class Simulation
 {
 public:
 	Simulation(Engine* e) {
-		currentCode = new RotatedPlanarCode(codeDistance);
+		m_Code = new RotatedPlanarCode(codeDistance);
 		m_RenderEngine = e;
 
 		Decoder decoder;
@@ -15,7 +15,7 @@ public:
 
 	int codeDistance = 5;
 	float errorRate = 0.05f;
-	int delay = 5; // number of frames between each successive step
+	int delay = 2; // number of frames between each successive step
 	int currentExecutionStep = 0;
 	bool detailedExecution = false;
 
@@ -29,7 +29,7 @@ public:
 
 private:
 	bool needsVisualUpdate = true;
-	GenericCode* currentCode;
+	GenericCode* m_Code;
 	Decoder decoder;
 	Engine* m_RenderEngine;
 };
