@@ -8,7 +8,7 @@ RotatedPlanarCode::RotatedPlanarCode(int dist) : distance(dist)
 
     int mq_idx = 0;
     for (mq_idx; mq_idx < (dist - 1) * (dist - 1); mq_idx++) {
-        Stabilizer ns = Stabilizer{ mq_idx, StabilizerState(((mq_idx + mq_idx / (dist - 1)) % 2 ))};
+        Stabilizer ns = Stabilizer{ mq_idx, StabilizerType(((mq_idx + mq_idx / (dist - 1)) % 2 ))};
         ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1));
         ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1) + 1);
         ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1) + dist);
@@ -17,22 +17,22 @@ RotatedPlanarCode::RotatedPlanarCode(int dist) : distance(dist)
     }
     
     for (int i = 0; i < dist / 2; i++) {
-        Stabilizer ns = Stabilizer{ mq_idx++, StabilizerState((mq_idx + i) % 2)};
+        Stabilizer ns = Stabilizer{ mq_idx++, StabilizerType(1)};
         ns.qubits.push_back(2 * i);
         ns.qubits.push_back(2 * i + 1);
         measurementQubits.push_back(ns);
 
-        ns = Stabilizer{ mq_idx++, StabilizerState((mq_idx + i) % 2) };
+        ns = Stabilizer{ mq_idx++, StabilizerType(0) };
         ns.qubits.push_back((dist - 1) + dist * 2 * i);
         ns.qubits.push_back((dist - 1) + dist * (2 * i + 1));
         measurementQubits.push_back(ns);
 
-        ns = Stabilizer{ mq_idx++, StabilizerState((mq_idx + i) % 2) };
+        ns = Stabilizer{ mq_idx++, StabilizerType(0) };
         ns.qubits.push_back(dist + dist * 2 * i);
         ns.qubits.push_back(dist + dist * (2 * i + 1));
         measurementQubits.push_back(ns);
 
-        ns = Stabilizer{ mq_idx++, StabilizerState((mq_idx + i) % 2) };
+        ns = Stabilizer{ mq_idx++, StabilizerType(1) };
         ns.qubits.push_back(dist * (dist - 1) + 1 + 2 * i);
         ns.qubits.push_back(dist * (dist - 1) + 1 + 2 * i + 1);
         measurementQubits.push_back(ns);
@@ -116,7 +116,7 @@ void RotatedPlanarCode::AddQubitToRender(Qubit q, Engine* e)
 {
     glm::vec3 loc = GetDataQubitLocation(q);
     e->AddCircle(loc, QUBIT_SIZE_OUTER, LINE_COLOR);
-    e->AddCircle(loc, QUBIT_SIZE_INNER, Q_STATE_TO_COLOR[q.state]);
+    e->AddCircle(loc, QUBIT_SIZE_INNER, Q_STATE_TO_COLOR[(bool)(q.state.length() - 1)]);
 }
 
 glm::vec3 RotatedPlanarCode::GetDataQubitLocation(Qubit q)

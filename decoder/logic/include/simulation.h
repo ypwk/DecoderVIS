@@ -9,11 +9,13 @@ public:
 		m_Code = new RotatedPlanarCode(codeDistance);
 		m_RenderEngine = e;
 
+		srand((int)time(NULL));
+
 		Decoder decoder;
 	};
 	~Simulation() {};
 
-	int codeDistance = 5;
+	int codeDistance = 7;
 	float errorRate = 0.05f;
 	int delay = 2; // number of frames between each successive step
 	int currentExecutionStep = 0;

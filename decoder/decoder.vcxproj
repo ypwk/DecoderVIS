@@ -176,7 +176,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="logic\src\decoder.cpp" />
-    <ClCompile Include="logic\src\GenericCode.cpp" />
     <ClCompile Include="render\src\input.cpp" />
     <ClCompile Include="render\src\central_node_handler.cpp" />
     <ClCompile Include="logic\src\RotatedPlanarCode.cpp" />

@@ -4,41 +4,31 @@
 class GenericCode
 {
 public:
-	
-	enum QubitState {
-		NORMAL = 0,
-		PARITY_ERROR_X = 1,
-		PARITY_ERROR_Z = 2,
-		DATA_ERROR_X = 3,
-		DATA_ERROR_Y = 4,
-		DATA_ERROR_Z = 5,
-		TIME_ERROR = 6
-	};
 
 	struct Qubit {
 		int index;
-		QubitState state;
+		std::string state = "+";
 	};
 
-	enum StabilizerState {
+	enum StabilizerType {
 		X_STABILIZER = 0,
 		Z_STABILIZER = 1,
 	};
 
+	enum StabilizerState {
+		NORMAL = 0,
+		DETECTED_ERROR = 1,
+	};
+
 	struct Stabilizer {
 		int index;
-		StabilizerState type;
+		StabilizerType type;
 		std::vector<int> qubits;
 	};	
 
-	glm::vec4 Q_STATE_TO_COLOR[7] = {
+	glm::vec4 Q_STATE_TO_COLOR[2] = {
 		glm::vec4(1, 1, 1, 1),			//NORMAL
-		glm::vec4(1, 0, 0, 0.7f),		//PARITY_ERROR_X,
-		glm::vec4(1, 0, 0, 0.7f),		//PARITY_ERROR_Z,
-		glm::vec4(1, 0, 0, 0.7f),		//DATA_ERROR_X,
-		glm::vec4(0, 1, 0, 0.7f),		//DATA_ERROR_Y,
-		glm::vec4(0, 0, 1, 0.7f),		//DATA_ERROR_Z,
-		glm::vec4(1, 0, 1, 0.7f),		//TIME_ERROR
+		glm::vec4(1, 0, 0, 0.7f),		//ERROR
 	};
 
 	glm::vec4 STABILIZER_STATE_TO_COLOR[2] = {
@@ -57,6 +47,28 @@ public:
 
 	void setErrorRate(float er) { errorRate = er; };
 	float getErrorRate() { return errorRate; };
+
+	void applyOperator(Qubit* q, char e) {
+		bool neg = q->state.at(0) == '-';
+		// check for combinations
+		q->state.push_back(e);
+		if (q->state.length() >= 3) {
+			if (q->state.at(q->state.length() - 1) == q->state.at(q->state.length() - 2)) {
+				q->state.replace(q->state.length() - 2, 2, "");
+			}
+			else if (q->state.length() > 3) {
+				if (q->state.substr(q->state.length() - 3, 3) == "XZX") {
+					neg = !neg;
+					q->state.replace(q->state.length() - 3, 3, "Z");
+				}
+				else if (q->state.substr(q->state.length() - 3, 3) == "ZXZ") {
+					neg = !neg;
+					q->state.replace(q->state.length() - 3, 3, "X");
+				}
+			}
+		}
+		q->state.replace(0, 1, neg ? "-" : "+");
+	};
 
 protected:
 	float RENDER_UNIT_LENGTH = 1000.0f;

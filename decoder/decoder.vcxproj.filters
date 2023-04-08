@@ -81,9 +81,6 @@
     <ClCompile Include="render\src\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="logic\src\GenericCode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="logic\src\simulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -31,10 +31,19 @@ void Simulation::doTimeStep()
 bool Simulation::propagateErrors()
 {
 	// propagate errors
-	srand((int) time(NULL));
 	for (auto& qubit : m_Code->dataQubits){
 		if (((float) rand()) / (float)RAND_MAX < errorRate) {
-			qubit.state = GenericCode::QubitState(rand() % 3 + 3);
+			int err = rand() % 3;
+			if (err == 0) {
+				m_Code->applyOperator(&qubit, 'X');
+			}
+			else if (err == 1) {
+				m_Code->applyOperator(&qubit, 'Z');
+			}
+			else {
+				m_Code->applyOperator(&qubit, 'X');
+				m_Code->applyOperator(&qubit, 'Z');
+			}
 		}
 	}
 	return true;
@@ -43,7 +52,21 @@ bool Simulation::propagateErrors()
 bool Simulation::assembleErrorGraph()
 {
 	if (detailedExecution) {
-
+		for (auto& qubit : m_Code->dataQubits) {
+			if (((float)rand()) / (float)RAND_MAX < errorRate) {
+				int err = rand() % 3;
+				if (err == 0) {
+					m_Code->applyOperator(&qubit, 'X');
+				}
+				else if (err == 1) {
+					m_Code->applyOperator(&qubit, 'Z');
+				}
+				else {
+					m_Code->applyOperator(&qubit, 'X');
+					m_Code->applyOperator(&qubit, 'Z');
+				}
+			}
+		}
 	}
 	else {
 
