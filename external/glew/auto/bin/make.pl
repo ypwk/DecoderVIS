@@ -1,4 +1,5 @@
 ##
+## Copyright (C) 2008-2019, Nigel Stewart <nigels[]users sourceforge net>
 ## Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ## Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ##
@@ -9,7 +10,7 @@
 my %regex = (
     extname  => qr/^[A-Z][A-Za-z0-9_]+$/,
     exturl   => qr/^http.+$/,
-    function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i, 
+    function => qr/^(.+) ([a-z][a-z0-9_]*) \((.*)\)$/i,
     token    => qr/^([A-Z][A-Z0-9_x]*)\s+((?:0x)?[0-9A-Fa-f]+(u(ll)?)?|[A-Z][A-Z0-9_]*)$/,
     type     => qr/^typedef\s+(.+)$/,
     exact    => qr/.*;$/,

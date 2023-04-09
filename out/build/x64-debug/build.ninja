@@ -18,7 +18,7 @@
 #############################################
 # Minimal version of Ninja required by this file
 
-ninja_required_version = 1.5
+ninja_required_version = 1.8
 
 
 #############################################
@@ -51,9 +51,129 @@ build cmake_object_order_depends_target_DecoderVis: phony || cmake_object_order_
 
 build CMakeFiles\DecoderVis.dir\app.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\app.cpp || cmake_object_order_depends_target_DecoderVis
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
-  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\logic\include -IC:\Users\kevin\Programming\DecoderVis\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
   OBJECT_DIR = CMakeFiles\DecoderVis.dir
   OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\logic\src\RotatedPlanarCode.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\logic\src\RotatedPlanarCode.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\logic\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\logic\src\decoder.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\logic\src\decoder.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\logic\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\logic\src\simulation.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\logic\src\simulation.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\logic\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\central_node_handler.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\central_node_handler.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\engine.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\engine.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\ig_contentwindow.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\ig_contentwindow.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\ig_window.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\ig_window.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\index_buffer.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\index_buffer.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\input.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\input.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\renderer.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\renderer.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\shader.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\shader.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\texture.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\texture.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\vertex_array.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\vertex_array.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\vertex_buffer.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\vertex_buffer.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
+  TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
+  TARGET_PDB = DecoderVis.pdb
+
+build CMakeFiles\DecoderVis.dir\decoder\render\src\vertex_buffer_layout.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\Users\kevin\Programming\DecoderVis\decoder\render\src\vertex_buffer_layout.cpp || cmake_object_order_depends_target_DecoderVis
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI -std:c++20
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\decoder\logic\include -IC:\Users\kevin\Programming\DecoderVis\decoder\render\include -IC:\Users\kevin\Programming\DecoderVis\external\glew\include -IC:\Users\kevin\Programming\DecoderVis\external\glfw\include -IC:\Users\kevin\Programming\DecoderVis\external\glm -IC:\Users\kevin\Programming\DecoderVis\external\imgui -IC:\Users\kevin\Programming\DecoderVis\external\stb -IC:\Users\kevin\Programming\DecoderVis\external\glm\glm\..
+  OBJECT_DIR = CMakeFiles\DecoderVis.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecoderVis.dir\decoder\render\src
   TARGET_COMPILE_PDB = CMakeFiles\DecoderVis.dir\
   TARGET_PDB = DecoderVis.pdb
 
@@ -65,7 +185,7 @@ build CMakeFiles\DecoderVis.dir\app.cpp.obj: CXX_COMPILER__DecoderVis_Debug C$:\
 #############################################
 # Link the executable DecoderVis.exe
 
-build DecoderVis.exe: CXX_EXECUTABLE_LINKER__DecoderVis_Debug CMakeFiles\DecoderVis.dir\app.cpp.obj | external\glfw\src\glfw3.lib || external\glfw\src\glfw3.lib
+build DecoderVis.exe: CXX_EXECUTABLE_LINKER__DecoderVis_Debug CMakeFiles\DecoderVis.dir\app.cpp.obj CMakeFiles\DecoderVis.dir\decoder\logic\src\RotatedPlanarCode.cpp.obj CMakeFiles\DecoderVis.dir\decoder\logic\src\decoder.cpp.obj CMakeFiles\DecoderVis.dir\decoder\logic\src\simulation.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\central_node_handler.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\engine.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\ig_contentwindow.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\ig_window.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\index_buffer.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\input.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\renderer.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\shader.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\texture.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\vertex_array.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\vertex_buffer.cpp.obj CMakeFiles\DecoderVis.dir\decoder\render\src\vertex_buffer_layout.cpp.obj | external\glfw\src\glfw3.lib || external\glfw\src\glfw3.lib
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = external\glfw\src\glfw3.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -129,6 +249,159 @@ build CMakeFiles\install\local.util: CUSTOM_COMMAND all
   restat = 1
 
 build install\local: phony CMakeFiles\install\local.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/kevin/Programming/DecoderVis/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target libglew_static
+
+
+#############################################
+# Order-only phony target for libglew_static
+
+build cmake_object_order_depends_target_libglew_static: phony || external\glew\CMakeFiles\libglew_static.dir
+
+build external\glew\CMakeFiles\libglew_static.dir\src\glew.c.obj: C_COMPILER__libglew_static_Debug C$:\Users\kevin\Programming\DecoderVis\external\glew\src\glew.c || cmake_object_order_depends_target_libglew_static
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC -DVC_EXTRALEAN -DWIN32_MEAN_AND_LEAN -D_CRT_SECURE_NO_WARNINGS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -ZI
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\external\glew\include
+  OBJECT_DIR = external\glew\CMakeFiles\libglew_static.dir
+  OBJECT_FILE_DIR = external\glew\CMakeFiles\libglew_static.dir\src
+  TARGET_COMPILE_PDB = external\glew\CMakeFiles\libglew_static.dir\libglew_static.pdb
+  TARGET_PDB = external\glew\lib\glewd.pdb
+
+build external\glew\CMakeFiles\libglew_static.dir\build\glew.rc.res: RC_COMPILER__libglew_static_Debug C$:\Users\kevin\Programming\DecoderVis\external\glew\build\glew.rc || cmake_object_order_depends_target_libglew_static
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC -DVC_EXTRALEAN -DWIN32_MEAN_AND_LEAN -D_CRT_SECURE_NO_WARNINGS
+  DEP_FILE = external\glew\CMakeFiles\libglew_static.dir\build\glew.rc.res.d
+  FLAGS = -DWIN32 -D_DEBUG
+  INCLUDES = -I C:\Users\kevin\Programming\DecoderVis\external\glew\include
+  OBJECT_DIR = external\glew\CMakeFiles\libglew_static.dir
+  OBJECT_FILE_DIR = external\glew\CMakeFiles\libglew_static.dir\build
+  TARGET_COMPILE_PDB = external\glew\CMakeFiles\libglew_static.dir\libglew_static.pdb
+  TARGET_PDB = external\glew\lib\glewd.pdb
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target libglew_static
+
+
+#############################################
+# Link the static library external\glew\lib\glewd.lib
+
+build external\glew\lib\glewd.lib: C_STATIC_LIBRARY_LINKER__libglew_static_Debug external\glew\CMakeFiles\libglew_static.dir\src\glew.c.obj external\glew\CMakeFiles\libglew_static.dir\build\glew.rc.res
+  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -ZI
+  LINK_FLAGS = /machine:x64
+  OBJECT_DIR = external\glew\CMakeFiles\libglew_static.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = external\glew\CMakeFiles\libglew_static.dir\libglew_static.pdb
+  TARGET_FILE = external\glew\lib\glewd.lib
+  TARGET_PDB = external\glew\lib\glewd.pdb
+
+# =============================================================================
+# Object build statements for SHARED_LIBRARY target libglew_shared
+
+
+#############################################
+# Order-only phony target for libglew_shared
+
+build cmake_object_order_depends_target_libglew_shared: phony || external\glew\CMakeFiles\libglew_shared.dir
+
+build external\glew\CMakeFiles\libglew_shared.dir\src\glew.c.obj: C_COMPILER__libglew_shared_Debug C$:\Users\kevin\Programming\DecoderVis\external\glew\src\glew.c || cmake_object_order_depends_target_libglew_shared
+  DEFINES = -DGLEW_BUILD -DGLEW_NO_GLU -DVC_EXTRALEAN -DWIN32_MEAN_AND_LEAN -D_CRT_SECURE_NO_WARNINGS -Dlibglew_shared_EXPORTS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -ZI
+  INCLUDES = -IC:\Users\kevin\Programming\DecoderVis\external\glew\include
+  OBJECT_DIR = external\glew\CMakeFiles\libglew_shared.dir
+  OBJECT_FILE_DIR = external\glew\CMakeFiles\libglew_shared.dir\src
+  TARGET_COMPILE_PDB = external\glew\CMakeFiles\libglew_shared.dir\
+  TARGET_PDB = external\glew\bin\glew-sharedd.pdb
+
+build external\glew\CMakeFiles\libglew_shared.dir\build\glew.rc.res: RC_COMPILER__libglew_shared_Debug C$:\Users\kevin\Programming\DecoderVis\external\glew\build\glew.rc || cmake_object_order_depends_target_libglew_shared
+  DEFINES = -DGLEW_BUILD -DGLEW_NO_GLU -DVC_EXTRALEAN -DWIN32_MEAN_AND_LEAN -D_CRT_SECURE_NO_WARNINGS -Dlibglew_shared_EXPORTS
+  DEP_FILE = external\glew\CMakeFiles\libglew_shared.dir\build\glew.rc.res.d
+  FLAGS = -DWIN32 -D_DEBUG
+  INCLUDES = -I C:\Users\kevin\Programming\DecoderVis\external\glew\include
+  OBJECT_DIR = external\glew\CMakeFiles\libglew_shared.dir
+  OBJECT_FILE_DIR = external\glew\CMakeFiles\libglew_shared.dir\build
+  TARGET_COMPILE_PDB = external\glew\CMakeFiles\libglew_shared.dir\
+  TARGET_PDB = external\glew\bin\glew-sharedd.pdb
+
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target libglew_shared
+
+
+#############################################
+# Link the shared library external\glew\bin\glew-sharedd.dll
+
+build external\glew\bin\glew-sharedd.dll external\glew\lib\glew-sharedd.lib: C_SHARED_LIBRARY_LINKER__libglew_shared_Debug external\glew\CMakeFiles\libglew_shared.dir\src\glew.c.obj external\glew\CMakeFiles\libglew_shared.dir\build\glew.rc.res
+  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -ZI
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL
+  LINK_LIBRARIES = opengl32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = external\glew\CMakeFiles\libglew_shared.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  RESTAT = 1
+  TARGET_COMPILE_PDB = external\glew\CMakeFiles\libglew_shared.dir\
+  TARGET_FILE = external\glew\bin\glew-sharedd.dll
+  TARGET_IMPLIB = external\glew\lib\glew-sharedd.lib
+  TARGET_PDB = external\glew\bin\glew-sharedd.pdb
+
+
+#############################################
+# Utility command for edit_cache
+
+build external\glew\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\external\glew && "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build external\glew\edit_cache: phony external\glew\CMakeFiles\edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external\glew\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\external\glew && "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\kevin\Programming\DecoderVis -BC:\Users\kevin\Programming\DecoderVis\out\build\x64-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external\glew\rebuild_cache: phony external\glew\CMakeFiles\rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external\glew\list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external\glew\CMakeFiles\install.util: CUSTOM_COMMAND external\glew\all
+  COMMAND = cmd.exe /C "cd /D C:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\external\glew && "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external\glew\install: phony external\glew\CMakeFiles\install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external\glew\CMakeFiles\install\local.util: CUSTOM_COMMAND external\glew\all
+  COMMAND = cmd.exe /C "cd /D C:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\external\glew && "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external\glew\install\local: phony external\glew\CMakeFiles\install\local.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -556,9 +829,17 @@ build external\glm\glm\install\local: phony external\glm\glm\CMakeFiles\install\
 
 build DecoderVis: phony DecoderVis.exe
 
+build glew-sharedd.dll: phony external\glew\bin\glew-sharedd.dll
+
+build glewd.lib: phony external\glew\lib\glewd.lib
+
 build glfw: phony external\glfw\src\glfw3.lib
 
 build glfw3.lib: phony external\glfw\src\glfw3.lib
+
+build libglew_shared: phony external\glew\bin\glew-sharedd.dll
+
+build libglew_static: phony external\glew\lib\glewd.lib
 
 build uninstall: phony external\glfw\uninstall
 
@@ -572,7 +853,14 @@ build update_mappings: phony external\glfw\src\update_mappings
 #############################################
 # Folder: C:/Users/kevin/Programming/DecoderVis/out/build/x64-debug
 
-build all: phony DecoderVis.exe external\glfw\all
+build all: phony DecoderVis.exe external\glew\all external\glfw\all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/kevin/Programming/DecoderVis/out/build/x64-debug/external/glew
+
+build external\glew\all: phony external\glew\lib\glewd.lib external\glew\bin\glew-sharedd.dll
 
 # =============================================================================
 
@@ -607,16 +895,30 @@ build external\glm\glm\all: phony
 
 
 #############################################
+# Phony target to force glob verification run.
+
+build C$:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\CMakeFiles\VerifyGlobs.cmake_force: phony
+
+
+#############################################
+# Re-run CMake to check if globbed directories changed.
+
+build C$:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\CMakeFiles\cmake.verify_globs: VERIFY_GLOBS | C$:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\CMakeFiles\VerifyGlobs.cmake_force
+  pool = console
+  restat = 1
+
+
+#############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\BasicConfigVersion-SameMajorVersion.cmake.in C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakePackageConfigHelpers.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckCSourceCompiles.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckIncludeFile.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckLibraryExists.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindGLEW.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindThreads.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\GNUInstallDirs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Internal\CheckSourceCompiles.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\SelectLibraryConfigurations.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\WriteBasicConfigVersionFile.cmake C$:\Users\kevin\Programming\DecoderVis\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\cmake_uninstall.cmake.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw3.pc.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw3Config.cmake.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw_config.h.in C$:\Users\kevin\Programming\DecoderVis\external\glm\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glm\glm\CMakeLists.txt CMakeCache.txt CMakeFiles\3.25.1-msvc1\CMakeCCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeCXXCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeRCCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE C$:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\CMakeFiles\cmake.verify_globs | C$:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\CMakeFiles\VerifyGlobs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\BasicConfigVersion-SameMajorVersion.cmake.in C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakePackageConfigHelpers.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckCSourceCompiles.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckIncludeFile.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckLibraryExists.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindOpenGL.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindThreads.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\GNUInstallDirs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Internal\CheckSourceCompiles.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\WriteBasicConfigVersionFile.cmake C$:\Users\kevin\Programming\DecoderVis\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glew\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glew\GeneratePkgConfig.cmake C$:\Users\kevin\Programming\DecoderVis\external\glfw\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\cmake_uninstall.cmake.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw3.pc.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw3Config.cmake.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw_config.h.in C$:\Users\kevin\Programming\DecoderVis\external\glm\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glm\glm\CMakeLists.txt CMakeCache.txt CMakeFiles\3.25.1-msvc1\CMakeCCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeCXXCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeRCCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\BasicConfigVersion-SameMajorVersion.cmake.in C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakePackageConfigHelpers.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckCSourceCompiles.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckIncludeFile.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckLibraryExists.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindGLEW.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindThreads.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\GNUInstallDirs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Internal\CheckSourceCompiles.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\SelectLibraryConfigurations.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\WriteBasicConfigVersionFile.cmake C$:\Users\kevin\Programming\DecoderVis\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\cmake_uninstall.cmake.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw3.pc.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw3Config.cmake.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw_config.h.in C$:\Users\kevin\Programming\DecoderVis\external\glm\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glm\glm\CMakeLists.txt CMakeCache.txt CMakeFiles\3.25.1-msvc1\CMakeCCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeCXXCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeRCCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeSystem.cmake: phony
+build C$:\Users\kevin\Programming\DecoderVis\out\build\x64-debug\CMakeFiles\VerifyGlobs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\BasicConfigVersion-SameMajorVersion.cmake.in C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakePackageConfigHelpers.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckCSourceCompiles.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckIncludeFile.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\CheckLibraryExists.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindOpenGL.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\FindThreads.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\GNUInstallDirs.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Internal\CheckSourceCompiles.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files\Microsoft$ Visual$ Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.25\Modules\WriteBasicConfigVersionFile.cmake C$:\Users\kevin\Programming\DecoderVis\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glew\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glew\GeneratePkgConfig.cmake C$:\Users\kevin\Programming\DecoderVis\external\glfw\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\cmake_uninstall.cmake.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw3.pc.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw3Config.cmake.in C$:\Users\kevin\Programming\DecoderVis\external\glfw\src\glfw_config.h.in C$:\Users\kevin\Programming\DecoderVis\external\glm\CMakeLists.txt C$:\Users\kevin\Programming\DecoderVis\external\glm\glm\CMakeLists.txt CMakeCache.txt CMakeFiles\3.25.1-msvc1\CMakeCCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeCXXCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeRCCompiler.cmake CMakeFiles\3.25.1-msvc1\CMakeSystem.cmake: phony
 
 
 #############################################

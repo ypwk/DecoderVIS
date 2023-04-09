@@ -1,7 +1,7 @@
 #ifndef GLEW_INCLUDE
-#include <GL/glew.h>
+#  include <GL/glew.h>
 #else
-#include GLEW_INCLUDE
+#  include GLEW_INCLUDE
 #endif
 
 #if defined(GLEW_OSMESA)
@@ -28,7 +28,7 @@
 #if defined(GLEW_EGL)
 #elif defined(GLEW_REGAL)
 
-/* In GLEW_REGAL mode we call direcly into the linked
+/* In GLEW_REGAL mode we call directly into the linked
    libRegal.so glGetProcAddressREGAL for looking up
    the GL function pointers. */
 
@@ -70,7 +70,7 @@ void* dlGetProcAddress (const GLubyte* name)
 #include <string.h>
 #include <AvailabilityMacros.h>
 
-#ifdef MAC_OS_X_VERSION_10_3
+#if defined(MAC_OS_X_VERSION_10_3) && MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_3
 
 #include <dlfcn.h>
 
@@ -120,7 +120,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
   return NULL;
 #endif
 }
-#endif /* MAC_OS_X_VERSION_10_3 */
+#endif /* defined(MAC_OS_X_VERSION_10_3) && MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_3 */
 #endif /* __APPLE__ */
 
 /*
@@ -221,7 +221,7 @@ static GLboolean _glewStrSame1 (const GLubyte** a, GLuint* na, const GLubyte* b,
   if(*na >= nb)
   {
     GLuint i=0;
-    while (i < nb && (*a)+i != NULL && b+i != NULL && (*a)[i] == b[i]) i++;
+    while (i < nb && (*a)[i] == b[i]) i++;
     if(i == nb)
     {
       *a = *a + nb;
@@ -237,7 +237,7 @@ static GLboolean _glewStrSame2 (const GLubyte** a, GLuint* na, const GLubyte* b,
   if(*na >= nb)
   {
     GLuint i=0;
-    while (i < nb && (*a)+i != NULL && b+i != NULL && (*a)[i] == b[i]) i++;
+    while (i < nb && (*a)[i] == b[i]) i++;
     if(i == nb)
     {
       *a = *a + nb;
@@ -253,7 +253,7 @@ static GLboolean _glewStrSame3 (const GLubyte** a, GLuint* na, const GLubyte* b,
   if(*na >= nb)
   {
     GLuint i=0;
-    while (i < nb && (*a)+i != NULL && b+i != NULL && (*a)[i] == b[i]) i++;
+    while (i < nb && (*a)[i] == b[i]) i++;
     if (i == nb && (*na == nb || (*a)[i] == ' ' || (*a)[i] == '\n' || (*a)[i] == '\r' || (*a)[i] == '\t'))
     {
       *a = *a + nb;
