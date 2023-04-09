@@ -1,0 +1,38 @@
+﻿# CMakeList.txt : CMake project for DecoderVis, include source and define
+# project specific logic here.
+#
+cmake_minimum_required (VERSION 3.8)
+
+# Enable Hot Reload for MSVC compilers if supported.
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
+
+project ("DecoderVis")
+
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+add_executable (DecoderVis ${PROJECT_SOURCE_DIR}/app.cpp)
+
+target_include_directories(DecoderVis PRIVATE
+    ${PROJECT_SOURCE_DIR}/logic/include
+    ${PROJECT_SOURCE_DIR}/render/include
+    ${PROJECT_SOURCE_DIR}/external/glm
+    ${PROJECT_SOURCE_DIR}/external/imgui
+    ${PROJECT_SOURCE_DIR}/external/stb
+)
+
+add_subdirectory(${PROJECT_SOURCE_DIR}/external/glfw)
+target_link_libraries(DecoderVis PRIVATE glfw)
+
+find_package(glew REQUIRED)
+
+add_subdirectory(${PROJECT_SOURCE_DIR}/external/glm EXCLUDE_FROM_ALL)
+target_link_libraries(DecoderVis PRIVATE glm)
+
+if (CMAKE_VERSION VERSION_GREATER 3.12)
+  set_property(TARGET DecoderVis PROPERTY CXX_STANDARD 20)
+endif()
