@@ -16,4 +16,5 @@ target_link_libraries(DecoderVis PUBLIC
 	glfw
 	libglew_static
 	glm
+	lemon
 )

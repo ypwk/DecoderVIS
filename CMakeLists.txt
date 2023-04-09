@@ -21,6 +21,8 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/external/glew)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/glfw)
 
+add_subdirectory(${PROJECT_SOURCE_DIR}/external/lemon)
+
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/glm EXCLUDE_FROM_ALL)
 
 target_include_directories(DecoderVis PRIVATE
