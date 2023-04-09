@@ -45,7 +45,7 @@ private:
 	std::vector<Vertex> vertices;
 	std::vector<int> indices;
 
-	Shader m_Shader = Shader("res/shaders/Color.shader");
+	Shader m_Shader = Shader("../../../../decoder/res/shaders/Color.shader");
 
 public:
 	Engine();

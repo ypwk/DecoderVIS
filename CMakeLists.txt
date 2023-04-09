@@ -15,29 +15,25 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
-file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
-    "${PROJECT_SOURCE_DIR}/decoder/render/src/*.cpp"
-    "${PROJECT_SOURCE_DIR}/decoder/logic/src/*.cpp"
-)
-
-add_executable (DecoderVis ${PROJECT_SOURCE_DIR}/app.cpp ${SRC_FILES})
+add_subdirectory(${PROJECT_SOURCE_DIR}/decoder)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/glew)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/glfw)
-target_link_libraries(DecoderVis PRIVATE glfw)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/glm EXCLUDE_FROM_ALL)
-target_link_libraries(DecoderVis PRIVATE glm)
 
 target_include_directories(DecoderVis PRIVATE
     ${PROJECT_SOURCE_DIR}/decoder/logic/include
     ${PROJECT_SOURCE_DIR}/decoder/render/include
-    ${PROJECT_SOURCE_DIR}/external/glew/include
-    ${PROJECT_SOURCE_DIR}/external/glfw/include
     ${PROJECT_SOURCE_DIR}/external/glm
     ${PROJECT_SOURCE_DIR}/external/imgui
     ${PROJECT_SOURCE_DIR}/external/stb
+)
+
+target_include_directories(DecoderVis PUBLIC
+    ${PROJECT_SOURCE_DIR}/external/glew/include
+    ${PROJECT_SOURCE_DIR}/external/glfw/include
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

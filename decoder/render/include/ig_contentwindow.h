@@ -24,7 +24,7 @@ private:
 	const float quad_positions[8] = { 0.5f,  0.5f, -0.5f,  0.5f, -0.5f, -0.5f, 0.5f, -0.5f };
 	const unsigned int quad_indices[6] = { 0, 1, 2, 2, 3, 0 };
 
-	Shader m_Shader = Shader("res/shaders/Fbo.shader");
+	Shader m_Shader = Shader("../../../../decoder/res/shaders/Fbo.shader");
 	VertexArray m_VertexArray;
 	VertexBuffer m_VertexBuffer = VertexBuffer(quad_positions, 8 * sizeof(float));
 	VertexBufferLayout m_VBLayout;

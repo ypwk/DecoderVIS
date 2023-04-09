@@ -34,6 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("C:/Users/kevin/Programming/DecoderVis/out/build/x64-debug/decoder/cmake_install.cmake")
   include("C:/Users/kevin/Programming/DecoderVis/out/build/x64-debug/external/glew/cmake_install.cmake")
   include("C:/Users/kevin/Programming/DecoderVis/out/build/x64-debug/external/glfw/cmake_install.cmake")
 
