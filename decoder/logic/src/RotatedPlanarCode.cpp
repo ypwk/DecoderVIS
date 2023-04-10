@@ -8,34 +8,34 @@ RotatedPlanarCode::RotatedPlanarCode(int dist) : distance(dist)
 
     int mq_idx = 0;
     for (mq_idx; mq_idx < (dist - 1) * (dist - 1); mq_idx++) {
-        Stabilizer ns = Stabilizer{ mq_idx, StabilizerType(((mq_idx + mq_idx / (dist - 1)) % 2 ))};
+        Stabilizer ns = Stabilizer{ mq_idx, StabilizerType(((mq_idx + mq_idx / (dist - 1)) % 2 )), StabilizerState(0) };
         ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1));
         ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1) + 1);
         ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1) + dist);
         ns.qubits.push_back(mq_idx / (dist - 1) * dist + mq_idx % (dist - 1) + dist + 1);
-        measurementQubits.push_back(ns);
+        stabilizers.push_back(ns);
     }
     
     for (int i = 0; i < dist / 2; i++) {
-        Stabilizer ns = Stabilizer{ mq_idx++, StabilizerType(1)};
+        Stabilizer ns = Stabilizer{ mq_idx++, StabilizerType(1), StabilizerState(0) };
         ns.qubits.push_back(2 * i);
         ns.qubits.push_back(2 * i + 1);
-        measurementQubits.push_back(ns);
+        stabilizers.push_back(ns);
 
-        ns = Stabilizer{ mq_idx++, StabilizerType(0) };
+        ns = Stabilizer{ mq_idx++, StabilizerType(0), StabilizerState(0) };
         ns.qubits.push_back((dist - 1) + dist * 2 * i);
         ns.qubits.push_back((dist - 1) + dist * (2 * i + 1));
-        measurementQubits.push_back(ns);
+        stabilizers.push_back(ns);
 
-        ns = Stabilizer{ mq_idx++, StabilizerType(0) };
+        ns = Stabilizer{ mq_idx++, StabilizerType(0), StabilizerState(0) };
         ns.qubits.push_back(dist + dist * 2 * i);
         ns.qubits.push_back(dist + dist * (2 * i + 1));
-        measurementQubits.push_back(ns);
+        stabilizers.push_back(ns);
 
-        ns = Stabilizer{ mq_idx++, StabilizerType(1) };
+        ns = Stabilizer{ mq_idx++, StabilizerType(1), StabilizerState(0) };
         ns.qubits.push_back(dist * (dist - 1) + 1 + 2 * i);
         ns.qubits.push_back(dist * (dist - 1) + 1 + 2 * i + 1);
-        measurementQubits.push_back(ns);
+        stabilizers.push_back(ns);
     }
 }
 
@@ -48,8 +48,8 @@ void RotatedPlanarCode::render(Engine* e)
             10, LINE_COLOR);
     }
 
-    for (int i = 0; i < measurementQubits.size(); i++) {
-        AddStabilizerToRender(measurementQubits[i], StabilizerState(i % 2), e);
+    for (int i = 0; i < stabilizers.size(); i++) {
+        AddStabilizerToRender(stabilizers[i], e);
     }
 
     for (int i = 0; i < dataQubits.size(); i++) {
@@ -57,7 +57,7 @@ void RotatedPlanarCode::render(Engine* e)
     }
 }
 
-void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, StabilizerState ss, Engine* e)
+void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, Engine* e)
 {
     if (s.qubits.size() == 2) {
         // calculate location
@@ -94,7 +94,7 @@ void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, StabilizerState ss, 
 
         // draw stabilizer
         e->AddQuad(target + translation, 2 * QUBIT_SIZE_OUTER, 2 * QUBIT_SIZE_OUTER, 45, LINE_COLOR);
-        e->AddQuad(target + translation, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45, STABILIZER_STATE_TO_COLOR[s.type]);
+        e->AddQuad(target + translation, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45, STABILIZER_TYPE_AND_STATE_TO_COLOR[s.type * 2 + s.state]);
 
     }
     else if (s.qubits.size() == 4) {
@@ -107,8 +107,7 @@ void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, StabilizerState ss, 
 
         // draw stabilizer
         e->AddQuad(target, 2 * QUBIT_SIZE_OUTER, 2 * QUBIT_SIZE_OUTER, 45, LINE_COLOR);
-        e->AddQuad(target, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45, STABILIZER_STATE_TO_COLOR[s.type]);
-
+        e->AddQuad(target, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45, STABILIZER_TYPE_AND_STATE_TO_COLOR[s.type * 2 + s.state]);
     }
 }
 

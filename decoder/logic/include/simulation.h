@@ -16,7 +16,7 @@ public:
 	~Simulation() {};
 
 	int codeDistance = 7;
-	float errorRate = 0.05f;
+	float errorRate = 0.01f;
 	int delay = 2; // number of frames between each successive step
 	int currentExecutionStep = 0;
 	bool detailedExecution = false;
@@ -25,12 +25,15 @@ public:
 	void doTimeStep();
 
 	bool propagateErrors();
+	bool stabilizerMeasurements();
 	bool assembleErrorGraph();
 	bool decodeErrorGraph();
 	bool fixErrors();
 
 private:
 	bool needsVisualUpdate = true;
+	int current_idx = 0;
+	std::vector<GenericCode::Qubit> err_qubits;
 	GenericCode* m_Code;
 	Decoder decoder;
 	Engine* m_RenderEngine;

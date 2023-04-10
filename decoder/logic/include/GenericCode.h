@@ -23,6 +23,7 @@ public:
 	struct Stabilizer {
 		int index;
 		StabilizerType type;
+		StabilizerState state;
 		std::vector<int> qubits;
 	};	
 
@@ -31,16 +32,18 @@ public:
 		glm::vec4(1, 0, 0, 0.7f),		//ERROR
 	};
 
-	glm::vec4 STABILIZER_STATE_TO_COLOR[2] = {
+	glm::vec4 STABILIZER_TYPE_AND_STATE_TO_COLOR[4] = {
 		glm::vec4(1, 0, 0, 0.4f),
-		glm::vec4(0, 0, 1, 0.4f)
+		glm::vec4(1, 1, 0, 0.4f),
+		glm::vec4(0, 0, 1, 0.4f),
+		glm::vec4(0, 1, 1, 0.4f),
 	};
 
 	glm::vec4 LINE_COLOR = glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f);
 	glm::vec4 BACK_STAB = glm::vec4(1, 1, 1, 0.1f);
 
 	std::vector<Qubit> dataQubits;
-	std::vector<Stabilizer> measurementQubits;
+	std::vector<Stabilizer> stabilizers;
 
 	virtual void render(Engine* e) = 0;
 	virtual void generateNextStep() {};
@@ -75,7 +78,7 @@ protected:
 	float QUBIT_SIZE_INNER = 40.0f;
 	float QUBIT_SIZE_OUTER = 50.0f;
 	virtual void AddQubitToRender(Qubit q, Engine* e) = 0;
-	virtual void AddStabilizerToRender(Stabilizer s, StabilizerState ss, Engine* e) = 0;
+	virtual void AddStabilizerToRender(Stabilizer s, Engine* e) = 0;
 
 private:
 	float errorRate = 0.1f;

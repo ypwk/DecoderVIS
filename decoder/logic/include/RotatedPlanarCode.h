@@ -16,7 +16,7 @@ public:
 	glm::vec3 GetDataQubitLocation(Qubit q);
 
 protected:
-	void AddStabilizerToRender(Stabilizer s, StabilizerState ss, Engine* e);
+	void AddStabilizerToRender(Stabilizer s, Engine* e);
 	void AddQubitToRender(Qubit q, Engine* e);
 
 private:
