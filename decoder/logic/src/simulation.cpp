@@ -53,11 +53,11 @@ bool Simulation::propagateErrors()
 
 bool Simulation::stabilizerMeasurements() 
 {
-	for (GenericCode::Stabilizer stabilizer : m_Code->stabilizers) {
-		for (int qubit_idx : stabilizer.qubits) {
-			if (m_Code->dataQubits[qubit_idx].state.find(stabilizer.state ? 'Z' : 'X') != std::string::npos) {
-				stabilizer.state = GenericCode::StabilizerState((stabilizer.state + 1) % 2);
-				std::cout << "out" << GenericCode::StabilizerState((stabilizer.state + 1) % 2) << std::endl;
+	for (int idx = 0; idx < m_Code->stabilizers.size(); idx++) {
+		m_Code->stabilizers[idx].state = GenericCode::StabilizerState(0);
+		for (int qubit_idx : m_Code->stabilizers[idx].qubits) {
+			if (m_Code->dataQubits[qubit_idx].state.find(m_Code->stabilizers[idx].state ? 'Z' : 'X') != std::string::npos) {
+				m_Code->stabilizers[idx].state = GenericCode::StabilizerState((m_Code->stabilizers[idx].state + 1) % 2);
 			}
 		}
 	}
@@ -68,9 +68,9 @@ bool Simulation::assembleErrorGraph()
 {
 	if (detailedExecution) {
 		if (!current_idx) {
-			for (auto& qubit : m_Code->dataQubits) {
-				if (qubit.state.length() > 1) {
-					err_qubits.push_back(qubit);
+			for (auto& stabilizer : m_Code->stabilizers) {
+				if (stabilizer.state) {
+					err_stabilizers.push_back(stabilizer);
 				}
 			}
 

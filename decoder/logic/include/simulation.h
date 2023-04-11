@@ -33,7 +33,7 @@ public:
 private:
 	bool needsVisualUpdate = true;
 	int current_idx = 0;
-	std::vector<GenericCode::Qubit> err_qubits;
+	std::vector<GenericCode::Stabilizer> err_stabilizers;
 	GenericCode* m_Code;
 	Decoder decoder;
 	Engine* m_RenderEngine;
