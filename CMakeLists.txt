@@ -36,6 +36,8 @@ target_include_directories(DecoderVis PRIVATE
 target_include_directories(DecoderVis PUBLIC
     ${PROJECT_SOURCE_DIR}/external/glew/include
     ${PROJECT_SOURCE_DIR}/external/glfw/include
+    ${PROJECT_SOURCE_DIR}/external/lemon
+    ${PROJECT_SOURCE_DIR}/out/build/x64-debug/external/lemon
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

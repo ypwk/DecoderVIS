@@ -1,6 +1,7 @@
 #pragma once
-#include <RotatedPlanarCode.h>
-#include <decoder.h>
+#include "RotatedPlanarCode.h"
+#include "decoder.h"
+#include <lemon/list_graph.h>
 
 class Simulation
 {

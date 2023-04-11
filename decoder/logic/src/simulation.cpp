@@ -67,18 +67,20 @@ bool Simulation::stabilizerMeasurements()
 bool Simulation::assembleErrorGraph()
 {
 	if (detailedExecution) {
-		if (!current_idx) {
+		if (err_stabilizers.size() == 0) { // populate err_stabilizers if empty
 			for (auto& stabilizer : m_Code->stabilizers) {
 				if (stabilizer.state) {
 					err_stabilizers.push_back(stabilizer);
 				}
 			}
-
+			current_idx = 0;
 		}
-		else {
+		
+		for (int idx = 0; idx < err_stabilizers.size(); idx++) {
+			if (idx != current_idx) {
 
+			}
 		}
-
 	}
 	else {
 
