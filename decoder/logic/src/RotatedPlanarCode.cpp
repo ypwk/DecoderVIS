@@ -83,8 +83,7 @@ void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, Engine* e)
             else {
                 orientation = 90;
                 translation.x = -RENDER_UNIT_LENGTH / 2.0f;
-            }
-                
+            } 
         }
         // draw semicircle
         e->AddSemiCircleArc(target, RENDER_UNIT_LENGTH / 2, \
@@ -93,8 +92,8 @@ void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, Engine* e)
         orientation, BACK_STAB);
 
         // draw stabilizer
-        e->AddQuad(target + translation, 2 * QUBIT_SIZE_OUTER, 2 * QUBIT_SIZE_OUTER, 45, LINE_COLOR);
-        e->AddQuad(target + translation, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45, STABILIZER_TYPE_AND_STATE_TO_COLOR[s.type * 2 + s.state]);
+        e->AddQuad(target + translation, 2 * QUBIT_SIZE_OUTER, 2 * QUBIT_SIZE_OUTER, 45.0f * (1 - s.state), LINE_COLOR);
+        e->AddQuad(target + translation, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45.0f * (1 - s.state), STABILIZER_TYPE_AND_STATE_TO_COLOR[s.type * 2]);
 
     }
     else if (s.qubits.size() == 4) {
@@ -106,8 +105,8 @@ void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, Engine* e)
         e->AddQuad(target, RENDER_UNIT_LENGTH, RENDER_UNIT_LENGTH, 0, BACK_STAB);
 
         // draw stabilizer
-        e->AddQuad(target, 2 * QUBIT_SIZE_OUTER, 2 * QUBIT_SIZE_OUTER, 45, LINE_COLOR);
-        e->AddQuad(target, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45, STABILIZER_TYPE_AND_STATE_TO_COLOR[s.type * 2 + s.state]);
+        e->AddQuad(target, 2 * QUBIT_SIZE_OUTER, 2 * QUBIT_SIZE_OUTER, 45.0f * (1 - s.state), LINE_COLOR);
+        e->AddQuad(target, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45.0f * (1 - s.state), STABILIZER_TYPE_AND_STATE_TO_COLOR[s.type * 2]);
     }
 }
 
@@ -123,3 +122,30 @@ glm::vec3 RotatedPlanarCode::GetDataQubitLocation(Qubit q)
     return glm::vec3((q.index % distance - distance / 2) * RENDER_UNIT_LENGTH, (q.index / distance - distance / 2) * RENDER_UNIT_LENGTH, 0);
 }
 
+glm::vec3 RotatedPlanarCode::GetStabilizerLocation(Stabilizer s)
+{
+    glm::vec3 translation(0, 0, 0);
+    if (s.qubits.size() == 2) {
+        if (s.qubits[1] - s.qubits[0] == 1) {// top or bottom
+            if (s.qubits[0] > distance + 1) {
+                translation.y = RENDER_UNIT_LENGTH / 2.0f;
+            }
+            else {
+                translation.y = -RENDER_UNIT_LENGTH / 2.0f;
+            }
+        }
+        else { // one of the sides
+            if (s.qubits[0] % distance) {
+                translation.x = RENDER_UNIT_LENGTH / 2.0f;
+            }
+            else {
+                translation.x = -RENDER_UNIT_LENGTH / 2.0f;
+            }
+        }
+        return (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]])) * 0.5f + translation;
+    }
+    else {
+        return (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]]) \
+            + GetDataQubitLocation(dataQubits[s.qubits[2]]) + GetDataQubitLocation(dataQubits[s.qubits[3]])) * 0.25f;
+    }
+}

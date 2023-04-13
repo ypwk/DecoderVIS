@@ -14,6 +14,7 @@ public:
 	void generateNextStep() {};
 
 	glm::vec3 GetDataQubitLocation(Qubit q);
+	glm::vec3 GetStabilizerLocation(Stabilizer s);
 
 protected:
 	void AddStabilizerToRender(Stabilizer s, Engine* e);

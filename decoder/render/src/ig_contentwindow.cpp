@@ -53,7 +53,9 @@ void ImGui_ContentWindowHandler::PostRender()
     GLCall(glBlitFramebuffer(0, 0, m_Width, m_Height, 0, 0, m_Width, m_Height, GL_COLOR_BUFFER_BIT, GL_NEAREST));
 
     // back to default FrameBuffer
-    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0)); 
+    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+    GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
+    GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
     // output to imgui
     ImVec2 pos = ImGui::GetCursorScreenPos();
@@ -62,6 +64,5 @@ void ImGui_ContentWindowHandler::PostRender()
             ImGui::GetWindowPos().y + padding * 3),
         ImVec2(ImGui::GetWindowPos().x + ImGui::GetWindowWidth() - padding, 
             ImGui::GetWindowPos().y + ImGui::GetWindowHeight() - padding), ImVec2(0, 1), ImVec2(1, 0));
-
     ImGui::End();
 }

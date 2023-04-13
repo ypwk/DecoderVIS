@@ -82,6 +82,8 @@ int main(void)
         ImGui_Handler IG_Handler = ImGui_Handler();
         IG_Handler.Create(window);
 
+        sim.updateEngineForCode(&InputHandler);
+
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
@@ -97,7 +99,7 @@ int main(void)
             InputHandler.MouseInput();
 
             // render content in content window
-            // RenderEngine.Clear();
+            RenderEngine.Clear();
 
             RenderEngine.UpdateAspectRatio();
 
@@ -105,11 +107,10 @@ int main(void)
 
             counter = (counter + 1) % sim.delay;
 
+            sim.render();
             if (!counter) {
                 sim.doTimeStep();
             }
-
-            sim.render();
 
             RenderEngine.Render();
             // end render content in content window 
@@ -134,6 +135,7 @@ int main(void)
                 //ImGui::SliderFloat("raidus", &size, 0.0f, 1000.0f);
 
                 //ImGui::SliderFloat("rotation", &rotation, 0.0f, 359.0f);
+                ImGui:ImGui::SliderInt("Frames/Update", &sim.delay, 1, 100);
             }
             ImGui::End();
 

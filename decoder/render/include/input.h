@@ -8,8 +8,7 @@ class Input
 private:
 	Engine* m_Engine = 0;
 
-	float currentScale = 0.0f;
-	float scaleQuant = 1.1f;
+	
 	float sens = 0.5;
 
 	bool isDragging = false;
@@ -17,6 +16,9 @@ private:
 	glm::vec3 currentTranslation = glm::vec3 (0.0f, 0.0f, 0.0f);
 	
 public:
+	float currentScale = 0.0f;
+	float scaleQuant = 1.1f;
+
 	Input(GLFWwindow* w){
 		glfwSetWindowUserPointer(w, this);
 		glfwSetScrollCallback(w, StaticScrollCallback);

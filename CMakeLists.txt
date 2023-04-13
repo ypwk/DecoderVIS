@@ -16,13 +16,9 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/decoder)
-
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/glew)
-
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/glfw)
-
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/lemon)
-
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/glm EXCLUDE_FROM_ALL)
 
 target_include_directories(DecoderVis PRIVATE

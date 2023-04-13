@@ -41,6 +41,7 @@ public:
 
 	glm::vec4 LINE_COLOR = glm::vec4(133.0f / 256, 133.0f / 256, 133.0f / 256, 1.0f);
 	glm::vec4 BACK_STAB = glm::vec4(1, 1, 1, 0.1f);
+	float RENDER_UNIT_LENGTH = 1000.0f;
 
 	std::vector<Qubit> dataQubits;
 	std::vector<Stabilizer> stabilizers;
@@ -73,8 +74,14 @@ public:
 		q->state.replace(0, 1, neg ? "-" : "+");
 	};
 
+	virtual glm::vec3 GetDataQubitLocation(Qubit q) = 0;
+	virtual glm::vec3 GetStabilizerLocation(Stabilizer s) = 0;
+
+	int getDistance() {
+		return distance;
+	}
+
 protected:
-	float RENDER_UNIT_LENGTH = 1000.0f;
 	float QUBIT_SIZE_INNER = 40.0f;
 	float QUBIT_SIZE_OUTER = 50.0f;
 	virtual void AddQubitToRender(Qubit q, Engine* e) = 0;
@@ -82,5 +89,6 @@ protected:
 
 private:
 	float errorRate = 0.1f;
+	int distance = 3;
 };
 
