@@ -87,6 +87,12 @@ int main(void)
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
+            counter = (counter + 1) % sim.delay;
+
+            if (!counter) {
+                sim.doTimeStep();
+            }
+
             // clear
             IG_Handler.NewFrame();
 
@@ -99,18 +105,12 @@ int main(void)
             InputHandler.MouseInput();
 
             // render content in content window
+            
             RenderEngine.Clear();
 
             RenderEngine.UpdateAspectRatio();
 
-            ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-            counter = (counter + 1) % sim.delay;
-
             sim.render();
-            if (!counter) {
-                sim.doTimeStep();
-            }
 
             RenderEngine.Render();
             // end render content in content window 

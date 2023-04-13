@@ -14,8 +14,11 @@ private:
 	unsigned int m_FBO = 0;
 	GLuint m_TXT = 0;
 
-	unsigned int ms_FBO = 0;
-	GLuint ms_TXT = 0;
+	unsigned int ms_front_FBO = 0;
+	GLuint ms_front_TXT = 0;
+
+	unsigned int ms_back_FBO = 0;
+	GLuint ms_back_TXT = 0;
 
 	int samples = 4;
 

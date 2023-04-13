@@ -45,11 +45,11 @@ void Engine::Render() {
 
         // bind to shader, apply projection, view, model transformations
         m_Shader.Bind();
-        glm::mat4 mvp = glm::translate(glm::scale(m_Proj, glm::vec3(m_Scale, m_Scale, m_Scale)), m_Translation);
+        glm::mat4 mvp = glm::translate(glm::scale(m_Proj, glm::vec3(m_Scale, m_Scale, 0)), m_Translation);
         m_Shader.SetUniformMat4f("u_MVP", mvp);
 
         GLCall(glBindVertexArray(m_VertexArray));
-        GLCall(glDrawElements(GL_TRIANGLES, (int)indices.size() * sizeof(indices[0]), GL_UNSIGNED_INT, nullptr));
+        GLCall(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr));
 
         vertices.clear();
         indices.clear();

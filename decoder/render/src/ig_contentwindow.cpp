@@ -2,18 +2,28 @@
 
 void ImGui_ContentWindowHandler::RenderInit()
 {
-    // create multisample FBO
-    glGenFramebuffers(1, &ms_FBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, ms_FBO);
+    // create multisample FBOs with textures
+    glGenFramebuffers(1, &ms_back_FBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, ms_back_FBO);
 
-    // make texture for ms_fbo
-    GLCall(glGenTextures(1, &ms_TXT));
-    GLCall(glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, ms_TXT));
+    GLCall(glGenTextures(1, &ms_back_TXT));
+    GLCall(glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, ms_back_TXT));
+    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, m_Width, m_Height, GL_TRUE);
+    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
+
+    // attach texture
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, ms_back_TXT, 0);
+
+    glGenFramebuffers(1, &ms_front_FBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, ms_front_FBO);
+
+    GLCall(glGenTextures(1, &ms_front_TXT));
+    GLCall(glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, ms_front_TXT));
     glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, m_Width, m_Height, GL_TRUE);
     glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
     
     // attach texture to ms_fbo
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, ms_TXT, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, ms_front_TXT, 0);
 
     // Unbind the FBO
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -39,23 +49,26 @@ void ImGui_ContentWindowHandler::PreRender()
 {
     ImGui::Begin("Visualization");
 
-    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, ms_FBO));
+    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, m_FBO));
     GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
     GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     GLCall(glEnable(GL_DEPTH_TEST));
+
+    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, ms_back_FBO));
+    GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
+    GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
 void ImGui_ContentWindowHandler::PostRender()
 {
+    unsigned int temp = ms_front_FBO;
+    ms_front_FBO = ms_back_FBO;
+    ms_back_FBO = temp;
+
     // blit multisampled frame to writing framebuffer obj
-    GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, ms_FBO));
+    GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, ms_front_FBO));
     GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_FBO));
     GLCall(glBlitFramebuffer(0, 0, m_Width, m_Height, 0, 0, m_Width, m_Height, GL_COLOR_BUFFER_BIT, GL_NEAREST));
-
-    // back to default FrameBuffer
-    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-    GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
-    GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
     // output to imgui
     ImVec2 pos = ImGui::GetCursorScreenPos();
@@ -65,4 +78,8 @@ void ImGui_ContentWindowHandler::PostRender()
         ImVec2(ImGui::GetWindowPos().x + ImGui::GetWindowWidth() - padding, 
             ImGui::GetWindowPos().y + ImGui::GetWindowHeight() - padding), ImVec2(0, 1), ImVec2(1, 0));
     ImGui::End();
+
+    // back to default FrameBuffer
+    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+
 }

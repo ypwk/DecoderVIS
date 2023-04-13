@@ -4,6 +4,7 @@ void Simulation::render()
 {
 	m_Code->render(m_RenderEngine);
 	renderGraph();
+	
 }
 
 void Simulation::doTimeStep()
@@ -30,7 +31,7 @@ void Simulation::doTimeStep()
 	}
 	// update current phase of execution if done with current phase
 	if (result) {
-		currentExecutionStep = (currentExecutionStep + 1) % 4;
+		currentExecutionStep = (currentExecutionStep + 1) % 5;
 	}
 
 	auto stop = std::chrono::high_resolution_clock::now();
@@ -164,7 +165,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < X_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(X_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(X_err_stabilizers[n_idx]), \
-							15, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
+							10, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
 					} // (int) m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::ceil(idx / 2) + n_idx]]
 				}
 			}
@@ -173,7 +174,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < Z_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
-							15, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
+							10, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
 					}
 				}
 			}
@@ -184,7 +185,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < X_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(X_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(X_err_stabilizers[n_idx]), \
-							15, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
+							10, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
 					} // (int) m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::ceil(idx / 2) + n_idx]]
 				}
 			}
@@ -193,7 +194,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < Z_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
-							15, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
+							10, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
 					}
 				}
 			}
