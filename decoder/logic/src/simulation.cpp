@@ -64,7 +64,7 @@ bool Simulation::stabilizerMeasurements()
 	for (int idx = 0; idx < m_Code->stabilizers.size(); idx++) {
 		m_Code->stabilizers[idx].state = GenericCode::StabilizerState(0);
 		for (int qubit_idx : m_Code->stabilizers[idx].qubits) {
-			if (m_Code->dataQubits[qubit_idx].state.find(m_Code->stabilizers[idx].state ? 'Z' : 'X') != std::string::npos) {
+			if (m_Code->dataQubits[qubit_idx].state.find(m_Code->stabilizers[idx].type ? 'Z' : 'X') != std::string::npos) {
 				m_Code->stabilizers[idx].state = GenericCode::StabilizerState((m_Code->stabilizers[idx].state + 1) % 2);
 			}
 		}
@@ -81,16 +81,16 @@ bool Simulation::assembleErrorGraph()
 
 		for (int idx = current_X_idx + 1; idx < X_err_stabilizers.size(); idx++) {
 			X_graph_Edges.push_back(m_X_Graph.addEdge(X_graph_Nodes[current_X_idx], X_graph_Nodes[idx]));
-			m_X_CostMap.set(X_graph_Edges[X_graph_Edges.size() - 1], glm::length(\
+			m_X_CostMap.set(X_graph_Edges[X_graph_Edges.size() - 1], std::ceil(GRAPH_LINE_WIDTH / glm::length(\
 				m_Code->GetStabilizerLocation(X_err_stabilizers[current_X_idx]) - \
-				m_Code->GetStabilizerLocation(X_err_stabilizers[idx])));
+				m_Code->GetStabilizerLocation(X_err_stabilizers[idx]))));
 		}
 
 		for (int idx = current_Z_idx + 1; idx < Z_err_stabilizers.size(); idx++) {
 			Z_graph_Edges.push_back(m_Z_Graph.addEdge(Z_graph_Nodes[current_Z_idx], Z_graph_Nodes[idx]));
-			m_Z_CostMap.set(Z_graph_Edges[Z_graph_Edges.size() - 1], glm::length(\
+			m_Z_CostMap.set(Z_graph_Edges[Z_graph_Edges.size() - 1], std::ceil(GRAPH_LINE_WIDTH / glm::length(\
 				m_Code->GetStabilizerLocation(Z_err_stabilizers[current_Z_idx]) - \
-				m_Code->GetStabilizerLocation(Z_err_stabilizers[idx])));
+				m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]))));
 		}
 
 		current_X_idx = std::min((int)X_err_stabilizers.size(), current_X_idx + 1);
@@ -112,18 +112,18 @@ bool Simulation::assembleErrorGraph()
 		for (int x = 0; x < X_err_stabilizers.size(); x++) {
 			for (int y = x + 1; y < X_err_stabilizers.size(); y++) {
 				X_graph_Edges.push_back(m_X_Graph.addEdge(X_graph_Nodes[x], X_graph_Nodes[y]));
-				m_X_CostMap.set(X_graph_Edges[X_graph_Edges.size() - 1], glm::length(\
+				m_X_CostMap.set(X_graph_Edges[X_graph_Edges.size() - 1], std::ceil(GRAPH_LINE_WIDTH / glm::length(\
 					m_Code->GetStabilizerLocation(X_err_stabilizers[x]) - \
-					m_Code->GetStabilizerLocation(X_err_stabilizers[y])));
+					m_Code->GetStabilizerLocation(X_err_stabilizers[y]))));
 			}
 		}
 
 		for (int x = 0; x < Z_err_stabilizers.size(); x++) {
 			for (int y = x + 1; y < Z_err_stabilizers.size(); y++) {
 				Z_graph_Edges.push_back(m_Z_Graph.addEdge(Z_graph_Nodes[x], Z_graph_Nodes[y]));
-				m_Z_CostMap.set(Z_graph_Edges[Z_graph_Edges.size() - 1], glm::length(\
+				m_Z_CostMap.set(Z_graph_Edges[Z_graph_Edges.size() - 1], std::ceil(GRAPH_LINE_WIDTH / glm::length(\
 					m_Code->GetStabilizerLocation(Z_err_stabilizers[x]) - \
-					m_Code->GetStabilizerLocation(Z_err_stabilizers[y])));
+					m_Code->GetStabilizerLocation(Z_err_stabilizers[y]))));
 			}
 		}
 
@@ -133,12 +133,12 @@ bool Simulation::assembleErrorGraph()
 
 bool Simulation::decodeErrorGraph()
 {
-	if (detailedExecution) {
+	//if (X_err_stabilizers.size() > 0)
+	//	mwpm_X.run();
 
-	}
-	else {
+	//if (Z_err_stabilizers.size() > 0)
+	//	mwpm_Z.run();
 
-	}
 	populated = false;
 	return true;
 
@@ -165,8 +165,8 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < X_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(X_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(X_err_stabilizers[n_idx]), \
-							10, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
-					} // (int) m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::ceil(idx / 2) + n_idx]]
+							(m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
+					}
 				}
 			}
 			if (Z_err_stabilizers.size() > 0) {
@@ -174,7 +174,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < Z_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
-							10, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
+							(m_Z_CostMap[Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
 					}
 				}
 			}
@@ -185,8 +185,8 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < X_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(X_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(X_err_stabilizers[n_idx]), \
-							10, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
-					} // (int) m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::ceil(idx / 2) + n_idx]]
+							(m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
+					}
 				}
 			}
 			if (Z_err_stabilizers.size() > 0) {
@@ -194,7 +194,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < Z_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
-							10, m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
+							(m_Z_CostMap[Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
 					}
 				}
 			}
@@ -202,16 +202,23 @@ void Simulation::renderGraph() {
 		
 	}
 	else if (currentExecutionStep == 3) { // decode graph
-		//if (X_err_stabilizers.size() > 0) {
-		//	for (int idx = 0; idx < X_graph_Edges.size(); idx++) {
-
-		//	}
-		//}
-		//if (Z_err_stabilizers.size() > 0) {
-		//	for (int idx = 0; idx < Z_graph_Edges.size(); idx++) {
-
-		//	}
-		//}
+		if (X_err_stabilizers.size() > 0) {
+			/*int i = 0;
+			for (lemon::MaxWeightedPerfectMatching<lemon::ListGraph, lemon::ListGraph::EdgeMap<float>>::BlossomIt b(mwpm_X, i); b != lemon::INVALID; ++b) {
+				std::cout << (lemon::ListGraph::Node)b << std::endl;
+			}*/
+		}
+		if (Z_err_stabilizers.size() > 0) {
+			for (int idx = 0; idx < current_Z_idx; idx++) {
+				for (int n_idx = idx + 1; n_idx < Z_err_stabilizers.size(); n_idx++) {
+					/*if (mwpm_X.mate(Z_graph_Nodes[idx]) == Z_graph_Nodes[n_idx]) {
+						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
+							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
+							(m_Z_CostMap[Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
+					}*/
+				}
+			}
+		}
 	}
 }
 

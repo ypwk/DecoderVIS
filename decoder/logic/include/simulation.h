@@ -1,11 +1,13 @@
 #pragma once
+#include <lemon/list_graph.h>
+#include <lemon/matching.h>
+
 #include "RotatedPlanarCode.h"
 #include "decoder.h"
 #include "glm/glm.hpp"
 #include "input.h"
 
 #include <chrono>
-#include <lemon/list_graph.h>
 
 class Simulation
 {
@@ -25,15 +27,17 @@ private:
 
 	lemon::ListGraph m_X_Graph;
 	lemon::ListGraph m_Z_Graph;
-	lemon::ListGraph::EdgeMap<float> m_X_CostMap;
-	lemon::ListGraph::EdgeMap<float> m_Z_CostMap;
+	lemon::ListGraph::EdgeMap<int> m_X_CostMap;
+	lemon::ListGraph::EdgeMap<int> m_Z_CostMap;
 	std::vector<lemon::ListGraph::Node> X_graph_Nodes;
 	std::vector<lemon::ListGraph::Edge> X_graph_Edges;
 	std::vector<lemon::ListGraph::Node> Z_graph_Nodes;
 	std::vector<lemon::ListGraph::Edge> Z_graph_Edges;
+	lemon::MaxWeightedPerfectMatching<lemon::ListGraph, lemon::ListGraph::EdgeMap<int>> mwpm_X;
+	lemon::MaxWeightedPerfectMatching<lemon::ListGraph, lemon::ListGraph::EdgeMap<int>> mwpm_Z;
 
 public:
-	Simulation(Engine* e) : m_X_CostMap(m_X_Graph), m_Z_CostMap(m_Z_Graph) {
+	Simulation(Engine* e) : m_X_CostMap(m_X_Graph), m_Z_CostMap(m_Z_Graph), mwpm_X(m_X_Graph, m_X_CostMap), mwpm_Z(m_Z_Graph, m_Z_CostMap) {
 		m_Code = new RotatedPlanarCode(codeDistance);
 		m_RenderEngine = e;
 
@@ -44,7 +48,7 @@ public:
 	~Simulation() {};
 
 	int codeDistance = 7;
-	float errorRate = 0.1f;
+	float errorRate = 0.01f;
 	int delay = 5; // number of frames between each successive step
 	int currentExecutionStep = 0;
 	bool detailedExecution = true;
@@ -63,6 +67,8 @@ public:
 private:
 	void renderGraph();
 	void populateStabilizers();
+
+	const float GRAPH_LINE_WIDTH = 100000.0f;
 	
 };
 
