@@ -47,7 +47,7 @@ public:
 	};
 	~Simulation() {};
 
-	int codeDistance = 7;
+	int codeDistance = 5;
 	float errorRate = 0.01f;
 	int delay = 5; // number of frames between each successive step
 	int currentExecutionStep = 0;

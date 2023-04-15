@@ -272,5 +272,5 @@ void Simulation::updateEngineForCode(Input* i) {
 }
 
 int Simulation::coordToIdx(int n, int x, int y) {
-	return (n - 1 - x / 2) * std::ceil((x - 1) / 2.0f) + (n - 1 - y);
+	return -0.5 * (x + 1) * (x + 1) + (n + 0.5) * (x + 1) - n + y - x - 1;
 }
