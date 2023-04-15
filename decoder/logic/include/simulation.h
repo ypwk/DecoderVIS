@@ -69,6 +69,4 @@ private:
 	void populateStabilizers();
 
 	const float GRAPH_LINE_WIDTH = 100000.0f;
-	
 };
-

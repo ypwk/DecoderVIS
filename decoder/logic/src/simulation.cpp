@@ -29,14 +29,16 @@ void Simulation::doTimeStep()
 		result = fixErrors();
 		break;
 	}
+	//auto stop = std::chrono::high_resolution_clock::now();
+	//auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+	//std::cout << "step: " << currentExecutionStep << " duration: " << duration.count() << std::endl;
+
 	// update current phase of execution if done with current phase
 	if (result) {
 		currentExecutionStep = (currentExecutionStep + 1) % 5;
 	}
 
-	auto stop = std::chrono::high_resolution_clock::now();
-	auto duration = duration_cast<std::chrono::microseconds>(stop - start);
-	std::cout << "step: " << currentExecutionStep << " duration: " << duration.count() << std::endl;
+	
 }
 
 bool Simulation::propagateErrors()
@@ -133,15 +135,22 @@ bool Simulation::assembleErrorGraph()
 
 bool Simulation::decodeErrorGraph()
 {
-	//if (X_err_stabilizers.size() > 0)
-	//	mwpm_X.run();
+	if (current_X_idx == 0) {
+		if (X_err_stabilizers.size() > 0)
+			mwpm_X.run();
 
-	//if (Z_err_stabilizers.size() > 0)
-	//	mwpm_Z.run();
-
-	populated = false;
-	return true;
-
+		if (Z_err_stabilizers.size() > 0)
+			mwpm_Z.run();
+	}
+	if (current_X_idx < 2) {
+		current_X_idx++;
+		return false;
+	}
+	else {
+		current_X_idx = 0;
+		populated = false;
+		return true;
+	}
 }
 
 bool Simulation::fixErrors()
@@ -201,21 +210,26 @@ void Simulation::renderGraph() {
 		}
 		
 	}
-	else if (currentExecutionStep == 3) { // decode graph
+	else if (currentExecutionStep == 3 && current_X_idx > 0) { // decode graph
 		if (X_err_stabilizers.size() > 0) {
-			/*int i = 0;
-			for (lemon::MaxWeightedPerfectMatching<lemon::ListGraph, lemon::ListGraph::EdgeMap<float>>::BlossomIt b(mwpm_X, i); b != lemon::INVALID; ++b) {
-				std::cout << (lemon::ListGraph::Node)b << std::endl;
-			}*/
+			for (int idx = 0; idx < X_err_stabilizers.size(); idx++) {
+				for (int n_idx = idx + 1; n_idx < X_err_stabilizers.size(); n_idx++) {
+					if (mwpm_X.matching(X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1])) {
+						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(X_err_stabilizers[idx]), \
+							m_Code->GetStabilizerLocation(X_err_stabilizers[n_idx]), \
+							(m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[1]);
+					}
+				}
+			}
 		}
 		if (Z_err_stabilizers.size() > 0) {
-			for (int idx = 0; idx < current_Z_idx; idx++) {
+			for (int idx = 0; idx < Z_err_stabilizers.size(); idx++) {
 				for (int n_idx = idx + 1; n_idx < Z_err_stabilizers.size(); n_idx++) {
-					/*if (mwpm_X.mate(Z_graph_Nodes[idx]) == Z_graph_Nodes[n_idx]) {
+					if (mwpm_Z.matching(Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1])) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
-							(m_Z_CostMap[Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
-					}*/
+							(m_Z_CostMap[Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[3]);
+					}
 				}
 			}
 		}
