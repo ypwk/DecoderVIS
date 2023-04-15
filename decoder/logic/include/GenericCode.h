@@ -25,7 +25,14 @@ public:
 		StabilizerType type;
 		StabilizerState state;
 		std::vector<int> qubits;
-	};	
+	};
+
+	struct VirtualStabilizer {
+		int index;
+		StabilizerType type;
+		StabilizerState state;
+		std::vector<int> qubits;
+	};
 
 	glm::vec4 Q_STATE_TO_COLOR[2] = {
 		glm::vec4(1, 1, 1, 1),			//NORMAL
@@ -45,6 +52,7 @@ public:
 
 	std::vector<Qubit> dataQubits;
 	std::vector<Stabilizer> stabilizers;
+	std::vector<VirtualStabilizer> virtualStabilizers;
 
 	virtual void render(Engine* e) = 0;
 	virtual void generateNextStep() {};
@@ -76,6 +84,7 @@ public:
 
 	virtual glm::vec3 GetDataQubitLocation(Qubit q) = 0;
 	virtual glm::vec3 GetStabilizerLocation(Stabilizer s) = 0;
+	virtual glm::vec3 GetVirtualStabilizerLocation(VirtualStabilizer v) = 0;
 
 	int getDistance() {
 		return distance;

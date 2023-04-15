@@ -162,3 +162,15 @@ void Engine::AddSemiCircleArc(glm::vec3 translation, float radius, float thickne
             thickness, color);
     }
 }
+
+void Engine::AddCircleArc(glm::vec3 translation, float radius, float thickness, glm::vec4 color) {
+    int curr_first_idx = (int)vertices.size();
+
+    for (int i = 0; i < 2 * circle_vertex_num; i++) {
+        this->AddLine(glm::vec3(translation.x + radius * cosf(i * glm::two_pi<float>() / (2 * circle_vertex_num))\
+            , translation.y + radius * sinf(i * glm::two_pi<float>() / (2 * circle_vertex_num)), 0), \
+            glm::vec3(translation.x + radius * cosf((i + 1) * glm::two_pi<float>() / (2 * circle_vertex_num))\
+                , translation.y + radius * sinf((i + 1) * glm::two_pi<float>() / (2 * circle_vertex_num)), 0), \
+            thickness, color);
+    }
+}

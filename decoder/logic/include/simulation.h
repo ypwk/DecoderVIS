@@ -68,5 +68,7 @@ private:
 	void renderGraph();
 	void populateStabilizers();
 
+	int coordToIdx(int n, int x, int y);
+
 	const float GRAPH_LINE_WIDTH = 100000.0f;
 };

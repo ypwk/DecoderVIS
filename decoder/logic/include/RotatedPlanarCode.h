@@ -15,10 +15,12 @@ public:
 
 	glm::vec3 GetDataQubitLocation(Qubit q);
 	glm::vec3 GetStabilizerLocation(Stabilizer s);
+	glm::vec3 GetVirtualStabilizerLocation(VirtualStabilizer v);
 
 protected:
 	void AddStabilizerToRender(Stabilizer s, Engine* e);
 	void AddQubitToRender(Qubit q, Engine* e);
+	void AddVirtualStabilizerToRender(VirtualStabilizer v, Engine* e);
 
 private:
 	int distance = 3;

@@ -16,6 +16,7 @@ RotatedPlanarCode::RotatedPlanarCode(int dist) : distance(dist)
         stabilizers.push_back(ns);
     }
     
+    int vs_idx = 0;
     for (int i = 0; i < dist / 2; i++) {
         Stabilizer ns = Stabilizer{ mq_idx++, StabilizerType(1), StabilizerState(0) };
         ns.qubits.push_back(2 * i);
@@ -36,6 +37,26 @@ RotatedPlanarCode::RotatedPlanarCode(int dist) : distance(dist)
         ns.qubits.push_back(dist * (dist - 1) + 1 + 2 * i);
         ns.qubits.push_back(dist * (dist - 1) + 1 + 2 * i + 1);
         stabilizers.push_back(ns);
+
+        VirtualStabilizer vs = VirtualStabilizer{ vs_idx++, StabilizerType(0), StabilizerState(0) };
+        vs.qubits.push_back(2 * i + 1);
+        vs.qubits.push_back(2 * i + 2);
+        virtualStabilizers.push_back(vs);
+
+        vs = VirtualStabilizer{ vs_idx++, StabilizerType(1), StabilizerState(0) };
+        vs.qubits.push_back((2 * dist - 1) + dist * 2 * i);
+        vs.qubits.push_back((2 * dist - 1) + dist * (2 * i + 1));
+        virtualStabilizers.push_back(vs);
+
+        vs = VirtualStabilizer{ vs_idx++, StabilizerType(1), StabilizerState(0) };
+        vs.qubits.push_back(dist * 2 * i);
+        vs.qubits.push_back(dist * (2 * i + 1));
+        virtualStabilizers.push_back(vs);
+
+        vs = VirtualStabilizer{ vs_idx++, StabilizerType(0), StabilizerState(0) };
+        vs.qubits.push_back(dist * (dist - 1) + 2 * i);
+        vs.qubits.push_back(dist * (dist - 1) + 2 * i + 1);
+        virtualStabilizers.push_back(vs);
     }
 }
 
@@ -54,6 +75,10 @@ void RotatedPlanarCode::render(Engine* e)
 
     for (int i = 0; i < dataQubits.size(); i++) {
         AddQubitToRender(dataQubits[i], e);
+    }
+
+    for (int i = 0; i < virtualStabilizers.size(); i++) {
+        AddVirtualStabilizerToRender(virtualStabilizers[i], e);
     }
 }
 
@@ -148,4 +173,42 @@ glm::vec3 RotatedPlanarCode::GetStabilizerLocation(Stabilizer s)
         return (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]]) \
             + GetDataQubitLocation(dataQubits[s.qubits[2]]) + GetDataQubitLocation(dataQubits[s.qubits[3]])) * 0.25f;
     }
+}
+
+glm::vec3 RotatedPlanarCode::GetVirtualStabilizerLocation(VirtualStabilizer v) 
+{
+    glm::vec3 translation(0, 0, 0);
+    if (v.qubits[1] - v.qubits[0] == 1) {// top or bottom
+        if (v.qubits[0] > distance + 1) {
+            translation.y = RENDER_UNIT_LENGTH / 1.75f;
+        }
+        else {
+            translation.y = -RENDER_UNIT_LENGTH / 1.75f;
+        }
+    }
+    else { // one of the sides
+        if (v.qubits[0] % distance) {
+            translation.x = RENDER_UNIT_LENGTH / 1.75f;
+        }
+        else {
+            translation.x = -RENDER_UNIT_LENGTH / 1.75f;
+        }
+    }
+    return (GetDataQubitLocation(dataQubits[v.qubits[0]]) + GetDataQubitLocation(dataQubits[v.qubits[1]])) * 0.5f + translation;
+}
+
+
+void RotatedPlanarCode::AddVirtualStabilizerToRender(VirtualStabilizer v, Engine* e)
+{
+    glm::vec3 location = GetVirtualStabilizerLocation(v);
+
+    // draw circle
+    e->AddCircleArc(location, RENDER_UNIT_LENGTH / 2, \
+        10, LINE_COLOR);
+    e->AddCircle(location, RENDER_UNIT_LENGTH / 2, \
+        BACK_STAB);
+
+    // draw stabilizer
+    e->AddQuad(location, 2 * QUBIT_SIZE_OUTER, 2 * QUBIT_SIZE_OUTER, 45.0f * (1 - v.state), LINE_COLOR);
+    e->AddQuad(location, 2 * QUBIT_SIZE_INNER, 2 * QUBIT_SIZE_INNER, 45.0f * (1 - v.state), STABILIZER_TYPE_AND_STATE_TO_COLOR[v.type * 2]);
 }

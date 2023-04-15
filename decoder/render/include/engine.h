@@ -62,6 +62,7 @@ public:
 	void AddLine(glm::vec3 start, glm::vec3 end, float thickness, glm::vec4 color);
 
 	void AddCircle(glm::vec3 translation, float radius, glm::vec4 color);
+	void AddCircleArc(glm::vec3 translation, float radius, float thickness, glm::vec4 color);
 	void AddSemiCircle(glm::vec3 translation, float radius, float angle, glm::vec4 color);
 	void AddSemiCircleArc(glm::vec3 translation, float radius, float thickness, float angle, glm::vec4 color);
 };

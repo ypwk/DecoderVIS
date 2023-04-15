@@ -174,7 +174,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < X_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(X_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(X_err_stabilizers[n_idx]), \
-							(m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
+							(m_X_CostMap[X_graph_Edges[coordToIdx(X_err_stabilizers.size(), idx, n_idx)]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
 					}
 				}
 			}
@@ -183,7 +183,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < Z_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
-							(m_Z_CostMap[Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
+							(m_Z_CostMap[Z_graph_Edges[coordToIdx(Z_err_stabilizers.size(), idx, n_idx)]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
 					}
 				}
 			}
@@ -194,7 +194,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < X_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(X_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(X_err_stabilizers[n_idx]), \
-							(m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
+							(m_X_CostMap[X_graph_Edges[coordToIdx(X_err_stabilizers.size(), idx, n_idx)]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[0]);
 					}
 				}
 			}
@@ -203,7 +203,7 @@ void Simulation::renderGraph() {
 					for (int n_idx = idx + 1; n_idx < Z_err_stabilizers.size(); n_idx++) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
-							(m_Z_CostMap[Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
+							(m_Z_CostMap[Z_graph_Edges[coordToIdx(Z_err_stabilizers.size(), idx, n_idx)]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[2]);
 					}
 				}
 			}
@@ -214,10 +214,11 @@ void Simulation::renderGraph() {
 		if (X_err_stabilizers.size() > 0) {
 			for (int idx = 0; idx < X_err_stabilizers.size(); idx++) {
 				for (int n_idx = idx + 1; n_idx < X_err_stabilizers.size(); n_idx++) {
-					if (mwpm_X.matching(X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1])) {
+					std::cout << (X_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1 << std::endl;
+					if (mwpm_X.matching(X_graph_Edges[coordToIdx(X_err_stabilizers.size(), idx, n_idx)])) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(X_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(X_err_stabilizers[n_idx]), \
-							(m_X_CostMap[X_graph_Edges[(X_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[1]);
+							(m_X_CostMap[X_graph_Edges[coordToIdx(X_err_stabilizers.size(), idx, n_idx)]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[1]);
 					}
 				}
 			}
@@ -225,10 +226,10 @@ void Simulation::renderGraph() {
 		if (Z_err_stabilizers.size() > 0) {
 			for (int idx = 0; idx < Z_err_stabilizers.size(); idx++) {
 				for (int n_idx = idx + 1; n_idx < Z_err_stabilizers.size(); n_idx++) {
-					if (mwpm_Z.matching(Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1])) {
+					if (mwpm_Z.matching(Z_graph_Edges[coordToIdx(Z_err_stabilizers.size(), idx, n_idx)])) {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
-							(m_Z_CostMap[Z_graph_Edges[(Z_err_stabilizers.size() - idx / 2) * std::floor(idx / 2) + n_idx - 1]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[3]);
+							(m_Z_CostMap[Z_graph_Edges[coordToIdx(Z_err_stabilizers.size(), idx, n_idx)]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[3]);
 					}
 				}
 			}
@@ -265,8 +266,11 @@ void Simulation::populateStabilizers() {
 	}
 }
 
-
 void Simulation::updateEngineForCode(Input* i) {
 	i->currentScale = -1.0f * m_Code->getDistance() * m_Code->getDistance();
 	m_RenderEngine->UpdateView(pow(i->scaleQuant, -1.0f * m_Code->getDistance() * m_Code->getDistance()), m_Code->GetDataQubitLocation(m_Code->dataQubits[m_Code->dataQubits.size() - 1]) + glm::vec3(m_Code->RENDER_UNIT_LENGTH, m_Code->RENDER_UNIT_LENGTH, 0));
+}
+
+int Simulation::coordToIdx(int n, int x, int y) {
+	return (n - 1 - x / 2) * std::ceil((x - 1) / 2.0f) + (n - 1 - y);
 }
