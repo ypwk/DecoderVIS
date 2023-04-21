@@ -11,7 +11,7 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
 	"${PROJECT_SOURCE_DIR}/external/lemon/lemon/bits/*.cpp"
 )
 
-add_executable(DecoderVis "app.cpp" ${SRC_FILES})
+add_executable(DecoderVis "app.cpp" ${SRC_FILES} "logic/include/RotatedPlanarDecoder.h")
 
 target_link_libraries(DecoderVis PUBLIC
 	glfw

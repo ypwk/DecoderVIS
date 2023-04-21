@@ -58,6 +58,23 @@ RotatedPlanarCode::RotatedPlanarCode(int dist) : distance(dist)
         vs.qubits.push_back(dist * (dist - 1) + 2 * i + 1);
         virtualStabilizers.push_back(vs);
     }
+
+    // corner virtual stabilizers
+    VirtualStabilizer vs = VirtualStabilizer{ vs_idx++, StabilizerType(0), StabilizerState(0) };
+    vs.qubits.push_back(0);
+    virtualStabilizers.push_back(vs);
+
+    vs = VirtualStabilizer{ vs_idx++, StabilizerType(1), StabilizerState(0) };
+    vs.qubits.push_back(dist * (dist - 1));
+    virtualStabilizers.push_back(vs);
+
+    vs = VirtualStabilizer{ vs_idx++, StabilizerType(1), StabilizerState(0) };
+    vs.qubits.push_back(dist - 1);
+    virtualStabilizers.push_back(vs);
+
+    vs = VirtualStabilizer{ vs_idx++, StabilizerType(0), StabilizerState(0) };
+    vs.qubits.push_back(dist * dist - 1);
+    virtualStabilizers.push_back(vs);
 }
 
 void RotatedPlanarCode::render(Engine* e)
@@ -147,60 +164,81 @@ glm::vec3 RotatedPlanarCode::GetDataQubitLocation(Qubit q)
     return glm::vec3((q.index % distance - distance / 2) * RENDER_UNIT_LENGTH, (q.index / distance - distance / 2) * RENDER_UNIT_LENGTH, 0);
 }
 
-glm::vec3 RotatedPlanarCode::GetStabilizerLocation(Stabilizer s)
+glm::vec3 RotatedPlanarCode::GetStabilizerLocation(AbstractStabilizer s)
 {
-    glm::vec3 translation(0, 0, 0);
-    if (s.qubits.size() == 2) {
-        if (s.qubits[1] - s.qubits[0] == 1) {// top or bottom
-            if (s.qubits[0] > distance + 1) {
-                translation.y = RENDER_UNIT_LENGTH / 2.0f;
+    if (s.stab_class == 1) {
+        glm::vec3 translation(0, 0, 0);
+        if (s.qubits.size() == 1) {
+            if (s.qubits[0] == 0) {// top or bottom
+                translation.x = -RENDER_UNIT_LENGTH / 1.75f;
+                translation.y = -RENDER_UNIT_LENGTH / 1.75f;
+            }
+            else if (s.qubits[0] == distance * distance - 1) {
+                translation.x = RENDER_UNIT_LENGTH / 1.75f;
+                translation.y = RENDER_UNIT_LENGTH / 1.75f;
+            }
+            else if (s.qubits[0] == distance - 1) {
+                translation.x = RENDER_UNIT_LENGTH / 1.75f;
+                translation.y = -RENDER_UNIT_LENGTH / 1.75f;
             }
             else {
-                translation.y = -RENDER_UNIT_LENGTH / 2.0f;
+                translation.x = -RENDER_UNIT_LENGTH / 1.75f;
+                translation.y = RENDER_UNIT_LENGTH / 1.75f;
             }
-        }
-        else { // one of the sides
-            if (s.qubits[0] % distance) {
-                translation.x = RENDER_UNIT_LENGTH / 2.0f;
-            }
-            else {
-                translation.x = -RENDER_UNIT_LENGTH / 2.0f;
-            }
-        }
-        return (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]])) * 0.5f + translation;
-    }
-    else {
-        return (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]]) \
-            + GetDataQubitLocation(dataQubits[s.qubits[2]]) + GetDataQubitLocation(dataQubits[s.qubits[3]])) * 0.25f;
-    }
-}
-
-glm::vec3 RotatedPlanarCode::GetVirtualStabilizerLocation(VirtualStabilizer v) 
-{
-    glm::vec3 translation(0, 0, 0);
-    if (v.qubits[1] - v.qubits[0] == 1) {// top or bottom
-        if (v.qubits[0] > distance + 1) {
-            translation.y = RENDER_UNIT_LENGTH / 1.75f;
+            return GetDataQubitLocation(dataQubits[s.qubits[0]]) + translation;
         }
         else {
-            translation.y = -RENDER_UNIT_LENGTH / 1.75f;
+            if (s.qubits[1] - s.qubits[0] == 1) {// top or bottom
+                if (s.qubits[0] > distance + 1) {
+                    translation.y = RENDER_UNIT_LENGTH / 1.75f;
+                }
+                else {
+                    translation.y = -RENDER_UNIT_LENGTH / 1.75f;
+                }
+            }
+            else { // one of the sides
+                if (s.qubits[0] % distance) {
+                    translation.x = RENDER_UNIT_LENGTH / 1.75f;
+                }
+                else {
+                    translation.x = -RENDER_UNIT_LENGTH / 1.75f;
+                }
+            }
+            return (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]])) * 0.5f + translation;
         }
     }
-    else { // one of the sides
-        if (v.qubits[0] % distance) {
-            translation.x = RENDER_UNIT_LENGTH / 1.75f;
+    else if (s.stab_class == 0) {
+        glm::vec3 translation(0, 0, 0);
+        if (s.qubits.size() == 2) {
+            if (s.qubits[1] - s.qubits[0] == 1) {// top or bottom
+                if (s.qubits[0] > distance + 1) {
+                    translation.y = RENDER_UNIT_LENGTH / 2.0f;
+                }
+                else {
+                    translation.y = -RENDER_UNIT_LENGTH / 2.0f;
+                }
+            }
+            else { // one of the sides
+                if (s.qubits[0] % distance) {
+                    translation.x = RENDER_UNIT_LENGTH / 2.0f;
+                }
+                else {
+                    translation.x = -RENDER_UNIT_LENGTH / 2.0f;
+                }
+            }
+            return (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]])) * 0.5f + translation;
         }
         else {
-            translation.x = -RENDER_UNIT_LENGTH / 1.75f;
+            return (GetDataQubitLocation(dataQubits[s.qubits[0]]) + GetDataQubitLocation(dataQubits[s.qubits[1]]) \
+                + GetDataQubitLocation(dataQubits[s.qubits[2]]) + GetDataQubitLocation(dataQubits[s.qubits[3]])) * 0.25f;
         }
     }
-    return (GetDataQubitLocation(dataQubits[v.qubits[0]]) + GetDataQubitLocation(dataQubits[v.qubits[1]])) * 0.5f + translation;
 }
 
 
 void RotatedPlanarCode::AddVirtualStabilizerToRender(VirtualStabilizer v, Engine* e)
 {
-    glm::vec3 location = GetVirtualStabilizerLocation(v);
+    glm::vec3 location = GetStabilizerLocation(v);
 
     // draw circle
     e->AddCircleArc(location, RENDER_UNIT_LENGTH / 2, \

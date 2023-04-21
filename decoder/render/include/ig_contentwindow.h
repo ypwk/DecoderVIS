@@ -24,7 +24,7 @@ private:
 
 	GLuint padding = 10;
 
-	const float quad_positions[8] = { 0.5f,  0.5f, -0.5f,  0.5f, -0.5f, -0.5f, 0.5f, -0.5f };
+	const float quad_positions[8] = { 1.0f,  1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
 	const unsigned int quad_indices[6] = { 0, 1, 2, 2, 3, 0 };
 
 	Shader m_Shader = Shader("../../../../decoder/res/shaders/Fbo.shader");

@@ -3,30 +3,32 @@
 void ImGui_ContentWindowHandler::RenderInit()
 {
     // create multisample FBOs with textures
-    glGenFramebuffers(1, &ms_back_FBO);
+    GLCall(glGenFramebuffers(1, &ms_back_FBO));
     glBindFramebuffer(GL_FRAMEBUFFER, ms_back_FBO);
 
     GLCall(glGenTextures(1, &ms_back_TXT));
     GLCall(glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, ms_back_TXT));
-    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, m_Width, m_Height, GL_TRUE);
-    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
+    GLCall(glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, m_Width, m_Height, GL_TRUE));
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
+    GLCall(glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0));
 
     // attach texture
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, ms_back_TXT, 0);
+    GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, ms_back_TXT, 0));
 
-    glGenFramebuffers(1, &ms_front_FBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, ms_front_FBO);
+    GLCall(glGenFramebuffers(1, &ms_front_FBO));
+    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, ms_front_FBO));
 
     GLCall(glGenTextures(1, &ms_front_TXT));
     GLCall(glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, ms_front_TXT));
-    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, m_Width, m_Height, GL_TRUE);
-    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
+    GLCall(glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, m_Width, m_Height, GL_TRUE));
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
+    GLCall(glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0));
     
     // attach texture to ms_fbo
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, ms_front_TXT, 0);
+    GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, ms_front_TXT, 0));
 
     // Unbind the FBO
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 
     // make FBO to write to texture
     GLCall(glGenFramebuffers(1, &m_FBO));
@@ -42,7 +44,7 @@ void ImGui_ContentWindowHandler::RenderInit()
     GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 
     // attach texture to fbo 
-    GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, m_TXT, 0));
+    GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TXT, 0));
 }
 
 void ImGui_ContentWindowHandler::PreRender()

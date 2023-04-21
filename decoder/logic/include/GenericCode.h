@@ -20,18 +20,30 @@ public:
 		DETECTED_ERROR = 1,
 	};
 
-	struct Stabilizer {
+	struct AbstractStabilizer {
+		AbstractStabilizer::AbstractStabilizer(int i, StabilizerType t, StabilizerState s) {
+			index = i;
+			type = t;
+			state = s;
+		}
+		virtual ~AbstractStabilizer() { }
 		int index;
 		StabilizerType type;
 		StabilizerState state;
 		std::vector<int> qubits;
+		int stab_class = -1;
 	};
 
-	struct VirtualStabilizer {
-		int index;
-		StabilizerType type;
-		StabilizerState state;
-		std::vector<int> qubits;
+	struct Stabilizer: public AbstractStabilizer {
+		Stabilizer(int index, StabilizerType type, StabilizerState state) : AbstractStabilizer::AbstractStabilizer{ index, type, state } {
+			stab_class = 0;
+		}
+	};
+
+	struct VirtualStabilizer: public AbstractStabilizer {
+		VirtualStabilizer(int index, StabilizerType type, StabilizerState state) : AbstractStabilizer::AbstractStabilizer{ index, type, state } {
+			stab_class = 1;
+		}
 	};
 
 	glm::vec4 Q_STATE_TO_COLOR[2] = {
@@ -83,8 +95,7 @@ public:
 	};
 
 	virtual glm::vec3 GetDataQubitLocation(Qubit q) = 0;
-	virtual glm::vec3 GetStabilizerLocation(Stabilizer s) = 0;
-	virtual glm::vec3 GetVirtualStabilizerLocation(VirtualStabilizer v) = 0;
+	virtual glm::vec3 GetStabilizerLocation(AbstractStabilizer s) = 0;
 
 	int getDistance() {
 		return distance;
