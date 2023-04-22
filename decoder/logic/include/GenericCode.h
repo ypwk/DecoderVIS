@@ -46,9 +46,11 @@ public:
 		}
 	};
 
-	glm::vec4 Q_STATE_TO_COLOR[2] = {
+	glm::vec4 Q_STATE_TO_COLOR[4] = {
 		glm::vec4(1, 1, 1, 1),			//NORMAL
-		glm::vec4(1, 0, 0, 0.7f),		//ERROR
+		glm::vec4(1, 0, 0, 0.7f),		//X ERROR
+		glm::vec4(0, 0, 1, 0.7f),		//Z ERROR
+		glm::vec4(1, 0, 1, 0.7f),		//XZ ERROR
 	};
 
 	glm::vec4 STABILIZER_TYPE_AND_STATE_TO_COLOR[4] = {

@@ -155,8 +155,9 @@ void RotatedPlanarCode::AddStabilizerToRender(Stabilizer s, Engine* e)
 void RotatedPlanarCode::AddQubitToRender(Qubit q, Engine* e)
 {
     glm::vec3 loc = GetDataQubitLocation(q);
+    
     e->AddCircle(loc, QUBIT_SIZE_OUTER, LINE_COLOR);
-    e->AddCircle(loc, QUBIT_SIZE_INNER, Q_STATE_TO_COLOR[(bool)(q.state.length() - 1)]);
+    e->AddCircle(loc, QUBIT_SIZE_INNER, Q_STATE_TO_COLOR[(q.state.find('X') != std::string::npos) + 2 * (q.state.find('Z') != std::string::npos)]);
 }
 
 glm::vec3 RotatedPlanarCode::GetDataQubitLocation(Qubit q)
