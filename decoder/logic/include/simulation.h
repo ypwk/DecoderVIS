@@ -13,9 +13,17 @@
 class Simulation
 {
 private:
+	struct Matching {
+		int a;
+		int b;
+		GenericCode::StabilizerType type;
+	};
+
 	bool needsVisualUpdate = true;
 	bool populated = false;
+	bool matchings_populated = false;
 
+	int current_err_idx = 0;
 	int current_X_idx = 0;
 	int current_Z_idx = 0;
 
@@ -41,6 +49,8 @@ private:
 	std::vector<lemon::ListGraph::Node> Z_graph_Nodes;
 	std::vector<lemon::ListGraph::Edge> Z_graph_Edges;
 
+	std::vector<Matching> matchings;
+
 	lemon::MaxWeightedPerfectMatching<lemon::ListGraph, lemon::ListGraph::EdgeMap<int>> mwpm_X;
 	lemon::MaxWeightedPerfectMatching<lemon::ListGraph, lemon::ListGraph::EdgeMap<int>> mwpm_Z;
 
@@ -51,11 +61,27 @@ public:
 
 		for (int qubit_idx = 0; qubit_idx < m_Code->dataQubits.size(); qubit_idx++) {
 			qubitGraph_Nodes.push_back(m_qubitGraph.addNode());
-			for (int node_idx = 0; node_idx < qubit_idx; node_idx++) {
-				qubitGraph_Edges.push_back(m_qubitGraph.addEdge(qubitGraph_Nodes[qubit_idx], qubitGraph_Nodes[node_idx]));
-				m_qubitCostMap.set(qubitGraph_Edges[qubitGraph_Edges.size() - 1], -std::ceil(glm::length(\
-					m_Code->GetDataQubitLocation(m_Code->dataQubits[qubit_idx]) - \
-					m_Code->GetDataQubitLocation(m_Code->dataQubits[qubit_idx])) / GRAPH_LINE_WIDTH));
+		}
+
+		for (int qubit_idx = 0; qubit_idx < m_Code->dataQubits.size(); qubit_idx++) {
+			if (qubit_idx / codeDistance > 0) {
+				qubitGraph_Edges.push_back(m_qubitGraph.addEdge(qubitGraph_Nodes[qubit_idx], qubitGraph_Nodes[qubit_idx - codeDistance]));
+				m_qubitCostMap.set(qubitGraph_Edges[qubitGraph_Edges.size() - 1], 1);
+			}
+
+			if (qubit_idx / codeDistance < codeDistance - 1) {
+				qubitGraph_Edges.push_back(m_qubitGraph.addEdge(qubitGraph_Nodes[qubit_idx], qubitGraph_Nodes[qubit_idx + codeDistance]));
+				m_qubitCostMap.set(qubitGraph_Edges[qubitGraph_Edges.size() - 1], 1);
+			}
+
+			if (qubit_idx % codeDistance > 0) {
+				qubitGraph_Edges.push_back(m_qubitGraph.addEdge(qubitGraph_Nodes[qubit_idx], qubitGraph_Nodes[qubit_idx - 1]));
+				m_qubitCostMap.set(qubitGraph_Edges[qubitGraph_Edges.size() - 1], 1);
+			}
+
+			if (qubit_idx % codeDistance < codeDistance - 1) {
+				qubitGraph_Edges.push_back(m_qubitGraph.addEdge(qubitGraph_Nodes[qubit_idx], qubitGraph_Nodes[qubit_idx + 1]));
+				m_qubitCostMap.set(qubitGraph_Edges[qubitGraph_Edges.size() - 1], 1);
 			}
 		}
 

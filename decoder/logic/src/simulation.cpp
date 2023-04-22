@@ -89,9 +89,6 @@ bool Simulation::assembleErrorGraph()
 		}
 
 		for (int idx = current_Z_idx + 1; idx < Z_err_stabilizers.size(); idx++) {
-			glm::vec3 loc1 = m_Code->GetStabilizerLocation(Z_err_stabilizers[current_Z_idx]);
-			glm::vec3 loc2 = m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]);
-
 			Z_graph_Edges.push_back(m_Z_Graph.addEdge(Z_graph_Nodes[current_Z_idx], Z_graph_Nodes[idx]));
 			m_Z_CostMap.set(Z_graph_Edges[Z_graph_Edges.size() - 1], -std::ceil(glm::length(\
 				m_Code->GetStabilizerLocation(Z_err_stabilizers[current_Z_idx]) - \
@@ -155,17 +152,80 @@ bool Simulation::decodeErrorGraph()
 	else {
 		current_X_idx = 0;
 		populated = false;
+		matchings_populated = false;
 		return true;
 	}
 }
 
 bool Simulation::fixErrors()
 {
-	if (detailedExecution) {
+	if (matchings.size() > 0) {
+		if (detailedExecution) {
+			lemon::ListGraph::Node startingStab = m_qubitGraph.addNode();
+			lemon::ListGraph::Node endingStab = m_qubitGraph.addNode();
+			if (matchings[current_err_idx].type == 0) { // X
+				for (auto& qubit_idx : Z_err_stabilizers[matchings[current_err_idx].a].qubits) {
+					lemon::ListGraph::Edge e = m_qubitGraph.addEdge(startingStab, qubitGraph_Nodes[qubit_idx]);
+					m_qubitCostMap.set(e, 1);
+				}
+				for (auto& qubit_idx : Z_err_stabilizers[matchings[current_err_idx].b].qubits) {
+					lemon::ListGraph::Edge e = m_qubitGraph.addEdge(endingStab, qubitGraph_Nodes[qubit_idx]);
+					m_qubitCostMap.set(e, 1);
+				}
+				lemon::Dijkstra<lemon::ListGraph, lemon::ListGraph::EdgeMap<int>> dijkstra(m_qubitGraph, m_qubitCostMap);
+				dijkstra.run(startingStab, endingStab);
+				lemon::ListGraph::Node* cur = &dijkstra.predNode(endingStab);
+				std::vector <lemon::ListGraph::Node> toCorrect;
+				while (*cur != startingStab) {
+					toCorrect.push_back(*cur);
+					cur = &dijkstra.predNode(*cur);
+				}
+				for (int idx = 0; idx < qubitGraph_Nodes.size(); idx++) {
+					if (std::find(toCorrect.begin(), toCorrect.end(), qubitGraph_Nodes[idx]) != toCorrect.end()) {
+						m_Code->applyOperator(&m_Code->dataQubits[idx], 'Z');
+					}
+				}
+			}
+			else {
+				for (auto& qubit_idx : X_err_stabilizers[matchings[current_err_idx].a].qubits) {
+					lemon::ListGraph::Edge e = m_qubitGraph.addEdge(startingStab, qubitGraph_Nodes[qubit_idx]);
+					m_qubitCostMap.set(e, 1);
+				}
+				for (auto& qubit_idx : X_err_stabilizers[matchings[current_err_idx].b].qubits) {
+					lemon::ListGraph::Edge e = m_qubitGraph.addEdge(endingStab, qubitGraph_Nodes[qubit_idx]);
+					m_qubitCostMap.set(e, 1);
+				}
+				lemon::Dijkstra<lemon::ListGraph, lemon::ListGraph::EdgeMap<int>> dijkstra(m_qubitGraph, m_qubitCostMap);
+				dijkstra.run(startingStab, endingStab);
+				lemon::ListGraph::Node* cur = &dijkstra.predNode(endingStab);
+				std::vector <lemon::ListGraph::Node> toCorrect;
+				while (*cur != startingStab) {
+					toCorrect.push_back(*cur);
+					cur = &dijkstra.predNode(*cur);
+				}
+				for (int idx = 0; idx < qubitGraph_Nodes.size(); idx++) {
+					if (std::find(toCorrect.begin(), toCorrect.end(), qubitGraph_Nodes[idx]) != toCorrect.end()) {
+						m_Code->applyOperator(&m_Code->dataQubits[idx], 'X');
+					}
+				}
+			}
 
-	}
-	else {
+			current_err_idx++;
+			if (current_err_idx == matchings.size()) {
+				current_err_idx = 0;
+				matchings.clear();
 
+				for (auto& vs : m_Code->virtualStabilizers) {
+					vs.state = GenericCode::StabilizerState(0);
+				}
+
+				return true;
+			}
+			return false;
+		}
+		else {
+
+		}
 	}
 	return true;
 }
@@ -224,6 +284,8 @@ void Simulation::renderGraph() {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(X_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(X_err_stabilizers[n_idx]), \
 							-(m_X_CostMap[X_graph_Edges[coordToIdx(X_err_stabilizers.size(), idx, n_idx)]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[1]);
+						if(!matchings_populated)
+							matchings.push_back(Matching { idx, n_idx, GenericCode::StabilizerType(1)}); // Z type error for X stabilizer
 					}
 				}
 			}
@@ -235,10 +297,14 @@ void Simulation::renderGraph() {
 						m_RenderEngine->AddLine(m_Code->GetStabilizerLocation(Z_err_stabilizers[idx]), \
 							m_Code->GetStabilizerLocation(Z_err_stabilizers[n_idx]), \
 							-(m_Z_CostMap[Z_graph_Edges[coordToIdx(Z_err_stabilizers.size(), idx, n_idx)]]), m_Code->STABILIZER_TYPE_AND_STATE_TO_COLOR[3]);
+						if (!matchings_populated)
+							matchings.push_back(Matching{ idx, n_idx, GenericCode::StabilizerType(0) }); // X type error for Z stabilizer
 					}
 				}
 			}
 		}
+		if (!matchings_populated)
+			matchings_populated = true;
 	}
 }
 
@@ -276,10 +342,10 @@ void Simulation::populateStabilizers() {
 				if (dist > max_dist) {
 					max_dist = dist;
 					max_stab = &stabilizer;
+					max_stab->state = GenericCode::StabilizerState(1);
 				}
 			}
 		}
-		max_stab->state = GenericCode::StabilizerState(1);
 		X_err_stabilizers.push_back(*max_stab);
 		X_graph_Nodes.push_back(m_X_Graph.addNode());
 	}
@@ -292,15 +358,14 @@ void Simulation::populateStabilizers() {
 	}
 
 	if (Z_err_stabilizers.size() % 2 == 1) {
-		float max_dist = 0;
+		float max_dist = 10000000.0f;
 		GenericCode::VirtualStabilizer* max_stab = nullptr;
 		for (auto& stabilizer : m_Code->virtualStabilizers) {
 			if (stabilizer.type == Z_err_stabilizers[Z_err_stabilizers.size() - 1].type) {
-				stabilizer.state = GenericCode::StabilizerState(0);
 				float dist = glm::length(\
 					m_Code->GetStabilizerLocation(stabilizer) - \
 					m_Code->GetStabilizerLocation(Z_err_stabilizers[Z_err_stabilizers.size() - 1]));
-				if (dist > max_dist) {
+				if (dist < max_dist && dist > 0) {
 					max_dist = dist;
 					max_stab = &stabilizer;
 				}
