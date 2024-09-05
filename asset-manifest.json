@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/react-gh-pages/static/css/main.f855e6bc.css",
-    "main.js": "/react-gh-pages/static/js/main.3726feb4.js",
-    "static/js/453.d072a456.chunk.js": "/react-gh-pages/static/js/453.d072a456.chunk.js",
-    "static/media/logo.svg": "/react-gh-pages/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/react-gh-pages/index.html",
-    "main.f855e6bc.css.map": "/react-gh-pages/static/css/main.f855e6bc.css.map",
-    "main.3726feb4.js.map": "/react-gh-pages/static/js/main.3726feb4.js.map",
-    "453.d072a456.chunk.js.map": "/react-gh-pages/static/js/453.d072a456.chunk.js.map"
+    "main.css": "/DecoderVIS/static/css/main.e6c13ad2.css",
+    "main.js": "/DecoderVIS/static/js/main.6a06ce56.js",
+    "static/js/453.d072a456.chunk.js": "/DecoderVIS/static/js/453.d072a456.chunk.js",
+    "index.html": "/DecoderVIS/index.html",
+    "static/media/test.py": "/DecoderVIS/static/media/test.7145d1b6dd05960dc52e.py",
+    "main.e6c13ad2.css.map": "/DecoderVIS/static/css/main.e6c13ad2.css.map",
+    "main.6a06ce56.js.map": "/DecoderVIS/static/js/main.6a06ce56.js.map",
+    "453.d072a456.chunk.js.map": "/DecoderVIS/static/js/453.d072a456.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f855e6bc.css",
-    "static/js/main.3726feb4.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.6a06ce56.js"
   ]
 }
